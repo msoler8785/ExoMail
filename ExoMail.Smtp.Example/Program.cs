@@ -1,4 +1,5 @@
-﻿using ExoMail.Smtp.Interfaces;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.IO;
 using ExoMail.Smtp.Network;
 using ExoMail.Smtp.Utilities;
@@ -16,11 +17,21 @@ namespace ExoMail.Smtp.Example
     {
         static void Main(string[] args)
         {
+            //Load the sample certificate
             string certPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "localhost.pfx");
-            List<JsonConfig> configs = JsonConfig.LoadConfigs();
             var cert = new X509Certificate2(certPath, "");
+
+            //Load the server configs
+            List<JsonConfig> configs = JsonConfig.LoadConfigs();
+
+            //Create the message store
             IMessageStore messageStore = FileMessageStore.Create
                 .WithFolderPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Messages"));
+
+            //Load the user store
+            var userStore = JsonUserStore.CreateStore();
+            var authenticators = new List<IUserAuthenticator>();
+            authenticators.Add(new LoginUserAuthenticator() { UserStore = userStore });
 
             foreach (var config in configs)
             {
@@ -29,7 +40,8 @@ namespace ExoMail.Smtp.Example
                 SmtpServer smtpServer = new SmtpServer()
                 {
                     ServerConfig = config,
-                    MessageStore = messageStore
+                    MessageStore = messageStore,
+                    UserAuthenticators = authenticators
                 };
 
 

@@ -72,6 +72,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\JsonUserIdentity.cs" />
+    <Compile Include="Authentication\JsonUserStore.cs" />
+    <Compile Include="Authentication\LoginUserAuthenticator.cs" />
+    <Compile Include="Enums\SaslType.cs" />
     <Compile Include="Enums\ServerType.cs" />
     <Compile Include="Enums\SmtpCommandType.cs" />
     <Compile Include="Exceptions\SmtpException.cs" />
@@ -81,6 +85,9 @@
     <Compile Include="Interfaces\IMessageValidator.cs" />
     <Compile Include="Interfaces\IRecipientMailbox.cs" />
     <Compile Include="Interfaces\ISessionValidator.cs" />
+    <Compile Include="Interfaces\IUserAuthenticator.cs" />
+    <Compile Include="Interfaces\IUserIdentity.cs" />
+    <Compile Include="Interfaces\IUserStore.cs" />
     <Compile Include="IO\FileMessageStore.cs" />
     <Compile Include="Models\EmailValidator.cs" />
     <Compile Include="Interfaces\IServerConfig.cs" />

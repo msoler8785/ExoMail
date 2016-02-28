@@ -26,9 +26,12 @@ namespace ExoMail.Smtp.Utilities
         public List<MailRecipientCollection> GetRecipientCollections(List<SmtpCommand> smtpCommands)
         {
             var mailRecipientCollections = new List<MailRecipientCollection>();
-            smtpCommands = smtpCommands.Where(x => x.Arguments.Any(a => a.Contains("FROM:"))).ToList();
+            smtpCommands = smtpCommands.Where(x => x.Arguments.Any(a => a.Contains("TO:"))).ToList();
 
-            var domainGroups = smtpCommands.GroupBy(x => GetDomainFromAddress(x.Arguments.ElementAtOrDefault(1))).ToList();
+            var domainGroups = smtpCommands.GroupBy(x => 
+                GetDomainFromAddress(
+                    Regex.Match(x.Arguments.ElementAtOrDefault(0), "<(.*?)>").Value
+                    )).ToList();
 
             foreach(var domain in domainGroups)
             {
@@ -40,9 +43,10 @@ namespace ExoMail.Smtp.Utilities
                 foreach (var smtpCommand in domain)
                 {
                     MailboxAddress mailboxAddress = null;
-                    string address = smtpCommand.Arguments.FirstOrDefault(emailAddressString => MailboxAddress.TryParse(emailAddressString, out mailboxAddress));
+                    var addressString = Regex.Match(smtpCommand.Arguments.FirstOrDefault(), "<(.*?)>").Value;
+                    var isMailboxAddress = MailboxAddress.TryParse(addressString, out mailboxAddress);
 
-                    if (mailboxAddress != null)
+                    if (isMailboxAddress)
                     {
                         mailRecipentCollection.Recipients.Add(mailboxAddress);
                     }

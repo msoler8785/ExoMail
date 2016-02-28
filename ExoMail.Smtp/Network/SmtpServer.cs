@@ -18,6 +18,7 @@ namespace ExoMail.Smtp.Network
         public TcpListener TcpListener { get; set; }
         public List<SmtpSession> SmtpSessions { get; set; }
         public IMessageStore MessageStore { get; set; }
+        public List<IUserAuthenticator> UserAuthenticators { get; set; }
 
         private CancellationToken Token { get; set; }
 
@@ -70,7 +71,8 @@ namespace ExoMail.Smtp.Network
                 SmtpSession session = new SmtpSession(tcpClient)
                 {
                     SmtpServer = this,
-                    MessageStore = this.MessageStore
+                    MessageStore = this.MessageStore,
+                    UserAuthenticators = this.UserAuthenticators
                 };
 
                 await session.BeginSessionAsync();

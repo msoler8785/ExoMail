@@ -13,7 +13,7 @@ namespace ExoMail.Smtp.Utilities
 
         //public static string HostName                   { get { return ExoMail.Smtp.Network.SmtpServer.Core.ServerConfig.HostName; } }
         public static string Announcment                { get { return "220 {0} Welcome to the ExoMail ESMTP Server"; } }
-        public static string Help                       { get { return "211 DATA HELO EHLO MAIL NOOP QUIT RCPT RSET"; } }
+        public static string Help                       { get { return "211 DATA HELO EHLO AUTH MAIL NOOP QUIT RCPT RSET"; } }
         public static string Closing                    { get { return "221 {0} Service closing transmission channel"; } }
         public static string Queued                     { get { return "250 Queued for delivery"; } }
         public static string OK                         { get { return "250 OK"; } }
@@ -40,13 +40,27 @@ namespace ExoMail.Smtp.Utilities
         public static string TransactionFailed          { get { return "554 Transaction failed - "; } }
         public static string StartTls                   { get { return "220 OK STARTTLS Go ahead"; } }
         public static string AuthOk                		{ get { return "235 2.7.0  Authentication Succeeded"; } }
+        public static string AuthLoginUserName          { get { return "334 VXNlcm5hbWU6"; } }
+        public static string AuthLoginPassword          { get { return "334 UGFzc3dvcmQ6"; } }
         public static string AuthPasswordTransition     { get { return "432 4.7.12  A password transition is needed"; } }
         public static string AuthTempFailure            { get { return "454 4.7.0  Temporary authentication failure"; } }
         public static string AuthWeak                	{ get { return "534 5.7.9  Authentication mechanism is too weak"; } }
         public static string AuthCredInvalid            { get { return "535 5.7.8  Authentication credentials invalid"; } }
         public static string AuthExchTooLong            { get { return "500 5.5.6  Authentication Exchange line is too long"; } }
+        public static string AuthAborted                { get { return "501 5.0.0  Authentication Aborted"; } }
         public static string AuthRequired               { get { return "530 5.7.0  Authentication required"; } }
         public static string AuthEncryptRequired        { get { return "538 5.7.11  Encryption required for requested authentication mechanism"; } }
-        public static string Ehlo                       { get { return "250-{0} Hello {1}\r\n250-SIZE {2}\r\n250-STARTTLS\r\n250 HELP";} }
+
+        public static string Ehlo
+        {
+            get
+            {
+                return      "250-{0} Hello {1}\r\n" +
+                            "250-SIZE {2}\r\n" +
+                            "250-AUTH {3}\r\n" +
+                            "250-STARTTLS\r\n" +
+                            "250 HELP";
+            }
+        }
     }
 }

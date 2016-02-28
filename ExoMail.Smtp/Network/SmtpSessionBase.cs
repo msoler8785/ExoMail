@@ -56,6 +56,14 @@ namespace ExoMail.Smtp.Network
         public CancellationToken Token { get; set; }
         public StreamWriter Writer { get; set; }
         public DomainName RemoteDomainName { get; set; }
+        public List<IUserAuthenticator> UserAuthenticators { get; set; }
+        public List<string> SaslMechanisms
+        {
+            get
+            {
+                return this.UserAuthenticators.Select(x => x.SaslMechanism).ToList();
+            }
+        }
 
         /// <summary>
         /// Default Constructor
@@ -67,7 +75,8 @@ namespace ExoMail.Smtp.Network
         /// </summary>
         /// <param name="tcpClient">A tcpclient to initiate the session with.</param>
         public SmtpSessionBase(TcpClient tcpClient)
-            : this(tcpClient, CancellationToken.None) { }
+            : this(tcpClient, CancellationToken.None)
+        { }
 
         /// <summary>
         /// Constructor that initializes the minimum amount of properties for a session
@@ -110,6 +119,10 @@ namespace ExoMail.Smtp.Network
 
                 case SmtpCommandType.HELO:
                     response = GetHeloResponse(smtpCommand);
+                    break;
+
+                case SmtpCommandType.AUTH:
+                    response = await GetAuthResponse(smtpCommand);
                     break;
 
                 case SmtpCommandType.MAIL:
@@ -172,6 +185,74 @@ namespace ExoMail.Smtp.Network
             return response;
         }
 
+        private async Task<string> GetAuthResponse(SmtpCommand smtpCommand)
+        {
+            string response;
+            if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
+            {
+                response = SmtpResponse.BadCommand;
+            }
+            else
+            {
+                response = await AuthenticateUser(smtpCommand);
+            }
+
+            return response;
+        }
+
+        private async Task<string> AuthenticateUser(SmtpCommand smtpCommand)
+        {
+            string request;
+
+            //Get the authentication mechanism requested from the client.
+            var saslMechanism = smtpCommand.Arguments.ElementAtOrDefault(0);
+
+            //Select the authenticator that matches the requested mechanism.
+            IUserAuthenticator authenticator = this.UserAuthenticators
+                .Where(x => x.SaslMechanism == saslMechanism.ToUpper())
+                .FirstOrDefault();
+
+            //If there are no authenticators for the requested type return ArgumentUnrecognized to the client.
+            if (authenticator == null)
+            {
+                return SmtpResponse.ArgumentUnrecognized;
+            }
+
+            await SendResponseAsync(authenticator.UserNameChallenge);
+            request = await ListenRequestAsync();
+
+            if (request == "*")
+            {
+                return SmtpResponse.AuthAborted;
+            }
+            else
+            {
+                authenticator.SetUserNameResponse(request);
+            }
+
+            await SendResponseAsync(authenticator.PasswordChallenge);
+            request = await ListenRequestAsync();
+
+            if (request == "*")
+            {
+                return SmtpResponse.AuthAborted;
+            }
+            else
+            {
+                authenticator.SetPasswordResponse(request);
+            }
+
+
+            if (authenticator.IsAuthenticated)
+            {
+                return SmtpResponse.AuthOk;
+            }
+            else
+            {
+                return SmtpResponse.AuthCredInvalid;
+            }
+        }
+        
         /// <summary>
         /// Callback method for the session Timer timeout.
         /// </summary>
@@ -333,7 +414,7 @@ namespace ExoMail.Smtp.Network
 
         private string GetEhloResponse(SmtpCommand smtpCommand)
         {
-            if(smtpCommand.Arguments.Count > 1)
+            if (smtpCommand.Arguments.Count > 1)
             {
                 return SmtpResponse.ArgumentUnrecognized;
             }
@@ -343,10 +424,11 @@ namespace ExoMail.Smtp.Network
             var config = this.SmtpServer.ServerConfig;
 
             if (isValidDomain)
-            {            
-                if(smtpCommand.Command == "EHLO")
+            {
+                if (smtpCommand.Command == "EHLO")
                 {
-                    response = String.Format(SmtpResponse.Ehlo, config.HostName, domainName.ToString(), config.MaxMessageSize.ToString()); 
+                    string saslMechanisms = string.Join(" ", this.SaslMechanisms);
+                    response = String.Format(SmtpResponse.Ehlo, config.HostName, domainName.ToString(), config.MaxMessageSize.ToString(), saslMechanisms);
                 }
                 else
                 {
