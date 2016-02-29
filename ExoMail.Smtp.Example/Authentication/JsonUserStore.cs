@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ExoMail.Smtp.Server.Authentication
 {
@@ -34,7 +36,7 @@ namespace ExoMail.Smtp.Server.Authentication
 
                 for (int i = 0; i < 5; i++)
                 {
-                    store.Identities.Add(new JsonUserIdentity() { UserName = "User0" + i, Password = "password" });
+                    store.Identities.Add(new JsonUserIdentity() { UserName = "User0" + i, Password = HashPassword("password") });
                 }
                 var storeJson = JsonConvert.SerializeObject(store, Formatting.Indented);
                 File.WriteAllText(_path, storeJson);
@@ -46,6 +48,14 @@ namespace ExoMail.Smtp.Server.Authentication
             }
         }
 
+        private static string HashPassword(string password)
+        {
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            var hash = SHA256.Create().ComputeHash(passwordBytes);
+            password = Convert.ToBase64String(hash);
+            return password;
+        }
+
         public bool IsUserAuthenticated(string userName, string password)
         {
             var storeJson = File.ReadAllText(_path);
@@ -53,7 +63,7 @@ namespace ExoMail.Smtp.Server.Authentication
             var user = store.Identities.Find(s => s.UserName.ToUpper() == userName.ToUpper());
             if (user != null)
             {
-                return user.Password == password;
+                return user.Password == HashPassword(password);
             }
             else
             {
