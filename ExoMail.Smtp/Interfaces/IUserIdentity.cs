@@ -10,11 +10,5 @@ namespace ExoMail.Smtp.Interfaces
     {
         string UserName { get; set; }
         string Password { get; set; }
-
-        //Return true if UserName and Password combination exists in UserStore.
-        bool IsAuthenticated { get; set; }
-
-        //Return true if user is allowed to login.
-        bool IsAuthorized { get; set; }
     }
 }

@@ -3,11 +3,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ExoMail.Smtp.Authentication
+namespace ExoMail.Smtp.Server.Authentication
 {
     /// <summary>
     /// Simple implementation of a UserStore using JSON.
@@ -31,7 +28,7 @@ namespace ExoMail.Smtp.Authentication
         //Creates a sample JsonUserStore
         public static JsonUserStore CreateStore()
         {
-            if(!File.Exists(_path))
+            if (!File.Exists(_path))
             {
                 var store = new JsonUserStore();
 
@@ -54,7 +51,7 @@ namespace ExoMail.Smtp.Authentication
             var storeJson = File.ReadAllText(_path);
             JsonUserStore store = JsonConvert.DeserializeObject<JsonUserStore>(storeJson);
             var user = store.Identities.Find(s => s.UserName.ToUpper() == userName.ToUpper());
-            if(user != null)
+            if (user != null)
             {
                 return user.Password == password;
             }

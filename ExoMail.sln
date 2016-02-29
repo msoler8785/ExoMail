@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp", "ExoMail.Smtp\ExoMail.Smtp.csproj", "{2760123B-9CEB-406F-92E0-92E58766B524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp.Example", "ExoMail.Smtp.Example\ExoMail.Smtp.Example.csproj", "{BC906053-E4DE-44CC-882C-0A7F32FF1661}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp.Server", "ExoMail.Smtp.Example\ExoMail.Smtp.Server.csproj", "{BC906053-E4DE-44CC-882C-0A7F32FF1661}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

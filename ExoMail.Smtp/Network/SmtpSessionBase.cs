@@ -1,5 +1,6 @@
 ﻿using ARSoft.Tools.Net;
 using ExoMail.Smtp.Enums;
+using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Models;
 using ExoMail.Smtp.Utilities;
@@ -56,7 +57,7 @@ namespace ExoMail.Smtp.Network
         public CancellationToken Token { get; set; }
         public StreamWriter Writer { get; set; }
         public DomainName RemoteDomainName { get; set; }
-        public List<IUserAuthenticator> UserAuthenticators { get; set; }
+        public List<ISaslAuthenticator> UserAuthenticators { get; set; }
         public List<string> SaslMechanisms
         {
             get
@@ -202,15 +203,14 @@ namespace ExoMail.Smtp.Network
 
         private async Task<string> AuthenticateUser(SmtpCommand smtpCommand)
         {
-            string request;
-
             //Get the authentication mechanism requested from the client.
             var saslMechanism = smtpCommand.Arguments.ElementAtOrDefault(0);
 
             //Select the authenticator that matches the requested mechanism.
-            IUserAuthenticator authenticator = this.UserAuthenticators
+            ISaslAuthenticator authenticator = this.UserAuthenticators
                 .Where(x => x.SaslMechanism == saslMechanism.ToUpper())
-                .FirstOrDefault();
+                .FirstOrDefault()
+                .Create();
 
             //If there are no authenticators for the requested type return ArgumentUnrecognized to the client.
             if (authenticator == null)
@@ -218,30 +218,27 @@ namespace ExoMail.Smtp.Network
                 return SmtpResponse.ArgumentUnrecognized;
             }
 
-            await SendResponseAsync(authenticator.UserNameChallenge);
-            request = await ListenRequestAsync();
-
-            if (request == "*")
+            if (authenticator.IsInitiator)
             {
-                return SmtpResponse.AuthAborted;
+                try
+                {
+                    while (!authenticator.IsCompleted)
+                    {
+                        await SendResponseAsync(authenticator.GetChallenge());
+                        authenticator.ParseResponse(await ListenRequestAsync());
+                    }
+                }
+                catch (SaslException ex)
+                {
+                    return SmtpResponse.AuthCredInvalid + ex.Message;
+                }
             }
             else
             {
-                authenticator.SetUserNameResponse(request);
+                // TODO: Some SASL mechanisms are initiated by the client.  When we implement
+                // those mechanism we will handle the logic here.
+                return SmtpResponse.ArgumentUnrecognized;
             }
-
-            await SendResponseAsync(authenticator.PasswordChallenge);
-            request = await ListenRequestAsync();
-
-            if (request == "*")
-            {
-                return SmtpResponse.AuthAborted;
-            }
-            else
-            {
-                authenticator.SetPasswordResponse(request);
-            }
-
 
             if (authenticator.IsAuthenticated)
             {
@@ -252,7 +249,7 @@ namespace ExoMail.Smtp.Network
                 return SmtpResponse.AuthCredInvalid;
             }
         }
-        
+
         /// <summary>
         /// Callback method for the session Timer timeout.
         /// </summary>
@@ -309,7 +306,7 @@ namespace ExoMail.Smtp.Network
 
             while (String.IsNullOrEmpty(response))
             {
-                response = await this.Reader.ReadLineAsync();
+                response = await this.Reader.ReadLineAsync().WithCancellation(this.Token);
             }
             Console.WriteLine("Client <<<: {0}", response);
 

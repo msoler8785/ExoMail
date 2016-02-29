@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
-using ExoMail.Smtp.IO;
+using ExoMail.Smtp.Utilities;
 
 namespace ExoMail.Smtp.Network
 {
@@ -18,7 +18,7 @@ namespace ExoMail.Smtp.Network
         public TcpListener TcpListener { get; set; }
         public List<SmtpSession> SmtpSessions { get; set; }
         public IMessageStore MessageStore { get; set; }
-        public List<IUserAuthenticator> UserAuthenticators { get; set; }
+        public List<ISaslAuthenticator> UserAuthenticators { get; set; }
 
         private CancellationToken Token { get; set; }
 
@@ -50,8 +50,12 @@ namespace ExoMail.Smtp.Network
             TcpClient tcpClient;
             while (!token.IsCancellationRequested)
             {
-                tcpClient = await this.TcpListener.AcceptTcpClientAsync();
-                StartNewSession(tcpClient);
+                tcpClient = await this.TcpListener.AcceptTcpClientAsync().WithCancellation(token);
+                if(!token.IsCancellationRequested)
+                {
+                    StartNewSession(tcpClient);
+
+                }
             }
         }
 

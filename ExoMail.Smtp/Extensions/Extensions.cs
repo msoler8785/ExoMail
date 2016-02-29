@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Utilities
@@ -17,6 +18,17 @@ namespace ExoMail.Smtp.Utilities
         public static Stream ToStream(this string str)
         {
             return new MemoryStream(Encoding.ASCII.GetBytes(str));
+        }
+
+        public static Task<T> WithCancellation<T>(this Task<T> task, CancellationToken cancellationToken)
+        {
+            return task.IsCompleted // fast-path optimization
+                ? task
+                : task.ContinueWith(
+                    completedTask => completedTask.GetAwaiter().GetResult(),
+                    cancellationToken,
+                    TaskContinuationOptions.ExecuteSynchronously,
+                    TaskScheduler.Default);
         }
     }
 }

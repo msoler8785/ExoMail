@@ -1,31 +1,26 @@
 ﻿using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ExoMail.Smtp.IO
+namespace ExoMail.Smtp.Server.IO
 {
-
     /// <summary>
     /// An example implementation of storing messages on the file system.
     /// </summary>
     public class FileMessageStore : IMessageStore
     {
-        private string FolderPath    { get; set; }
+        private string FolderPath { get; set; }
         private string FileName { get; set; }
 
         /// <summary>
         /// Create a new FileMessageStore instance.
         /// </summary>
         public static FileMessageStore Create { get { return new FileMessageStore(); } }
-        
-        private FileMessageStore() 
+
+        private FileMessageStore()
         {
-        } 
+        }
 
         /// <summary>
         /// The path to the folder to store this message.
@@ -35,7 +30,7 @@ namespace ExoMail.Smtp.IO
         public FileMessageStore WithFolderPath(string path)
         {
             this.FolderPath = path;
-            if(!Directory.Exists(path))
+            if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }

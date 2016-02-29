@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Interfaces
 {
-    public interface IUserAuthenticator
+    public interface ISaslAuthenticator
     {
         string UserName { get; set; }
         string Password { get; set; }
+        bool IsCompleted { get; }
+        bool IsInitiator { get; }
         bool IsAuthenticated { get; }
         string SaslMechanism { get; set; }
-        string UserNameChallenge { get; set; }
-        string PasswordChallenge { get; set; }
-
-        void SetUserNameResponse(string userNameResponse);
-        void SetPasswordResponse(string passwordResponse);
+        //IUserStore UserStore { get; set; }
+        int Step { get; set; }
+        string GetChallenge();
+        void ParseResponse(string response);
+        ISaslAuthenticator Create();
     }
 }

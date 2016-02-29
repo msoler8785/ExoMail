@@ -6,7 +6,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
-namespace ExoMail.Smtp.Utilities
+namespace ExoMail.Smtp.Server.Utilities
 {
     public class JsonConfig : IServerConfig
     {

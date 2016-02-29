@@ -1,63 +1,59 @@
-﻿using ExoMail.Smtp.Authentication;
+﻿using ExoMail.Smtp.Example;
 using ExoMail.Smtp.Interfaces;
-using ExoMail.Smtp.IO;
 using ExoMail.Smtp.Network;
-using ExoMail.Smtp.Utilities;
+using ExoMail.Smtp.Server.Authentication;
+using ExoMail.Smtp.Server.IO;
+using ExoMail.Smtp.Server.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace ExoMail.Smtp.Example
+namespace ExoMail.Smtp.Server
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            //Load the sample certificate
-            string certPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "localhost.pfx");
-            var cert = new X509Certificate2(certPath, "");
+            var cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = cancellationTokenSource.Token;
+            var tasks = new List<Task>();
+            var servers = AppStart.InitializeServers();
 
-            //Load the server configs
-            List<JsonConfig> configs = JsonConfig.LoadConfigs();
-
-            //Create the message store
-            IMessageStore messageStore = FileMessageStore.Create
-                .WithFolderPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Messages"));
-
-            //Load the user store
-            var userStore = JsonUserStore.CreateStore();
-            var authenticators = new List<IUserAuthenticator>();
-            authenticators.Add(new LoginUserAuthenticator() { UserStore = userStore });
-
-            foreach (var config in configs)
+            foreach (var item in servers)
             {
-                config.X509Certificate2 = cert;
-                config.MaxMessageSize = int.MaxValue;
-                SmtpServer smtpServer = new SmtpServer()
+                var task = Task.Run(async () =>
                 {
-                    ServerConfig = config,
-                    MessageStore = messageStore,
-                    UserAuthenticators = authenticators
-                };
-
-
-                Task.Run(async () => 
-                    {
-                        try
-                        {
-                            await smtpServer.Start();
-                        }
-                        finally
-                        {
-                            smtpServer.Stop();
-                        }
-                    });
+                    await item.Start(cancellationToken);
+                });
+                tasks.Add(task);
             }
+
             Console.ReadLine();
+            Console.WriteLine("Server is shutting down...");
+
+            try
+            {
+                foreach (var item in servers)
+                {
+                    Console.WriteLine("Attempting to stop server on port {0}", item.ServerConfig.Port);
+                    cancellationTokenSource.Cancel();
+                }
+
+                // Wait 30 seconds for servers to stop or tear down the process.
+                Task.WaitAll(tasks.ToArray(), TimeSpan.FromSeconds(30));
+            }
+            catch (AggregateException ex)
+            {
+                Console.WriteLine(ex.Message);
+                foreach(var inner in ex.InnerExceptions)
+                {
+                    if (inner.Message != null)
+                        Console.WriteLine(inner.Message);
+                }
+            }
         }
     }
 }
