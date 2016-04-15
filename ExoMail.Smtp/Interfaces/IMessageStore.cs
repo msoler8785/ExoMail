@@ -12,6 +12,6 @@ namespace ExoMail.Smtp.Interfaces
     {
         //SessionMessage SessionMessage { get; set; }
 
-        void Save(Stream stream, ReceivedHeader sessionMessage);
+        void Save(Stream stream, ReceivedHeader receiveHeader);
     }
 }
