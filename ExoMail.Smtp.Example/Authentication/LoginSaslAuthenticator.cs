@@ -3,6 +3,8 @@ using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Utilities;
 using System;
 using System.Text;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ExoMail.Smtp.Server.Authentication
 {
@@ -25,19 +27,21 @@ namespace ExoMail.Smtp.Server.Authentication
         public int Step { get; set; }
         private IUserStore UserStore { get; set; }
 
-        public LoginSaslAuthenticator(IUserStore userStore)
+        public LoginSaslAuthenticator()
         {
             this.SaslMechanism = "LOGIN";
             this.IsCompleted = false;
             this.IsInitiator = true;
             this.Step = 0;
-            this.UserStore = userStore;
+            //this.UserStore = userStore;
         }
 
-        public ISaslAuthenticator Create()
+        public ISaslAuthenticator Create(IUserStore userStore)
         {
-            return new LoginSaslAuthenticator(this.UserStore);
+            return new LoginSaslAuthenticator() { UserStore = userStore };
         }
+
+
 
         public string GetChallenge()
         {
