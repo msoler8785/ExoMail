@@ -3,8 +3,10 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ExoMail.Smtp.Server.Authentication
 {
@@ -28,7 +30,7 @@ namespace ExoMail.Smtp.Server.Authentication
         }
 
         //Creates a sample JsonUserStore
-        public static JsonUserStore CreateStore()
+        public static JsonUserStore CreateStore(string domain)
         {
             if (!File.Exists(_path))
             {
@@ -36,7 +38,12 @@ namespace ExoMail.Smtp.Server.Authentication
 
                 for (int i = 0; i < 5; i++)
                 {
-                    store.Identities.Add(new JsonUserIdentity() { UserName = "User0" + i, Password = HashPassword("password") });
+                    store.Identities.Add(new JsonUserIdentity()
+                    {
+                        UserName = "User0" + i,
+                        Password = HashPassword("password"),
+                        EmailAddress = String.Format("User0{0}@{1}", i, domain)
+                    });
                 }
                 var storeJson = JsonConvert.SerializeObject(store, Formatting.Indented);
                 File.WriteAllText(_path, storeJson);
@@ -69,6 +76,13 @@ namespace ExoMail.Smtp.Server.Authentication
             {
                 return false;
             }
+        }
+
+        public bool IsValidRecipient(string emailAddress)
+        {
+            emailAddress = Regex.Match(emailAddress, @"<(.*)>").Groups[0].Value;
+
+            return this.Identities.Any(x => x.EmailAddress.ToUpper() == emailAddress.ToUpper());
         }
     }
 }
