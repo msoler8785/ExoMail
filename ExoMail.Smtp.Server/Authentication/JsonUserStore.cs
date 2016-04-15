@@ -80,7 +80,7 @@ namespace ExoMail.Smtp.Server.Authentication
 
         public bool IsValidRecipient(string emailAddress)
         {
-            emailAddress = Regex.Match(emailAddress, @"<(.*)>").Groups[0].Value;
+            emailAddress = Regex.Match(emailAddress, @"<(.*)>").Groups[1].Value;
             var storeJson = File.ReadAllText(_path);
             JsonUserStore store = JsonConvert.DeserializeObject<JsonUserStore>(storeJson);
 
