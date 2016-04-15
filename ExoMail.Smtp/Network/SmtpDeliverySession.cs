@@ -49,32 +49,29 @@ namespace ExoMail.Smtp.Network
 
         public override string GetRcptResponse(SmtpCommand smtpCommand)
         {
-            if (!this.UserStore.IsValidRecipient(smtpCommand.Arguments.ElementAtOrDefault(0)))
+            string response;
+            if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
             {
-                return SmtpResponse.MailboxUnavailable;
+                response = SmtpResponse.BadCommand;
+            }
+            else if (!this.SmtpCommands.Any(c => c.Command == "MAIL"))
+            {
+                response = SmtpResponse.SenderFirst;
+            }
+            else if (!smtpCommand.Arguments[0].Contains("TO:"))
+            {
+                response = SmtpResponse.InvalidRecipient;
+            }
+            else if (!this.UserStore.IsValidRecipient(smtpCommand.Arguments.ElementAtOrDefault(0)))
+            {
+                response = SmtpResponse.MailboxUnavailable;
             }
             else
             {
-                string response;
-                if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
-                {
-                    response = SmtpResponse.BadCommand;
-                }
-                else if (!this.SmtpCommands.Any(c => c.Command == "MAIL"))
-                {
-                    response = SmtpResponse.SenderFirst;
-                }
-                else if (!smtpCommand.Arguments[0].Contains("TO:"))
-                {
-                    response = SmtpResponse.InvalidRecipient;
-                }
-                else
-                {
-                    this.SmtpCommands.Add(smtpCommand);
-                    response = SmtpResponse.OK;
-                }
-                return response;
+                this.SmtpCommands.Add(smtpCommand);
+                response = SmtpResponse.OK;
             }
+            return response;
         }
     }
 }
