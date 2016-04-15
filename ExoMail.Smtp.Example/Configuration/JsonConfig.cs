@@ -1,4 +1,5 @@
-﻿using ExoMail.Smtp.Interfaces;
+﻿using ExoMail.Smtp.Enums;
+using ExoMail.Smtp.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,13 @@ namespace ExoMail.Smtp.Server.Utilities
         public int Port { get; set; }
         public int SessionTimeout { get; set; }
         public int MaxMessageSize { get; set; }
+        public ServerType ServerType { get; set; }
 
-        [JsonIgnore]
-        public List<ISessionValidator> SessionValidators { get; set; }
+        //[JsonIgnore]
+        //public List<ISessionValidator> SessionValidators { get; set; }
 
-        [JsonIgnore]
-        public List<IMessageValidator> MessageValidators { get; set; }
+        //[JsonIgnore]
+        //public List<IMessageValidator> MessageValidators { get; set; }
 
         [JsonIgnore]
         public X509Certificate2 X509Certificate2 { get; set; }
@@ -53,6 +55,8 @@ namespace ExoMail.Smtp.Server.Utilities
             {
                 bool isEncryptionRequired = port == 587;
                 bool isTls = port == 465;
+                var servertype = port == 2525 ? ServerType.Delivery : ServerType.Relay;
+
                 configs.Add(new JsonConfig()
                 {
                     ServerId = Guid.NewGuid().ToString(),
@@ -63,6 +67,7 @@ namespace ExoMail.Smtp.Server.Utilities
                     IsTls = isTls,
                     MaxMessageSize = 25 * 1024 * 1024,
                     SessionTimeout = 10 * 60 * 1000,
+                    ServerType = servertype
                 });
             }
 
