@@ -29,9 +29,11 @@ namespace ExoMail.Smtp.Network
         public const int ONE_MB = 1048576;
         public const string TERMINATOR = "\r\n.\r\n";
         public CancellationTokenSource CancellationTokenSource { get; set; }
-
         public bool IsAuthenticated { get; set; }
-        public bool IsAuthenticatedRelayAllowed { get; set; }
+        public bool IsAuthenticatationRequired { get; set; }
+        public List<IAuthorizedNetwork> AuthorizedNetworks { get; set; }
+        public List<IAuthorizedDomain> AuthorizedDomains { get; set; }
+        public List<MailRecipientCollection> MailRecipients { get; set; }
 
         public bool IsEncrypted
         {
@@ -50,7 +52,7 @@ namespace ExoMail.Smtp.Network
         public StreamReader Reader { get; set; }
         public IPEndPoint RemoteEndPoint { get { return (IPEndPoint)this.TcpClient.Client.RemoteEndPoint; } }
         public List<SmtpCommand> SmtpCommands { get; set; }
-        public SmtpServer SmtpServer { get; set; }
+        public IServerConfig ServerConfig { get; set; }
         public SslStream SslStream { get; set; }
         public TcpClient TcpClient { get; set; }
         public System.Timers.Timer Timer { get; set; }
@@ -58,6 +60,7 @@ namespace ExoMail.Smtp.Network
         public StreamWriter Writer { get; set; }
         public DomainName RemoteDomainName { get; set; }
         public List<ISaslAuthenticator> UserAuthenticators { get; set; }
+
         public List<string> SaslMechanisms
         {
             get
@@ -101,7 +104,135 @@ namespace ExoMail.Smtp.Network
             this.SmtpCommands = new List<SmtpCommand>();
         }
 
-        public abstract Task BeginSessionAsync();
+        /// <summary>
+        /// Begin the SmtpSession.
+        /// </summary>
+        /// <returns>Task</returns>
+        public async Task BeginSessionAsync()
+        {
+            await InitializeStreams();
+            SmtpCommand smtpCommand;
+            string response;
+            this.Timer = new System.Timers.Timer(this.ServerConfig.SessionTimeout);
+            this.Timer.Elapsed += IdleTimeout;
+            this.Timer.AutoReset = false;
+            this.Timer.Enabled = true;
+
+            try
+            {
+                await SendResponseAsync(String.Format(SmtpResponse.Announcment, this.ServerConfig.HostName));
+
+                while (!this.SmtpCommands.Any(x => x.Command == "QUIT"))
+                {
+                    this.Token.ThrowIfCancellationRequested();
+
+                    var commandLine = await ListenRequestAsync();
+
+                    this.Timer.Stop();
+                    this.Timer.Start();
+
+                    smtpCommand = SmtpCommand.Parse(commandLine);
+
+                    if (this.ServerConfig.IsEncryptionRequired && !this.IsEncrypted)
+                    {
+                        response = WaitingForTls(smtpCommand);
+                    }
+                    else
+                    {
+                        response = await GetResponseAsync(smtpCommand);
+                    }
+
+                    await SendResponseAsync(response);
+
+                    if (smtpCommand.CommandType == SmtpCommandType.STARTTLS)
+                        await StartTlsAsync();
+                }
+                this.CancellationTokenSource.Cancel();
+            }
+            catch (ObjectDisposedException ex)
+            {
+                Console.WriteLine("Server >>>: Object disposed in BeginSessionAsync(): {0}", ex.Message);
+            }
+            catch (SmtpException ex)
+            {
+                Console.WriteLine(ex.Message);
+                SendResponseAsync(SmtpResponse.TransactionFailed + ex.Message).RunSynchronously();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                SendResponseAsync(SmtpResponse.LocalError).RunSynchronously();
+            }
+        }
+
+        /// <summary>
+        /// Stops this session and disposes unmanaged resources.
+        /// </summary>
+        public void StopSession()
+        {
+            try
+            {
+                this.MessageStore = null;
+                this.Timer.Dispose();
+                this.Writer.Dispose();
+                this.Reader.Dispose();
+                if (this.TcpClient.Connected)
+                {
+                    this.TcpClient.Close();
+                }
+            }
+            catch (ObjectDisposedException ex)
+            {
+                Console.WriteLine("Error on stop, " + ex.Message);
+            }
+            finally
+            {
+               
+            }
+        }
+
+        /// <summary>
+        /// Resets the session.
+        /// </summary>
+        protected void Reset()
+        {
+            this.Reader.DiscardBufferedData();
+            this.Writer.Flush();
+            this.SmtpCommands = this.SmtpCommands.Where(x => x.Command == "HELO" || x.Command == "EHLO").ToList();
+        }
+
+        /// <summary>
+        /// Initialize the network stream depending on whether the session
+        /// is configured to use Tls or not.
+        /// </summary>
+        /// <returns>Task</returns>
+        protected async Task InitializeStreams()
+        {
+            if (this.ServerConfig.IsTls)
+            {
+                await StartTlsAsync();
+            }
+            else
+            {
+                this.Writer = new StreamWriter(this.NetworkStream) { AutoFlush = true, NewLine = NEWLINE };
+                this.Reader = new StreamReader(this.NetworkStream);
+            }
+        }
+
+        /// <summary>
+        /// Initiates the StartTls command negotiation.
+        /// </summary>
+        /// <returns>Task</returns>
+        protected async Task StartTlsAsync()
+        {
+            this.SslStream = new SslStream(this.NetworkStream, false);
+            var protocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
+            await this.SslStream.AuthenticateAsServerAsync(this.ServerConfig.X509Certificate2, false, protocols, false);
+
+            this.Reader = new StreamReader(this.SslStream);
+            this.Writer = new StreamWriter(this.SslStream) { AutoFlush = true, NewLine = "\r\n" };
+            this.SmtpCommands.Clear();
+        }
 
         /// <summary>
         /// Gets the sessions response in reply to the clients SmtpCommand.
@@ -144,7 +275,7 @@ namespace ExoMail.Smtp.Network
                     break;
 
                 case SmtpCommandType.QUIT:
-                    response = String.Format(SmtpResponse.Closing, this.SmtpServer.ServerConfig.HostName);
+                    response = String.Format(SmtpResponse.Closing, this.ServerConfig.HostName);
                     this.SmtpCommands.Add(smtpCommand);
                     break;
 
@@ -186,17 +317,74 @@ namespace ExoMail.Smtp.Network
             return response;
         }
 
-        private async Task<string> GetAuthResponse(SmtpCommand smtpCommand)
+        /// <summary>
+        /// Response logic if STARTTLS is required.
+        /// </summary>
+        /// <param name="smtpCommand">A client SmtpCommand to respond to.</param>
+        /// <returns>string representing the servers response.</returns>
+        protected string WaitingForTls(SmtpCommand smtpCommand)
         {
             string response;
-            if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
+
+            switch (smtpCommand.CommandType)
             {
-                response = SmtpResponse.BadCommand;
+                case SmtpCommandType.EHLO:
+                    response = GetEhloResponse(smtpCommand);
+                    break;
+
+                case SmtpCommandType.QUIT:
+                    response = String.Format(SmtpResponse.Closing, this.ServerConfig.HostName);
+                    this.SmtpCommands.Add(smtpCommand);
+                    break;
+
+                case SmtpCommandType.NOOP:
+                    response = SmtpResponse.OK;
+                    break;
+
+                case SmtpCommandType.STARTTLS:
+                    response = SmtpResponse.StartTls;
+                    break;
+
+                case SmtpCommandType.INVALID:
+                    response = SmtpResponse.CommandUnrecognized;
+                    break;
+
+                default:
+                    if (Enum.IsDefined(typeof(SmtpCommandType), smtpCommand.CommandType))
+                        response = SmtpResponse.StartTlsFirst;
+                    else
+                    {
+                        response = SmtpResponse.CommandUnrecognized;
+                    }
+                    break;
             }
-            else
+            return response;
+        }
+
+        /// <summary>
+        /// Sends a response to the client.
+        /// </summary>
+        /// <param name="response">A string representing the response to the client.</param>
+        /// <returns>Task</returns>
+        protected async Task SendResponseAsync(string response)
+        {
+            Console.WriteLine("Server >>>: {0}", response);
+            await this.Writer.WriteLineAsync(response);
+        }
+
+        /// <summary>
+        /// Listen for the clients request.
+        /// </summary>
+        /// <returns>A string representing the clients request.</returns>
+        protected async Task<string> ListenRequestAsync()
+        {
+            string response = String.Empty;
+
+            while (String.IsNullOrEmpty(response))
             {
-                response = await AuthenticateUser(smtpCommand);
+                response = await this.Reader.ReadLineAsync().WithCancellation(this.Token);
             }
+            Console.WriteLine("Client <<<: {0}", response);
 
             return response;
         }
@@ -210,7 +398,7 @@ namespace ExoMail.Smtp.Network
             ISaslAuthenticator authenticator = this.UserAuthenticators
                 .Where(x => x.SaslMechanism == saslMechanism.ToUpper())
                 .FirstOrDefault()
-                .Create();
+                .Create(this.UserStore);
 
             //If there are no authenticators for the requested type return ArgumentUnrecognized to the client.
             if (authenticator == null)
@@ -242,12 +430,31 @@ namespace ExoMail.Smtp.Network
 
             if (authenticator.IsAuthenticated)
             {
+                this.IsAuthenticated = true;
                 return SmtpResponse.AuthOk;
             }
             else
             {
+                this.IsAuthenticated = false;
                 return SmtpResponse.AuthCredInvalid;
             }
+        }
+
+        /// <summary>
+        /// Enter into the data phase of the SmtpSession
+        /// </summary>
+        /// <returns>SmtpReply.Queued response code.</returns>
+        private async Task<string> StartInputAsync()
+        {
+            await SendResponseAsync(SmtpResponse.StartInput);
+            string response;
+
+            if (this.IsEncrypted)
+                response = await ReceiveDataAsync(this.SslStream);
+            else
+                response = await ReceiveDataAsync(this.NetworkStream);
+
+            return response;
         }
 
         /// <summary>
@@ -258,7 +465,7 @@ namespace ExoMail.Smtp.Network
         {
             try
             {
-                SendResponseAsync(String.Format(SmtpResponse.Closing, this.SmtpServer.ServerConfig.HostName)).Wait(TimeSpan.FromSeconds(5));
+                SendResponseAsync(String.Format(SmtpResponse.Closing, this.ServerConfig.HostName)).Wait(TimeSpan.FromSeconds(5));
                 this.CancellationTokenSource.Cancel();
             }
             catch (Exception ex)
@@ -270,146 +477,15 @@ namespace ExoMail.Smtp.Network
             }
         }
 
-        /// <summary>
-        /// Initialize the network stream depending on whether the session
-        /// is configured to use Tls or not.
-        /// </summary>
-        /// <returns>Task</returns>
-        protected async Task InitializeStreams()
-        {
-            if (this.SmtpServer.ServerConfig.IsTls)
-            {
-                await StartTlsAsync();
-            }
-            else
-            {
-                this.Writer = new StreamWriter(this.NetworkStream) { AutoFlush = true, NewLine = NEWLINE };
-                this.Reader = new StreamReader(this.NetworkStream);
-            }
-        }
+        //protected bool IsValidatedSession()
+        //{
+        //    if (this.ServerConfig.SessionValidators != null)
+        //        return this.ServerConfig.SessionValidators.All(x => x.IsValid());
+        //    else
+        //        return true;
+        //}
 
-        protected bool IsValidatedSession()
-        {
-            if (this.SmtpServer.ServerConfig.SessionValidators != null)
-                return this.SmtpServer.ServerConfig.SessionValidators.All(x => x.IsValid());
-            else
-                return true;
-        }
-
-        /// <summary>
-        /// Listen for the clients request.
-        /// </summary>
-        /// <returns>A string representing the clients request.</returns>
-        protected async Task<string> ListenRequestAsync()
-        {
-            string response = String.Empty;
-
-            while (String.IsNullOrEmpty(response))
-            {
-                response = await this.Reader.ReadLineAsync().WithCancellation(this.Token);
-            }
-            Console.WriteLine("Client <<<: {0}", response);
-
-            return response;
-        }
-
-        /// <summary>
-        /// Sends a response to the client.
-        /// </summary>
-        /// <param name="response">A string representing the response to the client.</param>
-        /// <returns>Task</returns>
-        protected async Task SendResponseAsync(string response)
-        {
-            Console.WriteLine("Server >>>: {0}", response);
-            await this.Writer.WriteLineAsync(response);
-        }
-
-        /// <summary>
-        /// Initiates the StartTls command negotiation.
-        /// </summary>
-        /// <returns>Task</returns>
-        protected async Task StartTlsAsync()
-        {
-            this.SslStream = new SslStream(this.NetworkStream, false);
-            var protocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
-            await this.SslStream.AuthenticateAsServerAsync(this.SmtpServer.ServerConfig.X509Certificate2, false, protocols, false);
-
-            this.Reader = new StreamReader(this.SslStream);
-            this.Writer = new StreamWriter(this.SslStream) { AutoFlush = true, NewLine = "\r\n" };
-            this.SmtpCommands.Clear();
-        }
-
-        public abstract void StopSession();
-
-        /// <summary>
-        /// Response logic if STARTTLS is required.
-        /// </summary>
-        /// <param name="smtpCommand">A client SmtpCommand to respond to.</param>
-        /// <returns>string representing the servers response.</returns>
-        protected string WaitingForTls(SmtpCommand smtpCommand)
-        {
-            string response;
-
-            switch (smtpCommand.CommandType)
-            {
-                case SmtpCommandType.EHLO:
-                    response = GetEhloResponse(smtpCommand);
-                    break;
-
-                case SmtpCommandType.QUIT:
-                    response = String.Format(SmtpResponse.Closing, this.SmtpServer.ServerConfig.HostName);
-                    this.SmtpCommands.Add(smtpCommand);
-                    break;
-
-                case SmtpCommandType.NOOP:
-                    response = SmtpResponse.OK;
-                    break;
-
-                case SmtpCommandType.STARTTLS:
-                    response = SmtpResponse.StartTls;
-                    break;
-
-                case SmtpCommandType.INVALID:
-                    response = SmtpResponse.CommandUnrecognized;
-                    break;
-
-                default:
-                    if (Enum.IsDefined(typeof(SmtpCommandType), smtpCommand.CommandType))
-                        response = SmtpResponse.StartTlsFirst;
-                    else
-                    {
-                        response = SmtpResponse.CommandUnrecognized;
-                    }
-                    break;
-            }
-            return response;
-        }
-
-        private async Task<string> GetDataResponse(SmtpCommand smtpCommand)
-        {
-            string response;
-            if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
-            {
-                response = SmtpResponse.BadCommand;
-            }
-            else if (!this.SmtpCommands.Any(c => c.Command == "RCPT"))
-            {
-                response = SmtpResponse.SenderAndRecipientFirst;
-            }
-            else if (!this.SmtpCommands.Any(c => c.Command == "MAIL"))
-            {
-                response = SmtpResponse.SenderFirst;
-            }
-            else
-            {
-                this.SmtpCommands.Add(smtpCommand);
-                response = await StartInputAsync();
-                Reset();
-            }
-            return response;
-        }
-
-        private string GetEhloResponse(SmtpCommand smtpCommand)
+        protected string GetEhloResponse(SmtpCommand smtpCommand)
         {
             if (smtpCommand.Arguments.Count > 1)
             {
@@ -418,7 +494,7 @@ namespace ExoMail.Smtp.Network
             string response;
             DomainName domainName;
             bool isValidDomain = DomainName.TryParse(smtpCommand.Arguments[0], out domainName);
-            var config = this.SmtpServer.ServerConfig;
+            var config = this.ServerConfig;
 
             if (isValidDomain)
             {
@@ -443,31 +519,27 @@ namespace ExoMail.Smtp.Network
             return response;
         }
 
-        private string GetHeloResponse(SmtpCommand smtpCommand)
+        protected string GetHeloResponse(SmtpCommand smtpCommand)
         {
             return GetEhloResponse(smtpCommand);
         }
 
-        private string GetMailResponse(SmtpCommand smtpCommand)
+        protected async Task<string> GetAuthResponse(SmtpCommand smtpCommand)
         {
             string response;
             if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
             {
                 response = SmtpResponse.BadCommand;
             }
-            else if (!smtpCommand.Arguments[0].Contains("FROM:"))
-            {
-                response = SmtpResponse.InvalidSenderName;
-            }
             else
             {
-                this.SmtpCommands.Add(smtpCommand);
-                response = SmtpResponse.OK;
+                response = await AuthenticateUser(smtpCommand);
             }
+
             return response;
         }
 
-        private string GetRcptResponse(SmtpCommand smtpCommand)
+        public virtual string GetRcptResponse(SmtpCommand smtpCommand)
         {
             string response;
             if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
@@ -490,12 +562,55 @@ namespace ExoMail.Smtp.Network
             return response;
         }
 
+        protected string GetMailResponse(SmtpCommand smtpCommand)
+        {
+            string response;
+            if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
+            {
+                response = SmtpResponse.BadCommand;
+            }
+            else if (!smtpCommand.Arguments[0].Contains("FROM:"))
+            {
+                response = SmtpResponse.InvalidSenderName;
+            }
+            else
+            {
+                this.SmtpCommands.Add(smtpCommand);
+                response = SmtpResponse.OK;
+            }
+            return response;
+        }
+
+        protected async Task<string> GetDataResponse(SmtpCommand smtpCommand)
+        {
+            string response;
+            if (!this.SmtpCommands.Any(c => c.Command == "EHLO" || c.Command == "HELO"))
+            {
+                response = SmtpResponse.BadCommand;
+            }
+            else if (!this.SmtpCommands.Any(c => c.Command == "RCPT"))
+            {
+                response = SmtpResponse.SenderAndRecipientFirst;
+            }
+            else if (!this.SmtpCommands.Any(c => c.Command == "MAIL"))
+            {
+                response = SmtpResponse.SenderFirst;
+            }
+            else
+            {
+                this.SmtpCommands.Add(smtpCommand);
+                response = await StartInputAsync();
+                Reset();
+            }
+            return response;
+        }
+
         /// <summary>
         /// Receives the data portion of the SMTP transaction.
         /// </summary>
         /// <param name="stream">A NetworkStream or SslStream to read the data from.</param>
         /// <returns>A string indicating the result of the transaction.</returns>
-        private async Task<string> ReceiveDataAsync(Stream stream)
+        protected async Task<string> ReceiveDataAsync(Stream stream)
         {
             using (var memoryStream = new RecyclableMemoryStreamManager().GetStream())
             using (var reader = new StreamReader(memoryStream, Encoding.ASCII))
@@ -519,61 +634,34 @@ namespace ExoMail.Smtp.Network
                         memoryStream.Seek(-8, SeekOrigin.End);
                 }
 
-                if (memoryStream.Length > this.SmtpServer.ServerConfig.MaxMessageSize)
+                if (memoryStream.Length > this.ServerConfig.MaxMessageSize)
                 {
                     Reset();
-                    double maxMessageSize = this.SmtpServer.ServerConfig.MaxMessageSize / ONE_MB;
+                    double maxMessageSize = this.ServerConfig.MaxMessageSize / ONE_MB;
 
                     Console.WriteLine("System >>>: Received: {0} bytes.  MaxMessageSize: {1} bytes.  Over by {2} bytes.",
-                        memoryStream.Length, this.SmtpServer.ServerConfig.MaxMessageSize, memoryStream.Length - this.SmtpServer.ServerConfig.MaxMessageSize);
+                        memoryStream.Length, this.ServerConfig.MaxMessageSize, memoryStream.Length - this.ServerConfig.MaxMessageSize);
                     return String.Format(SmtpResponse.MessageSizeExceeded, maxMessageSize.ToString());
                 }
 
                 memoryStream.Position = 0;
                 Console.WriteLine("System >>>: Received {0} bytes from {1}:{2}", memoryStream.Length, this.RemoteEndPoint.Address, this.RemoteEndPoint.Port);
 
-                ReceivedHeader sessionMessage = new ReceivedHeader()
+                ReceivedHeader receivedHeader = new ReceivedHeader()
                 {
                     ClientHostName = this.RemoteDomainName.ToString(),
                     IsEncrypted = this.IsEncrypted,
                     LocalEndPoint = this.LocalEndPoint,
                     RemoteEndPoint = this.RemoteEndPoint,
-                    ServerHostName = this.SmtpServer.ServerConfig.HostName,
+                    ServerHostName = this.ServerConfig.HostName,
                 };
 
-                this.MessageStore.Save(memoryStream, sessionMessage);
+                this.MessageStore.Save(memoryStream, receivedHeader);
             }
 
             var recipientCollections = new MailRecipientCollection().GetRecipientCollections(this.SmtpCommands);
 
             return SmtpResponse.Queued;
-        }
-
-        /// <summary>
-        /// Resets the session.
-        /// </summary>
-        private void Reset()
-        {
-            this.Reader.DiscardBufferedData();
-            this.Writer.Flush();
-            this.SmtpCommands = this.SmtpCommands.Where(x => x.Command == "HELO" || x.Command == "EHLO").ToList();
-        }
-
-        /// <summary>
-        /// Enter into the data phase of the SmtpSession
-        /// </summary>
-        /// <returns>SmtpReply.Queued response code.</returns>
-        private async Task<string> StartInputAsync()
-        {
-            await SendResponseAsync(SmtpResponse.StartInput);
-            string response;
-
-            if (this.IsEncrypted)
-                response = await ReceiveDataAsync(this.SslStream);
-            else
-                response = await ReceiveDataAsync(this.NetworkStream);
-
-            return response;
         }
     }
 }
