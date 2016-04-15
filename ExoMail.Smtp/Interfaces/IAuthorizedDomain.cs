@@ -8,6 +8,7 @@ namespace ExoMail.Smtp.Interfaces
 {
     public interface IAuthorizedDomain
     {
-        bool IsAuthorizedDomain();
+        string DomainName { get; set; }
+        IUserStore UserStore { get; set; }
     }
 }
