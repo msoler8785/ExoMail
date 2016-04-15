@@ -1,4 +1,4 @@
-﻿using ExoMail.Smtp.Example;
+﻿using ExoMail.Smtp.Server;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Network;
 using ExoMail.Smtp.Server.Authentication;

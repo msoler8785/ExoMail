@@ -81,8 +81,10 @@ namespace ExoMail.Smtp.Server.Authentication
         public bool IsValidRecipient(string emailAddress)
         {
             emailAddress = Regex.Match(emailAddress, @"<(.*)>").Groups[0].Value;
+            var storeJson = File.ReadAllText(_path);
+            JsonUserStore store = JsonConvert.DeserializeObject<JsonUserStore>(storeJson);
 
-            return this.Identities.Any(x => x.EmailAddress.ToUpper() == emailAddress.ToUpper());
+            return store.Identities.Any(x => x.EmailAddress.ToUpper() == emailAddress.ToUpper());
         }
     }
 }

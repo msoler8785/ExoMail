@@ -18,6 +18,7 @@ namespace ExoMail.Smtp.Network
         public IServerConfig ServerConfig { get; set; }
         public TcpListener TcpListener { get; set; }
         public List<ISaslAuthenticator> UserAuthenticators { get; set; }
+        public IUserStore UserStore { get; set; }
         private CancellationToken Token { get; set; }
 
         public SmtpSessionFactory()
@@ -35,6 +36,7 @@ namespace ExoMail.Smtp.Network
                 session.UserAuthenticators = this.UserAuthenticators;
                 session.ServerConfig = this.ServerConfig;
                 session.AuthorizedDomains = AuthorizedDomains;
+                session.UserStore = this.UserStore;
 
                 SmtpSessions.Add(session);
 

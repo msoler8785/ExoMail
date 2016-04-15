@@ -9,9 +9,9 @@ namespace ExoMail.Smtp.Models
 {
     public abstract class EmailValidator
     {
-        public SmtpSession SmtpSession { get; set; }
+        public SmtpSessionBase SmtpSession { get; set; }
 
-        public EmailValidator(SmtpSession smtpSession)
+        public EmailValidator(SmtpSessionBase smtpSession)
         {
             this.SmtpSession = smtpSession;
         }

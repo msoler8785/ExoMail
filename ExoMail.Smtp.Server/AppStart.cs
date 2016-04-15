@@ -11,7 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExoMail.Smtp.Example
+namespace ExoMail.Smtp.Server
 {
     public class AppStart
     {
@@ -31,7 +31,7 @@ namespace ExoMail.Smtp.Example
                 .WithFolderPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Messages"));
 
             //Load the user store
-            var userStore = JsonUserStore.CreateStore();
+            var userStore = JsonUserStore.CreateStore("example.com");
             var authenticators = new List<ISaslAuthenticator>();
             authenticators.Add(new LoginSaslAuthenticator());
 

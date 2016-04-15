@@ -60,6 +60,7 @@ namespace ExoMail.Smtp.Network
         public StreamWriter Writer { get; set; }
         public DomainName RemoteDomainName { get; set; }
         public List<ISaslAuthenticator> UserAuthenticators { get; set; }
+        public IUserStore UserStore { get; set; }
 
         public List<string> SaslMechanisms
         {
