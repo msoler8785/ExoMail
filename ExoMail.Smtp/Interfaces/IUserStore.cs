@@ -11,5 +11,6 @@ namespace ExoMail.Smtp.Interfaces
         List<IUserIdentity> Identities { get; set; }
         string Realm { get; set; }
         bool IsUserAuthenticated(string userName, string password);
+        bool IsValidRecipient(string emailAddress);
     }
 }
