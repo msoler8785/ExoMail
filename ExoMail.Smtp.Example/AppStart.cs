@@ -15,9 +15,9 @@ namespace ExoMail.Smtp.Example
 {
     public class AppStart
     {
-        public static List<SmtpServer> InitializeServers()
+        public static List<SmtpSessionFactory> InitializeServers()
         {
-            var smtpServers = new List<SmtpServer>();
+            var smtpServers = new List<SmtpSessionFactory>();
 
             //Load the sample certificate
             string certPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "localhost.pfx");
@@ -33,17 +33,18 @@ namespace ExoMail.Smtp.Example
             //Load the user store
             var userStore = JsonUserStore.CreateStore();
             var authenticators = new List<ISaslAuthenticator>();
-            authenticators.Add(new LoginSaslAuthenticator(userStore));
+            authenticators.Add(new LoginSaslAuthenticator());
 
             foreach (var config in configs)
             {
                 config.X509Certificate2 = cert;
                 config.MaxMessageSize = int.MaxValue;
-                var smtpServer = new SmtpServer()
+                var smtpServer = new SmtpSessionFactory()
                 {
                     ServerConfig = config,
                     MessageStore = messageStore,
-                    UserAuthenticators = authenticators
+                    UserAuthenticators = authenticators,
+                    UserStore = userStore
                 };
 
                 smtpServers.Add(smtpServer);

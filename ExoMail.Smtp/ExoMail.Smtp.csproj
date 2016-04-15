@@ -72,7 +72,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\SaslType.cs" />
     <Compile Include="Enums\ServerType.cs" />
     <Compile Include="Enums\SmtpCommandType.cs" />
     <Compile Include="Exceptions\SaslException.cs" />
@@ -89,10 +88,8 @@
     <Compile Include="Models\EmailValidator.cs" />
     <Compile Include="Interfaces\IServerConfig.cs" />
     <Compile Include="Interfaces\ISessionConfig.cs" />
-    <Compile Include="Models\NetworkValidator.cs" />
     <Compile Include="Models\ReceivedHeader.cs" />
     <Compile Include="Network\DnsQuery.cs" />
-    <Compile Include="Network\SmtpDeliverySession.cs" />
     <Compile Include="Network\SmtpRelaySession.cs" />
     <Compile Include="Network\SmtpSessionBase.cs" />
     <Compile Include="Extensions\Extensions.cs" />
@@ -101,9 +98,9 @@
     <Compile Include="Exceptions\SmtpCommandException.cs" />
     <Compile Include="Utilities\MailRecipientCollection.cs" />
     <Compile Include="Utilities\SmtpResponse.cs" />
-    <Compile Include="Network\SmtpServer.cs" />
+    <Compile Include="Network\SmtpSessionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Network\SmtpSession.cs" />
+    <Compile Include="Network\SmtpDeliverySession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="localhost.pfx">

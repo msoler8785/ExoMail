@@ -7,8 +7,8 @@
     <ProjectGuid>{BC906053-E4DE-44CC-882C-0A7F32FF1661}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExoMail.Smtp.Example</RootNamespace>
-    <AssemblyName>ExoMail.Smtp.Example</AssemblyName>
+    <RootNamespace>ExoMail.Smtp.Server</RootNamespace>
+    <AssemblyName>ExoMail.Smtp.Server</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\JsonAuthorizedDomain.cs" />
     <Compile Include="Authentication\JsonUserIdentity.cs" />
     <Compile Include="Authentication\JsonUserStore.cs" />
     <Compile Include="Authentication\LoginSaslAuthenticator.cs" />
