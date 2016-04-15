@@ -51,7 +51,7 @@ namespace ExoMail.Smtp.Server.IO
         /// <summary>
         /// Saves the message to the specified folder.
         /// </summary>
-        public void Save(Stream stream, ReceivedHeader sessionMessage)
+        public void Save(Stream stream, ReceivedHeader receivedHeader)
         {
             this.FolderPath = this.FolderPath ?? AppDomain.CurrentDomain.BaseDirectory;
             this.FileName = Guid.NewGuid().ToString().ToUpper() + ".eml";
@@ -60,7 +60,7 @@ namespace ExoMail.Smtp.Server.IO
 
             using (FileStream fileStream = new FileStream(path, FileMode.Append))
             {
-                sessionMessage.GetReceivedHeaders().CopyTo(fileStream);
+                receivedHeader.GetReceivedHeaders().CopyTo(fileStream);
                 stream.CopyTo(fileStream);
             }
         }
