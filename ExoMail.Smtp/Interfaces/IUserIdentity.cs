@@ -8,7 +8,9 @@ namespace ExoMail.Smtp.Interfaces
 {
     public interface IUserIdentity
     {
+        string UserId { get; set; }
         string UserName { get; set; }
         string Password { get; set; }
+        string EmailAddress { get; set; }
     }
 }
