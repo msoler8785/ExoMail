@@ -18,7 +18,11 @@ using System.Timers;
 namespace ExoMail.Smtp.Network
 {
     /// <summary>
-    /// An SmtpSession that handles all communications with an SMTP Client.
+    /// A "delivery" SMTP system is
+    /// one that receives mail from a transport service environment and
+    /// passes it to a mail user agent or deposits it in a message store
+    /// which a mail user agent is expected to subsequently access.
+    /// <see cref="https://tools.ietf.org/html/rfc2821#section-2.3.8"/>
     /// </summary>
     public class SmtpDeliverySession : SmtpSessionBase
     {

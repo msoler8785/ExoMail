@@ -11,6 +11,14 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Network
 {
+    /// <summary>
+    /// A "relay" SMTP system(usually referred to just as a "relay") receives
+    /// mail from an SMTP client and transmits it, without modification to
+    /// the message data other than adding trace information, to another SMTP
+    /// server for further relaying or for delivery.
+    /// <see cref="https://tools.ietf.org/html/rfc2821#section-2.3.8"/>
+    /// </summary>
+
     public class SmtpRelaySession : SmtpSessionBase
     {
         public SmtpRelaySession() { }

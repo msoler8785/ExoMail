@@ -25,16 +25,54 @@ namespace ExoMail.Smtp.Network
     /// </summary>
     public abstract class SmtpSessionBase
     {
+        /// <summary>
+        /// The line termination sequence.
+        /// <see cref="https://tools.ietf.org/html/rfc2821#section-2.3.7"/>
+        /// </summary>
         public const string NEWLINE = "\r\n";
+
+        /// <summary>
+        /// The number of bytes in one MB.
+        /// </summary>
         public const int ONE_MB = 1048576;
+
+        /// <summary>
+        /// The data termination sequence.
+        /// <see cref="https://tools.ietf.org/html/rfc2821#section-4.2.5"/>
+        /// </summary>
         public const string TERMINATOR = "\r\n.\r\n";
+
         public CancellationTokenSource CancellationTokenSource { get; set; }
+
+        /// <summary>
+        /// Indicates whether the user has authenticated during this session.
+        /// </summary>
         public bool IsAuthenticated { get; set; }
+
+        /// <summary>
+        /// Indicates whether authentication is required to deliver mail to this session.
+        /// </summary>
         public bool IsAuthenticatationRequired { get; set; }
+
+        /// <summary>
+        /// I list of IP networks authorized to send mail to this server.
+        /// </summary>
         public List<IAuthorizedNetwork> AuthorizedNetworks { get; set; }
+
+        /// <summary>
+        /// A list of domains authorized to receive mail for this server.
+        /// </summary>
         public List<IAuthorizedDomain> AuthorizedDomains { get; set; }
+
+        /// <summary>
+        /// A list of recipients for this session.
+        /// </summary>
         public List<MailRecipientCollection> MailRecipients { get; set; }
 
+        /// <summary>
+        /// Returns true if this session communicates with the client over
+        /// encrypted channels.
+        /// </summary>
         public bool IsEncrypted
         {
             get
@@ -46,22 +84,74 @@ namespace ExoMail.Smtp.Network
             }
         }
 
+        /// <summary>
+        /// The local network endpoint for this session.
+        /// </summary>
         public IPEndPoint LocalEndPoint { get { return (IPEndPoint)this.TcpClient.Client.LocalEndPoint; } }
-        public IMessageStore MessageStore { get; set; }
-        public NetworkStream NetworkStream { get { return this.TcpClient.GetStream(); } }
-        public StreamReader Reader { get; set; }
+
+        /// <summary>
+        /// The remote network endpoint for the client.
+        /// </summary>
         public IPEndPoint RemoteEndPoint { get { return (IPEndPoint)this.TcpClient.Client.RemoteEndPoint; } }
+
+        /// <summary>
+        /// A message store implementation for storing messages.
+        /// </summary>
+        public IMessageStore MessageStore { get; set; }
+        public StreamReader Reader { get; set; }
+        /// <summary>
+        /// A list of SmtpCommands sent by the client.  Cleared if 
+        /// RSET command is sent by client.
+        /// </summary>
         public List<SmtpCommand> SmtpCommands { get; set; }
+
+        /// <summary>
+        /// The configuration object for this session.
+        /// </summary>
         public IServerConfig ServerConfig { get; set; }
+
+        /// <summary>
+        /// The SslStream used if this connection is encrypted.
+        /// </summary>
         public SslStream SslStream { get; set; }
+
+        /// <summary>
+        /// The network stream for this tcp client.
+        /// </summary>
+        public NetworkStream NetworkStream { get { return this.TcpClient.GetStream(); } }
+
+        /// <summary>
+        /// The TcpClient for this session.
+        /// </summary>
         public TcpClient TcpClient { get; set; }
+
+        /// <summary>
+        /// Monitors the time between commands and disconnects the client
+        /// if it is idle for too long.
+        /// </summary>
         public System.Timers.Timer Timer { get; set; }
         public CancellationToken Token { get; set; }
         public StreamWriter Writer { get; set; }
+
+        /// <summary>
+        /// The remote DomainName for the client.
+        /// </summary>
         public DomainName RemoteDomainName { get; set; }
+
+        /// <summary>
+        /// A list of SaslAuthenticators this session can use to authenticate
+        /// users of this session.
+        /// </summary>
         public List<ISaslAuthenticator> UserAuthenticators { get; set; }
+
+        /// <summary>
+        /// A list of users and mailboxes on this server.
+        /// </summary>
         public IUserStore UserStore { get; set; }
 
+        /// <summary>
+        /// A list of SASL mechanisms that can be used to authenticate users.
+        /// </summary>
         public List<string> SaslMechanisms
         {
             get
