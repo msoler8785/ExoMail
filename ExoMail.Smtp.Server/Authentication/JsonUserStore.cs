@@ -40,7 +40,7 @@ namespace ExoMail.Smtp.Server.Authentication
                         UserName = "User0" + i,
                         Password = HashPassword("password"),
                         EmailAddress = String.Format("User0{0}@{1}", i, domain),
-                        AliasAddresses = new List<string>() { String.Format("Alias{0}@{1}", i, domain) },
+                        AliasAddresses = new List<string>() { String.Format("Alias0{0}@{1}", i, domain) },
                         FirstName = "Test",
                         LastName = "User0" + i
                     });
@@ -83,8 +83,9 @@ namespace ExoMail.Smtp.Server.Authentication
             emailAddress = Regex.Match(emailAddress, @"<(.*)>").Groups[1].Value;
             var storeJson = File.ReadAllText(_path);
             JsonUserStore store = JsonConvert.DeserializeObject<JsonUserStore>(storeJson);
-
-            return store.Identities.Any(x => x.EmailAddress.ToUpper() == emailAddress.ToUpper());
+            bool validEmail = store.Identities.Any(x => x.EmailAddress.ToUpper() == emailAddress.ToUpper());
+            bool validAlias = store.Identities.Any(x => x.AliasAddresses.Any(a => a.ToUpper().Contains(emailAddress)));
+            return  validEmail || validAlias;
         }
     }
 }
