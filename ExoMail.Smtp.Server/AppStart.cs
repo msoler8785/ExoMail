@@ -31,7 +31,7 @@ namespace ExoMail.Smtp.Server
                 .WithFolderPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Messages"));
 
             //Load the user store
-            var userStore = JsonUserStore.CreateStore("example.com");
+            var userStore = JsonUserStore.CreateStore("example.net");
             var authenticators = new List<ISaslAuthenticator>();
             authenticators.Add(new LoginSaslAuthenticator());
 
