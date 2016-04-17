@@ -12,5 +12,8 @@ namespace ExoMail.Smtp.Interfaces
         string UserName { get; set; }
         string Password { get; set; }
         string EmailAddress { get; set; }
+        List<string> AliasAddresses { get; set; }
+        string FirstName { get; set; }
+        string LastName { get; set; }
     }
 }
