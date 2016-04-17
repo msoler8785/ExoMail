@@ -12,7 +12,7 @@ namespace ExoMail.Smtp.Server.Utilities
     public class JsonConfig : IServerConfig
     {
         [JsonIgnore]
-        private static string _path = AppDomain.CurrentDomain.BaseDirectory;
+        private static string _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ServerConfig.json");
 
         public string IpBindingString { get; set; }
         public string ServerId { get; set; }
@@ -72,8 +72,7 @@ namespace ExoMail.Smtp.Server.Utilities
             }
 
             string configFile = JsonConvert.SerializeObject(configs, Formatting.Indented);
-            string configPath = Path.Combine(_path, "ServerConfig.txt");
-            File.WriteAllText(configPath, configFile);
+            File.WriteAllText(_path, configFile);
         }
 
         /// <summary>
@@ -81,12 +80,11 @@ namespace ExoMail.Smtp.Server.Utilities
         /// </summary>
         public static List<JsonConfig> LoadConfigs()
         {
-            string configPath = Path.Combine(_path, "ServerConfig.txt");
-            if (!File.Exists(configPath))
+            if (!File.Exists(_path))
             {
                 CreateDefaultConfig();
             }
-            string config = File.ReadAllText(configPath);
+            string config = File.ReadAllText(_path);
             List<JsonConfig> configs = JsonConvert.DeserializeObject<List<JsonConfig>>(config);
 
             return configs;
