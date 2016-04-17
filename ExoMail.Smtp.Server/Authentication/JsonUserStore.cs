@@ -84,7 +84,7 @@ namespace ExoMail.Smtp.Server.Authentication
             var storeJson = File.ReadAllText(_path);
             JsonUserStore store = JsonConvert.DeserializeObject<JsonUserStore>(storeJson);
             bool validEmail = store.Identities.Any(x => x.EmailAddress.ToUpper() == emailAddress.ToUpper());
-            bool validAlias = store.Identities.Any(x => x.AliasAddresses.Any(a => a.ToUpper().Contains(emailAddress)));
+            bool validAlias = store.Identities.Any(x => x.AliasAddresses.Any(a => a.ToUpper().Contains(emailAddress.ToUpper())));
             return  validEmail || validAlias;
         }
     }
