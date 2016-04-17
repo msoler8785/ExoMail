@@ -238,7 +238,7 @@ namespace ExoMail.Smtp.Network
                     if (smtpCommand.CommandType == SmtpCommandType.STARTTLS)
                         await StartTlsAsync();
                 }
-                this.CancellationTokenSource.Cancel();
+                // this.CancellationTokenSource.Cancel();
             }
             catch (ObjectDisposedException ex)
             {
