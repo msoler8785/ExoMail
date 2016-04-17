@@ -1,5 +1,6 @@
 ﻿using ExoMail.Smtp.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace ExoMail.Smtp.Server.Authentication
 {
@@ -8,12 +9,15 @@ namespace ExoMail.Smtp.Server.Authentication
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string Realm { get; set; }
         public string EmailAddress { get; set; }
+
+        public List<string> AliasAddresses { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         public JsonUserIdentity()
         {
-            this.Realm = String.Empty;
             this.UserId = Guid.NewGuid().ToString();
         }
     }

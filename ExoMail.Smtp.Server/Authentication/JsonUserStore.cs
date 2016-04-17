@@ -16,17 +16,14 @@ namespace ExoMail.Smtp.Server.Authentication
     /// </summary>
     public class JsonUserStore : IUserStore
     {
-        private static string _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.txt");
+        private static string _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.json");
 
         [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
         public List<IUserIdentity> Identities { get; set; }
 
-        public string Realm { get; set; }
-
         public JsonUserStore()
         {
             this.Identities = new List<IUserIdentity>();
-            this.Realm = String.Empty;
         }
 
         //Creates a sample JsonUserStore
@@ -42,7 +39,10 @@ namespace ExoMail.Smtp.Server.Authentication
                     {
                         UserName = "User0" + i,
                         Password = HashPassword("password"),
-                        EmailAddress = String.Format("User0{0}@{1}", i, domain)
+                        EmailAddress = String.Format("User0{0}@{1}", i, domain),
+                        AliasAddresses = new List<string>() { String.Format("Alias{0}@{1}", i, domain) },
+                        FirstName = "Test",
+                        LastName = "User0" + i
                     });
                 }
                 var storeJson = JsonConvert.SerializeObject(store, Formatting.Indented);
