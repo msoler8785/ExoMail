@@ -30,7 +30,7 @@ namespace ExoMail.Smtp.Server
                 });
                 tasks.Add(task);
             }
-
+            Console.WriteLine("Press any key to stop servers.");
             Console.ReadLine();
             Console.WriteLine("Server is shutting down...");
 
