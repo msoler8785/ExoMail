@@ -10,6 +10,7 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
+using ExoMail.Smtp.Tasks;
 
 namespace ExoMail.Smtp.Server
 {
@@ -36,11 +37,8 @@ namespace ExoMail.Smtp.Server
 
             try
             {
-                foreach (var item in servers)
-                {
-                    Console.WriteLine("Attempting to stop server on port {0}", item.ServerConfig.Port);
-                    cancellationTokenSource.Cancel();
-                }
+                SmtpSessionManager.StopAllSessions();
+                cancellationTokenSource.Cancel();
 
                 // Wait 30 seconds for servers to stop or tear down the process.
                 Task.WaitAll(tasks.ToArray(), TimeSpan.FromSeconds(30));
