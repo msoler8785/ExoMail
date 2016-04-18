@@ -3,6 +3,7 @@ using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Models;
+using ExoMail.Smtp.Tasks;
 using ExoMail.Smtp.Utilities;
 using Microsoft.IO;
 using System;
@@ -170,7 +171,7 @@ namespace ExoMail.Smtp.Network
         /// </summary>
         /// <param name="tcpClient">A tcpclient to initiate the session with.</param>
         public SmtpSessionBase(TcpClient tcpClient)
-            : this(tcpClient, CancellationToken.None)
+            : this(tcpClient, null)
         { }
 
         /// <summary>
@@ -179,16 +180,16 @@ namespace ExoMail.Smtp.Network
         /// </summary>
         /// <param name="tcpClient">A tcpclient to initiate the session with.</param>
         /// <param name="cancellationToken">A CancellationToken instance to cancel the session.</param>
-        public SmtpSessionBase(TcpClient tcpClient, CancellationToken cancellationToken)
+        public SmtpSessionBase(TcpClient tcpClient, CancellationTokenSource tokenSource)
         {
-            if (cancellationToken == CancellationToken.None)
+            if (tokenSource == null)
             {
                 this.CancellationTokenSource = new CancellationTokenSource();
                 this.Token = this.CancellationTokenSource.Token;
             }
             else
             {
-                this.Token = cancellationToken;
+                this.Token = tokenSource.Token;
             }
             this.Token.Register(() => StopSession());
             this.TcpClient = tcpClient;
@@ -208,6 +209,7 @@ namespace ExoMail.Smtp.Network
             this.Timer.Elapsed += IdleTimeout;
             this.Timer.AutoReset = false;
             this.Timer.Enabled = true;
+            SmtpSessionManager.Add(this);
 
             try
             {
@@ -249,10 +251,19 @@ namespace ExoMail.Smtp.Network
                 Console.WriteLine(ex.Message);
                 SendResponseAsync(SmtpResponse.TransactionFailed + ex.Message).RunSynchronously();
             }
+            catch (TaskCanceledException ex)
+            {
+                Console.WriteLine("System >>>: SmtpSession has ended. {0}", ex.Message);
+            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 SendResponseAsync(SmtpResponse.LocalError).RunSynchronously();
+            }
+            finally
+            {
+                SmtpSessionManager.Remove(this);
+                StopSession();
             }
         }
 

@@ -96,6 +96,7 @@
     <Compile Include="Models\EmailAddress.cs" />
     <Compile Include="Models\SmtpCommand.cs" />
     <Compile Include="Exceptions\SmtpCommandException.cs" />
+    <Compile Include="Tasks\SmtpSessionManager.cs" />
     <Compile Include="Utilities\MailRecipientCollection.cs" />
     <Compile Include="Utilities\SmtpResponse.cs" />
     <Compile Include="Network\SmtpSessionFactory.cs" />

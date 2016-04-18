@@ -36,7 +36,7 @@ namespace ExoMail.Smtp.Network
         /// </summary>
         /// <param name="tcpClient">A tcpclient to initiate the session with.</param>
         public SmtpDeliverySession(TcpClient tcpClient)
-            : base(tcpClient, CancellationToken.None)
+            : base(tcpClient, null)
         { }
 
         /// <summary>
@@ -44,9 +44,12 @@ namespace ExoMail.Smtp.Network
         /// and a cancellation token.
         /// </summary>
         /// <param name="tcpClient">A tcpclient to initiate the session with.</param>
-        /// <param name="cancellationToken">A CancellationToken instance to cancel the session.</param>
-        public SmtpDeliverySession(TcpClient tcpClient, CancellationToken cancellationToken)
-            : base(tcpClient, cancellationToken)
+        /// <param name="tokenSource">
+        /// A CancellationTokenSource instance to generate cancellation tokens
+        /// for the session.
+        /// </param>
+        public SmtpDeliverySession(TcpClient tcpClient, CancellationTokenSource tokenSource)
+            : base(tcpClient, tokenSource)
         {
             this.IsAuthenticatationRequired = false;
         }

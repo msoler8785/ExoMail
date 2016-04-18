@@ -24,10 +24,10 @@ namespace ExoMail.Smtp.Network
         public SmtpRelaySession() { }
 
         public SmtpRelaySession(TcpClient tcpClient) 
-            : this(tcpClient, CancellationToken.None) { }
+            : this(tcpClient, null) { }
 
-        public SmtpRelaySession(TcpClient tcpClient, CancellationToken cancellationToken)
-            : base(tcpClient, cancellationToken)
+        public SmtpRelaySession(TcpClient tcpClient, CancellationTokenSource tokenSource)
+            : base(tcpClient, tokenSource)
         {
         }
     }
