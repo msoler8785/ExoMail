@@ -20,6 +20,7 @@ namespace ExoMail.Smtp.Server.Authentication
 
         [JsonProperty(ItemTypeNameHandling = TypeNameHandling.Auto)]
         public List<IUserIdentity> Identities { get; set; }
+        public string Domain { get; set; }
 
         public JsonUserStore()
         {
@@ -31,7 +32,7 @@ namespace ExoMail.Smtp.Server.Authentication
         {
             if (!File.Exists(_path))
             {
-                var store = new JsonUserStore();
+                var store = new JsonUserStore() { Domain = domain };
 
                 for (int i = 0; i < 5; i++)
                 {

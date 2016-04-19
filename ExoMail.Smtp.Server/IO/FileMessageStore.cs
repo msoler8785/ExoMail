@@ -27,7 +27,7 @@ namespace ExoMail.Smtp.Server.IO
         /// </summary>
         /// <param name="path">An absolute folder path.</param>
         /// <returns>this</returns>
-        public FileMessageStore WithFolderPath(string path)
+        public IMessageStore WithFolderPath(string path)
         {
             this.FolderPath = path;
             if (!Directory.Exists(path))

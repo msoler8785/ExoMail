@@ -9,7 +9,7 @@ namespace ExoMail.Smtp.Interfaces
     public interface IUserStore
     {
         List<IUserIdentity> Identities { get; set; }
-        //string Realm { get; set; }
+        string Domain { get; set; }
         bool IsUserAuthenticated(string userName, string password);
         bool IsValidRecipient(string emailAddress);
     }

@@ -15,9 +15,9 @@ namespace ExoMail.Smtp.Server
 {
     public class AppStart
     {
-        public static List<SmtpSessionFactory> InitializeServers()
+        public static List<SmtpServerFactory> InitializeServers()
         {
-            var smtpServers = new List<SmtpSessionFactory>();
+            var smtpServers = new List<SmtpServerFactory>();
 
             //Load the sample certificate
             string certPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "localhost.pfx");
@@ -26,9 +26,9 @@ namespace ExoMail.Smtp.Server
             //Load the server configs
             List<JsonConfig> configs = JsonConfig.LoadConfigs();
 
-            //Create the message store
-            IMessageStore messageStore = FileMessageStore.Create
-                .WithFolderPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Messages"));
+            ////Create the message store
+            //IMessageStore messageStore = FileMessageStore.Create
+            //    .WithFolderPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Inbound Queue"));
 
             //Load the user store
             var userStore = JsonUserStore.CreateStore("example.net");
@@ -39,10 +39,12 @@ namespace ExoMail.Smtp.Server
             {
                 config.X509Certificate2 = cert;
                 config.MaxMessageSize = int.MaxValue;
-                var smtpServer = new SmtpSessionFactory()
+                var folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format("{0} Queue", config.ServerType.ToString()));
+
+                var smtpServer = new SmtpServerFactory()
                 {
                     ServerConfig = config,
-                    MessageStore = messageStore,
+                    MessageStore = FileMessageStore.Create.WithFolderPath(folderPath),
                     UserAuthenticators = authenticators,
                     UserStore = userStore
                 };

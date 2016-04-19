@@ -65,10 +65,10 @@ namespace ExoMail.Smtp.Network
         /// </summary>
         public List<IAuthorizedDomain> AuthorizedDomains { get; set; }
 
-        /// <summary>
-        /// A list of recipients for this session.
-        /// </summary>
-        public List<MailRecipientCollection> MailRecipients { get; set; }
+        ///// <summary>
+        ///// A list of recipients for this session.
+        ///// </summary>
+        //public List<LocalRecipientCollection> MailRecipients { get; set; }
 
         /// <summary>
         /// Returns true if this session communicates with the client over
@@ -757,12 +757,9 @@ namespace ExoMail.Smtp.Network
                     RemoteEndPoint = this.RemoteEndPoint,
                     ServerHostName = this.ServerConfig.HostName,
                 };
-
+                
                 this.MessageStore.Save(memoryStream, receivedHeader);
             }
-
-            var recipientCollections = new MailRecipientCollection().GetRecipientCollections(this.SmtpCommands);
-
             return SmtpResponse.Queued;
         }
     }

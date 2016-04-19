@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Network
 {
-    public class SmtpSessionFactory
+    public class SmtpServerFactory
     {
         public static List<IAuthorizedDomain> AuthorizedDomains { get; set; }
 
@@ -20,7 +20,7 @@ namespace ExoMail.Smtp.Network
         public List<ISaslAuthenticator> UserAuthenticators { get; set; }
         public IUserStore UserStore { get; set; }
       
-        public SmtpSessionFactory()
+        public SmtpServerFactory()
         {
             this.UserAuthenticators = new List<ISaslAuthenticator>();
         }
