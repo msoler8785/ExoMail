@@ -18,11 +18,11 @@ namespace ExoMail.Smtp.Network
         public IServerConfig ServerConfig { get; set; }
         public TcpListener TcpListener { get; set; }
         public List<ISaslAuthenticator> UserAuthenticators { get; set; }
-        public IUserStore UserStore { get; set; }
-      
+        //public List<IUserStore> UserStores { get; set; }
         public SmtpServerFactory()
         {
             this.UserAuthenticators = new List<ISaslAuthenticator>();
+            //this.UserStores = new List<IUserStore>();
         }
 
         public void CreateSession(TcpClient tcpClient)
@@ -34,7 +34,7 @@ namespace ExoMail.Smtp.Network
                 session.UserAuthenticators = this.UserAuthenticators;
                 session.ServerConfig = this.ServerConfig;
                 session.AuthorizedDomains = AuthorizedDomains;
-                session.UserStore = this.UserStore;
+                //session.UserStores.AddRange(this.UserStores);
 
                 await session.BeginSessionAsync();
 

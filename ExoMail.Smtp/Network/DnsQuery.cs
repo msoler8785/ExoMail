@@ -21,8 +21,13 @@ namespace ExoMail.Smtp.Network
 
         public static string GetPtrRecord(IPAddress ipAddress)
         {
-            var hostEntry = Dns.GetHostEntry(ipAddress);
-            return hostEntry.HostName;
+            IDnsResolver resolver = new DnsStubResolver();
+            DomainName name = resolver.ResolvePtr(ipAddress);
+            //var hostEntry = Dns.GetHostEntry(ipAddress);
+            //return hostEntry.HostName;
+            if (name == null)
+                return ipAddress.ToString();
+            return name.ToString();
         }
 
         public static async Task<string> GetARecord(string hostName)

@@ -1,8 +1,10 @@
-﻿using ExoMail.Smtp.Enums;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Models;
 using ExoMail.Smtp.Utilities;
 using Microsoft.IO;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +13,7 @@ using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -69,7 +72,7 @@ namespace ExoMail.Smtp.Network
             {
                 response = SmtpResponse.InvalidRecipient;
             }
-            else if (!this.UserStore.IsValidRecipient(smtpCommand.Arguments.ElementAtOrDefault(0)))
+            else if (!UserManager.GetUserManager.IsValidRecipient(smtpCommand.Arguments.ElementAtOrDefault(0)))
             {
                 response = SmtpResponse.MailboxUnavailable;
             }
@@ -79,6 +82,18 @@ namespace ExoMail.Smtp.Network
                 response = SmtpResponse.OK;
             }
             return response;
+        }
+
+        public override void Save(Stream stream, ReceivedHeader receivedHeader)
+        {
+            var messageStore = this.MessageStore.Save(stream, receivedHeader);
+            var recipients = this.SmtpCommands
+                .Where(x => x.CommandType == SmtpCommandType.RCPT)
+                .SelectMany(r => r.Arguments)
+                .Select(a => Regex.Match(a, @"<(.*)>").Groups[1].Value)
+                    .ToList();
+
+            var agent = DeliveryAgent.Create(messageStore.FilePath, recipients, messageStore.MessageId);
         }
     }
 }

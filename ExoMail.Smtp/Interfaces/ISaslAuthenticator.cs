@@ -19,6 +19,6 @@ namespace ExoMail.Smtp.Interfaces
         int Step { get; set; }
         string GetChallenge();
         void ParseResponse(string response);
-        ISaslAuthenticator Create(IUserStore userStore);
+        ISaslAuthenticator Create();
     }
 }

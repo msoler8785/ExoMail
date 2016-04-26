@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\UserManager.cs" />
     <Compile Include="Enums\ServerType.cs" />
     <Compile Include="Enums\SmtpCommandType.cs" />
     <Compile Include="Exceptions\SaslException.cs" />
@@ -79,15 +80,13 @@
     <Compile Include="Interfaces\IAuthorizedDomain.cs" />
     <Compile Include="Interfaces\IAuthorizedNetwork.cs" />
     <Compile Include="Interfaces\IMessageStore.cs" />
-    <Compile Include="Interfaces\IMessageValidator.cs" />
-    <Compile Include="Interfaces\IRecipientMailbox.cs" />
     <Compile Include="Interfaces\ISessionValidator.cs" />
     <Compile Include="Interfaces\ISaslAuthenticator.cs" />
     <Compile Include="Interfaces\IUserIdentity.cs" />
     <Compile Include="Interfaces\IUserStore.cs" />
+    <Compile Include="Models\DeliveryAgent.cs" />
     <Compile Include="Models\EmailValidator.cs" />
     <Compile Include="Interfaces\IServerConfig.cs" />
-    <Compile Include="Interfaces\ISessionConfig.cs" />
     <Compile Include="Models\ReceivedHeader.cs" />
     <Compile Include="Network\DnsQuery.cs" />
     <Compile Include="Network\SmtpRelaySession.cs" />

@@ -1,10 +1,9 @@
-﻿using ExoMail.Smtp.Exceptions;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Utilities;
 using System;
 using System.Text;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace ExoMail.Smtp.Server.Authentication
 {
@@ -17,7 +16,7 @@ namespace ExoMail.Smtp.Server.Authentication
         {
             get
             {
-                return UserStore.IsUserAuthenticated(this.UserName, this.Password);
+                return UserManager.GetUserManager.IsUserAuthenticated(this.UserName, this.Password);
             }
         }
 
@@ -25,8 +24,8 @@ namespace ExoMail.Smtp.Server.Authentication
         public bool IsCompleted { get; private set; }
         public bool IsInitiator { get; private set; }
         public int Step { get; set; }
-        private IUserStore UserStore { get; set; }
 
+        //private List<IUserStore> UserStores { get; set; }
         public LoginSaslAuthenticator()
         {
             this.SaslMechanism = "LOGIN";
@@ -36,12 +35,10 @@ namespace ExoMail.Smtp.Server.Authentication
             //this.UserStore = userStore;
         }
 
-        public ISaslAuthenticator Create(IUserStore userStore)
+        public ISaslAuthenticator Create()
         {
-            return new LoginSaslAuthenticator() { UserStore = userStore };
+            return new LoginSaslAuthenticator();
         }
-
-
 
         public string GetChallenge()
         {

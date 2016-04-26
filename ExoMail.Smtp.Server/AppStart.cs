@@ -1,4 +1,5 @@
-﻿using ExoMail.Smtp.Interfaces;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Network;
 using ExoMail.Smtp.Server.Authentication;
 using ExoMail.Smtp.Server.IO;
@@ -17,6 +18,7 @@ namespace ExoMail.Smtp.Server
     {
         public static List<SmtpServerFactory> InitializeServers()
         {
+            var queuePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Inbound Queue");
             var smtpServers = new List<SmtpServerFactory>();
 
             //Load the sample certificate
@@ -31,23 +33,30 @@ namespace ExoMail.Smtp.Server
             //    .WithFolderPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Inbound Queue"));
 
             //Load the user store
+            // TODO: Implement Userstore as a singleton instance.
             var userStore = JsonUserStore.CreateStore("example.net");
+
             var authenticators = new List<ISaslAuthenticator>();
             authenticators.Add(new LoginSaslAuthenticator());
+
+            // Initialize the UserManager
+            UserManager.GetUserManager.AddUserStore(userStore);
+
+            // Initialize the queue processor
+            InboundQueueProcessor.Create(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, queuePath));
 
             foreach (var config in configs)
             {
                 config.X509Certificate2 = cert;
                 config.MaxMessageSize = int.MaxValue;
-                var folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, string.Format("{0} Queue", config.ServerType.ToString()));
 
                 var smtpServer = new SmtpServerFactory()
                 {
                     ServerConfig = config,
-                    MessageStore = FileMessageStore.Create.WithFolderPath(folderPath),
+                    MessageStore = FileMessageStore.Create.WithFolderPath(queuePath),
                     UserAuthenticators = authenticators,
-                    UserStore = userStore
                 };
+                //smtpServer.UserStores.AddRange(userStores);
 
                 smtpServers.Add(smtpServer);
             }
