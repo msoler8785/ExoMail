@@ -1,6 +1,7 @@
 ﻿using ExoMail.Smtp.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ExoMail.Smtp.Server.Authentication
 {
@@ -15,6 +16,8 @@ namespace ExoMail.Smtp.Server.Authentication
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string MailboxPath { get; set; }
 
         public JsonUserIdentity()
         {

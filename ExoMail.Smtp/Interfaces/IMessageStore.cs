@@ -1,4 +1,5 @@
 ﻿using ExoMail.Smtp.Models;
+using ExoMail.Smtp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,8 +11,11 @@ namespace ExoMail.Smtp.Interfaces
 {
     public interface IMessageStore
     {
-        //SessionMessage SessionMessage { get; set; }
-
-        void Save(Stream stream, ReceivedHeader receiveHeader);
+        string FolderPath { get; set; }
+        string FileName { get; set; }
+        string FilePath { get; }
+        string MessageId { get; set; }
+        IMessageStore Save(Stream stream, ReceivedHeader receiveHeader);
+        IMessageStore WithFolderPath(string directory);
     }
 }

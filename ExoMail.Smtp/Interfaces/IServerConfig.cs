@@ -15,11 +15,8 @@ namespace ExoMail.Smtp.Interfaces
         string ServerId { get; set; }
         IPAddress ServerIpBinding { get; set; }
         int SessionTimeout { get; set; }
-        //List<ISessionValidator> SessionValidators { get; set; }
-        //List<IMessageValidator> MessageValidators { get; set; }
         X509Certificate2 X509Certificate2 { get; set; }
         ServerType ServerType { get; set; }
 
-        //IMessageStore MessageStore { get; set; }
     }
 }

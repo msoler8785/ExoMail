@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ExoMail.Smtp.Interfaces
 {
     public interface IUserStore
     {
-        List<IUserIdentity> Identities { get; set; }
-        //string Realm { get; set; }
+        string Domain { get; set; }
         bool IsUserAuthenticated(string userName, string password);
         bool IsValidRecipient(string emailAddress);
+        List<IUserIdentity> GetIdentities();
+        void AddUser(IUserIdentity userIdentity);
     }
 }

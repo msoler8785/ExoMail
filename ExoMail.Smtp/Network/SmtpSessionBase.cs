@@ -65,10 +65,10 @@ namespace ExoMail.Smtp.Network
         /// </summary>
         public List<IAuthorizedDomain> AuthorizedDomains { get; set; }
 
-        /// <summary>
-        /// A list of recipients for this session.
-        /// </summary>
-        public List<MailRecipientCollection> MailRecipients { get; set; }
+        ///// <summary>
+        ///// A list of recipients for this session.
+        ///// </summary>
+        //public List<LocalRecipientCollection> MailRecipients { get; set; }
 
         /// <summary>
         /// Returns true if this session communicates with the client over
@@ -145,10 +145,10 @@ namespace ExoMail.Smtp.Network
         /// </summary>
         public List<ISaslAuthenticator> UserAuthenticators { get; set; }
 
-        /// <summary>
-        /// A list of users and mailboxes on this server.
-        /// </summary>
-        public IUserStore UserStore { get; set; }
+        ///// <summary>
+        ///// A list of users and mailboxes on this server.
+        ///// </summary>
+        //public List<IUserStore> UserStores { get; set; }
 
         /// <summary>
         /// A list of SASL mechanisms that can be used to authenticate users.
@@ -191,6 +191,7 @@ namespace ExoMail.Smtp.Network
             {
                 this.Token = tokenSource.Token;
             }
+            //this.UserStores = new List<IUserStore>();
             this.Token.Register(() => StopSession());
             this.TcpClient = tcpClient;
             this.SmtpCommands = new List<SmtpCommand>();
@@ -500,7 +501,7 @@ namespace ExoMail.Smtp.Network
             ISaslAuthenticator authenticator = this.UserAuthenticators
                 .Where(x => x.SaslMechanism == saslMechanism.ToUpper())
                 .FirstOrDefault()
-                .Create(this.UserStore);
+                .Create();
 
             //If there are no authenticators for the requested type return ArgumentUnrecognized to the client.
             if (authenticator == null)
@@ -757,13 +758,14 @@ namespace ExoMail.Smtp.Network
                     RemoteEndPoint = this.RemoteEndPoint,
                     ServerHostName = this.ServerConfig.HostName,
                 };
-
-                this.MessageStore.Save(memoryStream, receivedHeader);
+                Save(memoryStream, receivedHeader);
             }
-
-            var recipientCollections = new MailRecipientCollection().GetRecipientCollections(this.SmtpCommands);
-
             return SmtpResponse.Queued;
+        }
+
+        public virtual void Save(Stream stream, ReceivedHeader receivedHeader)
+        {
+            this.MessageStore.Save(stream, receivedHeader);
         }
     }
 }

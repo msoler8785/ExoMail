@@ -10,8 +10,10 @@ namespace ExoMail.Smtp.Server.IO
     /// </summary>
     public class FileMessageStore : IMessageStore
     {
-        private string FolderPath { get; set; }
-        private string FileName { get; set; }
+        public string FolderPath { get; set; }
+        public string FileName { get; set; }
+        public string MessageId { get; set; }
+        public string FilePath { get { return Path.Combine(this.FolderPath, this.FileName); } }
 
         /// <summary>
         /// Create a new FileMessageStore instance.
@@ -27,7 +29,7 @@ namespace ExoMail.Smtp.Server.IO
         /// </summary>
         /// <param name="path">An absolute folder path.</param>
         /// <returns>this</returns>
-        public FileMessageStore WithFolderPath(string path)
+        public IMessageStore WithFolderPath(string path)
         {
             this.FolderPath = path;
             if (!Directory.Exists(path))
@@ -51,10 +53,11 @@ namespace ExoMail.Smtp.Server.IO
         /// <summary>
         /// Saves the message to the specified folder.
         /// </summary>
-        public void Save(Stream stream, ReceivedHeader receivedHeader)
+        public IMessageStore Save(Stream stream, ReceivedHeader receivedHeader)
         {
+            this.MessageId = Guid.NewGuid().ToString();
             this.FolderPath = this.FolderPath ?? AppDomain.CurrentDomain.BaseDirectory;
-            this.FileName = Guid.NewGuid().ToString().ToUpper() + ".eml";
+            this.FileName = this.MessageId + ".eml";
 
             string path = Path.Combine(this.FolderPath, this.FileName);
 
@@ -63,6 +66,7 @@ namespace ExoMail.Smtp.Server.IO
                 receivedHeader.GetReceivedHeaders().CopyTo(fileStream);
                 stream.CopyTo(fileStream);
             }
+            return this;
         }
     }
 }
