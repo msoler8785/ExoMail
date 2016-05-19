@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ExoMail.Smtp")]
+[assembly: AssemblyTitle("ExoMail.Example")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ExoMail.Smtp")]
+[assembly: AssemblyProduct("ExoMail.Example")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("57003b4d-643e-4260-a66f-90593c81c074")]
+[assembly: Guid("4073f27c-cbde-447a-9a97-dfa5a088f81e")]
 
 // Version information for an assembly consists of the following four values:
 //

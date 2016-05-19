@@ -16,5 +16,11 @@ namespace ExoMail.Smtp.Interfaces
         string FirstName { get; set; }
         string LastName { get; set; }
         string MailboxPath { get; }
+        long MaxMessageSize { get; }
+        long MaxMailboxSize { get; }
+        long MailboxSize { get; }
+        long MessageCount { get; }
+        bool IsActive { get; }
+        List<string> Folders { get; }
     }
 }

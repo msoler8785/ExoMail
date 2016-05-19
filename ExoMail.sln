@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp", "ExoMail.Smtp\ExoMail.Smtp.csproj", "{2760123B-9CEB-406F-92E0-92E58766B524}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp", "ExoMail.Smtp\ExoMail.Smtp.csproj", "{57003B4D-643E-4260-A66F-90593C81C074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp.Server", "ExoMail.Smtp.Server\ExoMail.Smtp.Server.csproj", "{BC906053-E4DE-44CC-882C-0A7F32FF1661}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Example", "ExoMail.Example\ExoMail.Example.csproj", "{4073F27C-CBDE-447A-9A97-DFA5A088F81E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.SmtpTests", "ExoMail.SmtpTests\ExoMail.SmtpTests.csproj", "{FC16EF9F-FF47-4B21-A277-469AE49BA72A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2760123B-9CEB-406F-92E0-92E58766B524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2760123B-9CEB-406F-92E0-92E58766B524}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2760123B-9CEB-406F-92E0-92E58766B524}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2760123B-9CEB-406F-92E0-92E58766B524}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC906053-E4DE-44CC-882C-0A7F32FF1661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC906053-E4DE-44CC-882C-0A7F32FF1661}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC906053-E4DE-44CC-882C-0A7F32FF1661}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC906053-E4DE-44CC-882C-0A7F32FF1661}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57003B4D-643E-4260-A66F-90593C81C074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57003B4D-643E-4260-A66F-90593C81C074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57003B4D-643E-4260-A66F-90593C81C074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57003B4D-643E-4260-A66F-90593C81C074}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4073F27C-CBDE-447A-9A97-DFA5A088F81E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4073F27C-CBDE-447A-9A97-DFA5A088F81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4073F27C-CBDE-447A-9A97-DFA5A088F81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4073F27C-CBDE-447A-9A97-DFA5A088F81E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

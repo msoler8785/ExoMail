@@ -7,16 +7,16 @@ namespace ExoMail.Smtp.Interfaces
 {
     public interface IServerConfig
     {
-        string HostName { get; set; }
+        string HostName { get; }
+        bool IsAuthRequired { get; }
         bool IsEncryptionRequired { get; }
-        bool IsTls { get; set; }
-        int MaxMessageSize { get; set; }
-        int Port { get; set; }
-        string ServerId { get; set; }
-        IPAddress ServerIpBinding { get; set; }
-        int SessionTimeout { get; set; }
-        X509Certificate2 X509Certificate2 { get; set; }
-        ServerType ServerType { get; set; }
-
+        bool IsStartTlsSupported { get; }
+        bool IsTls { get; }
+        int MaxMessageSize { get; }
+        int Port { get; }
+        string ServerId { get; }
+        IPAddress ServerIpBinding { get;  }
+        int SessionTimeout { get; }
+        X509Certificate2 X509Certificate2 { get; }
     }
 }
