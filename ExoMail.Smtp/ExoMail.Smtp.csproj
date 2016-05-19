@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2760123B-9CEB-406F-92E0-92E58766B524}</ProjectGuid>
+    <ProjectGuid>{57003B4D-643E-4260-A66F-90593C81C074}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ExoMail.Smtp</RootNamespace>
     <AssemblyName>ExoMail.Smtp</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,80 +34,73 @@
       <HintPath>..\packages\ARSoft.Tools.Net.2.2.4\lib\net45\ARSoft.Tools.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BouncyCastle, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeKit.1.2.21\lib\net45\BouncyCastle.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MailKit, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
-      <HintPath>..\packages\MailKit.1.2.19\lib\net45\MailKit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.1.0.0\lib\net45\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MimeKit, Version=1.2.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>..\packages\MimeKit.1.2.21\lib\net45\MimeKit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.IPNetwork, Version=2.0.3.0, Culture=neutral, PublicKeyToken=764160545cf0d618, processorArchitecture=MSIL">
-      <HintPath>..\packages\IPNetwork2.2.0.3\lib\net40\System.Net.IPNetwork.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\LoginSaslMechanism.cs" />
+    <Compile Include="Authentication\SaslMechanismBase.cs" />
     <Compile Include="Authentication\UserManager.cs" />
-    <Compile Include="Enums\ServerType.cs" />
+    <Compile Include="Enums\SessionState.cs" />
     <Compile Include="Enums\SmtpCommandType.cs" />
     <Compile Include="Exceptions\SaslException.cs" />
+    <Compile Include="Exceptions\SmtpCommandException.cs" />
     <Compile Include="Exceptions\SmtpException.cs" />
-    <Compile Include="Interfaces\IAuthorizedDomain.cs" />
+    <Compile Include="Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="Interfaces\IAuthorizedNetwork.cs" />
     <Compile Include="Interfaces\IMessageStore.cs" />
+    <Compile Include="Interfaces\ISaslMechanism.cs" />
+    <Compile Include="Interfaces\IServerConfig.cs" />
+    <Compile Include="Interfaces\ISessionConfig.cs" />
     <Compile Include="Interfaces\ISessionValidator.cs" />
-    <Compile Include="Interfaces\ISaslAuthenticator.cs" />
     <Compile Include="Interfaces\IUserIdentity.cs" />
     <Compile Include="Interfaces\IUserStore.cs" />
-    <Compile Include="Models\DeliveryAgent.cs" />
-    <Compile Include="Models\EmailValidator.cs" />
-    <Compile Include="Interfaces\IServerConfig.cs" />
-    <Compile Include="Models\ReceivedHeader.cs" />
-    <Compile Include="Network\DnsQuery.cs" />
-    <Compile Include="Network\SmtpRelaySession.cs" />
-    <Compile Include="Network\SmtpSessionBase.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Models\EmailAddress.cs" />
-    <Compile Include="Models\SmtpCommand.cs" />
-    <Compile Include="Exceptions\SmtpCommandException.cs" />
-    <Compile Include="Tasks\SmtpSessionManager.cs" />
-    <Compile Include="Utilities\SmtpResponse.cs" />
-    <Compile Include="Network\SmtpServerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Network\SmtpDeliverySession.cs" />
+    <Compile Include="Protocol\SmtpReceivedHeader.cs" />
+    <Compile Include="Protocol\SmtpAuthCommand.cs" />
+    <Compile Include="Protocol\SmtpCommandBase.cs" />
+    <Compile Include="Protocol\SmtpCommandFactory.cs" />
+    <Compile Include="Protocol\SmtpDataCommand.cs" />
+    <Compile Include="Protocol\SmtpEhloCommand.cs" />
+    <Compile Include="Protocol\SmtpHeloCommand.cs" />
+    <Compile Include="Protocol\SmtpHelpCommand.cs" />
+    <Compile Include="Protocol\SmtpMailCommand.cs" />
+    <Compile Include="Protocol\SmtpQuitCommand.cs" />
+    <Compile Include="Protocol\SmtpRcptCommand.cs" />
+    <Compile Include="Protocol\SmtpRsetCommand.cs" />
+    <Compile Include="Protocol\SmtpSession.cs" />
+    <Compile Include="Protocol\SmtpNoopCommand.cs" />
+    <Compile Include="Protocol\SmtpSessionNetwork.cs" />
+    <Compile Include="Protocol\SmtpStartTlsCommand.cs" />
+    <Compile Include="Protocol\SmtpTurnCommand.cs" />
+    <Compile Include="Protocol\SmtpUnknownCommand.cs" />
+    <Compile Include="Protocol\SmtpVrfyCommand.cs" />
+    <Compile Include="Utilities\SmtpResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="localhost.pfx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Configuration\" />
+    <Folder Include="IO\" />
+    <Folder Include="Network\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

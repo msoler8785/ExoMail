@@ -70,8 +70,10 @@ namespace ExoMail.Smtp.Authentication
         /// <returns>IUserIdentity</returns>
         public IUserIdentity FindByEmailAddress(string emailAddress)
         {
-            return this._identities
-                .FirstOrDefault(y => y.EmailAddress.ToUpper() == emailAddress.ToUpper() || y.AliasAddresses.Any(a => a.ToUpper() == emailAddress.ToUpper()));
+            emailAddress = emailAddress.ToUpper();
+            return this._identities.FirstOrDefault( x => 
+                x.EmailAddress.ToUpper() == emailAddress || 
+                x.AliasAddresses.Any(alias => alias.ToUpper() == emailAddress));
         }
 
         /// <summary>
