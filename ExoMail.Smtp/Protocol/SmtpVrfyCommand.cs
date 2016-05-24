@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    internal class SmtpVrfyCommand : SmtpCommandBase
+    public class SmtpVrfyCommand : SmtpCommandBase
     {
         public SmtpVrfyCommand(string command, List<string> arguments)
         {

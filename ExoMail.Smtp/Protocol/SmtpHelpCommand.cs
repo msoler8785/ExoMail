@@ -1,12 +1,11 @@
-﻿using ExoMail.Smtp.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    internal class SmtpHelpCommand : SmtpCommandBase
+    public class SmtpHelpCommand : SmtpCommandBase
     {
         public SmtpHelpCommand(string command, List<string> arguments)
         {

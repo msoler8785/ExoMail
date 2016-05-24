@@ -1,15 +1,11 @@
 ﻿using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Utilities;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Security;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    internal class SmtpStartTlsCommand : SmtpCommandBase
+    public class SmtpStartTlsCommand : SmtpCommandBase
     {
         public SmtpStartTlsCommand(string command, List<string> arguments)
         {
@@ -36,10 +32,12 @@ namespace ExoMail.Smtp.Protocol
                     case SessionState.EhloNeeded:
                         response = SmtpResponse.SendHelloFirst;
                         break;
+
                     case SessionState.StartTlsNeeded:
                         this.IsValid = true;
                         response = SmtpResponse.StartTls;
                         break;
+
                     default:
                         response = SmtpResponse.BadCommand;
                         break;
@@ -62,6 +60,7 @@ namespace ExoMail.Smtp.Protocol
             if (this.IsValid)
             {
                 await this.SmtpSession.StartTlsAsync();
+                this.SmtpSession.SessionState = SessionState.EhloNeeded;
                 this.SmtpSession.SmtpCommands.Add(this);
             }
         }

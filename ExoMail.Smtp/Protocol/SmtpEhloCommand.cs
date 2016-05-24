@@ -1,12 +1,9 @@
 ﻿using ARSoft.Tools.Net;
-using ARSoft.Tools.Net.Dns;
 using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Extensions;
 using ExoMail.Smtp.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +32,7 @@ namespace ExoMail.Smtp.Protocol
             if (this.ArgumentsValid)
             {
                 DomainName domainName;
-                var isValidDomain = DomainName.TryParse(this.Arguments[0], out domainName);        
+                var isValidDomain = DomainName.TryParse(this.Arguments[0], out domainName);
 
                 if (isValidDomain)
                 {

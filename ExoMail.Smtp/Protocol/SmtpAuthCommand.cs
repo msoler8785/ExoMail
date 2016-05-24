@@ -1,5 +1,4 @@
 ﻿using ExoMail.Smtp.Enums;
-using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Utilities;
 using System;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace ExoMail.Smtp.Protocol
         {
             get
             {
-                return this.Arguments.Count > 1;
+                return this.Arguments.Count > 0;
             }
         }
 
@@ -38,15 +37,19 @@ namespace ExoMail.Smtp.Protocol
                 {
                     switch (this.SmtpSession.SessionState)
                     {
-                        case Enums.SessionState.EhloNeeded:
+                        case SessionState.EhloNeeded:
                             response = SmtpResponse.SendHelloFirst;
                             break;
-                        case Enums.SessionState.StartTlsNeeded:
+
+                        case SessionState.StartTlsNeeded:
                             response = SmtpResponse.StartTlsFirst;
                             break;
-                        case Enums.SessionState.AuthNeeded:
+
+                        case SessionState.AuthNeeded:
+                        case SessionState.MailNeeded:
                             response = await GetAuthResponse();
                             break;
+
                         default:
                             response = SmtpResponse.BadCommand;
                             break;

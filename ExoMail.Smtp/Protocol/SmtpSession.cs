@@ -32,11 +32,25 @@ namespace ExoMail.Smtp.Protocol
         /// <see cref="https://tools.ietf.org/html/rfc2821#section-4.2.5"/>
         /// </summary>
         public const string TERMINATOR = "\r\n.\r\n";
+
         public SmtpSessionNetwork SessionNetwork { get; set; }
         public List<SmtpCommandBase> SmtpCommands { get; set; }
         public IServerConfig ServerConfig { get; set; }
         public List<ISaslMechanism> SaslMechanisms { get; set; }
-        public bool IsEncrypted { get; set; }
+
+        public bool IsEncrypted
+        {
+            get
+            {
+                bool isEncrypted =
+                    this.SessionNetwork.SslStream == null ?
+                    false :
+                    this.SessionNetwork.SslStream.IsEncrypted;
+
+                return isEncrypted;
+            }
+        }
+
         public StreamReader Reader { get; internal set; }
         public StreamWriter Writer { get; internal set; }
 
@@ -45,6 +59,7 @@ namespace ExoMail.Smtp.Protocol
         /// if it is idle for too long.
         /// </summary>
         public System.Timers.Timer Timer { get; set; }
+
         public SessionState SessionState { get; set; }
         public CancellationTokenSource TokenSource { get; private set; }
         public CancellationToken Token { get; private set; }
@@ -58,6 +73,7 @@ namespace ExoMail.Smtp.Protocol
             this.Token = this.TokenSource.Token;
             this.SmtpCommands = new List<SmtpCommandBase>();
             this.SessionState = SessionState.EhloNeeded;
+            this.SaslMechanisms = new List<ISaslMechanism>();
         }
 
         /// <summary>
@@ -87,7 +103,6 @@ namespace ExoMail.Smtp.Protocol
 
         public async Task BeginSession(TcpClient tcpClient)
         {
-
             await InitializeStreams(tcpClient);
 
             try
@@ -162,19 +177,19 @@ namespace ExoMail.Smtp.Protocol
             await this.SessionNetwork.SslStream.AuthenticateAsServerAsync(
                 this.ServerConfig.X509Certificate2, false, protocols, false);
 
-            this.Reader.Close();
-            this.Writer.Close();
+            //this.Reader.Close();
+            //this.Writer.Close();
 
             this.Reader = new StreamReader(this.SessionNetwork.SslStream);
             this.Writer = new StreamWriter(this.SessionNetwork.SslStream)
             {
-                AutoFlush = true, NewLine = "\r\n"
+                AutoFlush = true,
+                NewLine = "\r\n"
             };
         }
 
         private void ReceiveData()
         {
-
         }
 
         public void Reset()
@@ -187,5 +202,4 @@ namespace ExoMail.Smtp.Protocol
             this.TokenSource.Cancel();
         }
     }
-
 }
