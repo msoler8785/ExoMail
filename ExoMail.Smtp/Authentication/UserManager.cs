@@ -71,9 +71,9 @@ namespace ExoMail.Smtp.Authentication
         public IUserIdentity FindByEmailAddress(string emailAddress)
         {
             emailAddress = emailAddress.ToUpper();
-            return this._identities.FirstOrDefault( x => 
-                x.EmailAddress.ToUpper() == emailAddress || 
-                x.AliasAddresses.Any(alias => alias.ToUpper() == emailAddress));
+            return this._identities.FirstOrDefault(x =>
+               x.EmailAddress.ToUpper() == emailAddress ||
+               x.AliasAddresses.Any(alias => alias.ToUpper() == emailAddress));
         }
 
         /// <summary>

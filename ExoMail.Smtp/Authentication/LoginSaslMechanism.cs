@@ -9,7 +9,6 @@ namespace ExoMail.Smtp.Server.Authentication
 {
     public class LoginSaslMechanism : SaslMechanismBase, ISaslMechanism
     {
-
         public bool IsAuthenticated
         {
             get
@@ -19,7 +18,7 @@ namespace ExoMail.Smtp.Server.Authentication
         }
 
         public LoginSaslMechanism()
-            :base()
+            : base()
         {
             base.SaslMechanism = "LOGIN";
             base.Step = 0;
