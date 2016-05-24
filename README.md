@@ -1,26 +1,40 @@
 # ExoMail
 An SMTP server library written in C#
 
-This is my first project involving some serious network code. The ultimate goal is to create an extensible SMTP library
-that is RFC compliant and can be used in multiple other projects I would like to start making down the road.  
+## Synopsis
 
-Some ideas for this library that I am considering during development of this project are a spam filtering gateway, an SMTP load 
-balancing proxy, a full email server solution, email archiving, and Possibly more.
+This is my first project involving some serious network code and trying to implement RFC guidelines. The ultimate goal is to create an extensible SMTP library that is RFC compliant and can be utilized in other projects.  
 
-In its current state it can receive messages from another SMTP server or client and store them in file MessageStore. The example project shows some of the currently implemented features and listens on port 2525, 465, and 587 for SMTP connections.
+## Motivation
 
-Currently implemented:
-    Multiple server instances listening on different ports.
-    JSON based server configuration
-    Commands: HELO/EHLO, MAIL, RCPT, STARTTLS, HELP, RSET, QUIT, DATA
-    SSL/TLS Connections
-    STARTTLS Connections
+As a systems administrator I wanted to learn more about how SMTP works I also wanted to learn more about network code. Eventually I want to integrate this into other projects in the future such as a spam filtering gateway, an SMTP load balancing proxy, a full email server solution, email archiving, and Possibly more.
 
-TODO: 
-    Authentication
-    Sender Validation
-    Recipient Validation
-    Remote network validation, ie. DNSRBL Integration, Authorized Relay networks
-    Extend SMTP Server types, ie. gateway mode, proxy mode, relay mode, delivery mode
-    Error event handeling/logging
-    Much more
+## Current Features
+
+TLS/STARTTLS Support  
+Async methods  
+LOGIN Authentication  
+
+## TODO
+
+Build a more complete example  
+More Documentation  
+Network Validation Interfaces  
+Sender Validation Interfaces  
+Message Validation Interfaces ie. DKIM, SPF, Mime Validation.  
+
+## Contributors
+
+I am not really looking for any contributors at this point in the project but you are welcome to make suggestions or submit pull requests.
+
+## Special Thanks
+
+- Alex Reinert - [ARSoft.Tools.Net](http://arsofttoolsnet.codeplex.com/)  
+- Authors of [Microsoft.IO.RecyclableMemoryStream] (https://github.com/Microsoft/Microsoft.IO.RecyclableMemoryStream)
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2016 Matthew C. Soler  
+<msoler.exorealms.com>
