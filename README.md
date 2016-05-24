@@ -19,9 +19,9 @@ LOGIN Authentication
 
 Build a more complete example  
 More Documentation  
-Network Validation Interfaces
-Sender Validation Interfaces
-Message Validation Interfaces ie. DKIM, SPF, Mime Validation.
+Network Validation Interfaces  
+Sender Validation Interfaces  
+Message Validation Interfaces ie. DKIM, SPF, Mime Validation.  
 
 ## Contributors
 
