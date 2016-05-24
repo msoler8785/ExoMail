@@ -1,11 +1,10 @@
 ﻿using ExoMail.Smtp.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    internal class SmtpNoopCommand : SmtpCommandBase
+    public class SmtpNoopCommand : SmtpCommandBase
     {
         public SmtpNoopCommand(string command, List<string> arguments)
         {
@@ -20,6 +19,7 @@ namespace ExoMail.Smtp.Protocol
                 return this.Arguments.Count <= 1;
             }
         }
+
         public override async Task<string> GetResponseAsync()
         {
             return await Task.Run(() => GetResponse());
