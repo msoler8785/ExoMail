@@ -36,7 +36,7 @@ namespace ExoMail.Example
                             .WithHostname("exomail01.example.com")
                             .WithPort(2525)
                             .WithServerId("FC30BD4D-1C93-4FBF-BF8F-9788059AF0DC")
-                            .WithSessionTimeout(TimeSpan.FromMinutes(5).Milliseconds)
+                            .WithSessionTimeout( 5 * 60 * 1000 ) // 5 minutes
                             .WithX509Certificate(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "localhost.pfx"), null)
                             .WithEncryptionRequired()
                             .WithStartTlsSupported();
