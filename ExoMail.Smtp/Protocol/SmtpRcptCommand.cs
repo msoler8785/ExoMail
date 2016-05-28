@@ -70,7 +70,7 @@ namespace ExoMail.Smtp.Protocol
             var regex = Regex.Match(this.Arguments[0], @"TO:<(.*)>", RegexOptions.IgnoreCase);
             var validFormat = regex.Success;
             var recipient = regex.Groups[1].Value;
-
+            this.SmtpSession.MessageEnvelope.AddRecipient(recipient);
 
             if (validFormat)
             {
@@ -88,7 +88,7 @@ namespace ExoMail.Smtp.Protocol
             }
             else
             {
-                response = SmtpResponse.InvalidSenderName;
+                response = SmtpResponse.InvalidRecipient;
             }
             return response;
         }

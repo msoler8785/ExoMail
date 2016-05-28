@@ -39,6 +39,8 @@ namespace ExoMail.Smtp.Protocol
                     this.SmtpSession.Reset();
                     this.IsValid = true;
                     this.SmtpSession.SessionNetwork.RemoteDomainName = domainName;
+                    this.SmtpSession.MessageEnvelope
+                           .SetSenderDomain(domainName.ToString().TrimEnd('.'));
 
                     if (this.SmtpSession.ServerConfig.IsEncryptionRequired && !this.SmtpSession.IsEncrypted)
                     {

@@ -75,7 +75,7 @@ namespace ExoMail.Example
 
     public class FileMessageStore : IMessageStore
     {
-        public async Task Save(MemoryStream memoryStream, SmtpReceivedHeader receivedHeader)
+        public async Task Save(MemoryStream memoryStream, SmtpReceivedHeader receivedHeader, IMessageEnvelope messageEnvelope)
         {
             var directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Messages");
             var path = Path.Combine(directory, Guid.NewGuid().ToString() + ".eml");
@@ -92,6 +92,8 @@ namespace ExoMail.Example
                 await headers.CopyToAsync(stream);
                 await memoryStream.CopyToAsync(stream);
             }
+
+            messageEnvelope.SaveEnvelope(path);
         }
     }
 

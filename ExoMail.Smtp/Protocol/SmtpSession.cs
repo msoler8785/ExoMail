@@ -68,6 +68,8 @@ namespace ExoMail.Smtp.Protocol
         public IUserStore UserStore { get; set; }
         public bool IsAuthenticated { get; internal set; }
 
+        public IMessageEnvelope MessageEnvelope { get; set; }
+
         public SmtpSession()
         {
             this.TokenSource = new CancellationTokenSource();
@@ -75,6 +77,7 @@ namespace ExoMail.Smtp.Protocol
             this.SmtpCommands = new List<SmtpCommandBase>();
             this.SessionState = SessionState.EhloNeeded;
             this.SaslMechanisms = new List<ISaslMechanism>();
+            this.MessageEnvelope = new MessageEnvelope();
         }
 
         /// <summary>
