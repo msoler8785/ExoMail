@@ -3,6 +3,7 @@ using ExoMail.Smtp.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
@@ -43,16 +44,7 @@ namespace ExoMail.Smtp.Protocol
                         response = SmtpResponse.StartTlsFirst;
                         break;
                     case SessionState.MailNeeded:
-                        if (this.Arguments[0].ToUpper().Contains("FROM:"))
-                        {
-                            this.SmtpSession.SmtpCommands.Add(this);
-                            this.SmtpSession.SessionState = SessionState.RcptNeeded;
-                            response = SmtpResponse.SenderOK;
-                        }
-                        else
-                        {
-                            response = SmtpResponse.InvalidSenderName;
-                        }
+                        response = GetMailResponse();
                         break;
                     case SessionState.RcptNeeded:
                         response = SmtpResponse.SenderAlreadySpecified;
@@ -70,6 +62,29 @@ namespace ExoMail.Smtp.Protocol
                 response = SmtpResponse.ArgumentUnrecognized;
             }
 
+            return response;
+        }
+
+        private string GetMailResponse()
+        {
+            string response;
+            var regex = Regex.Match(this.Arguments[0], @"FROM:<(.*)>", RegexOptions.IgnoreCase);
+            var validFormat = regex.Success;
+            var sender = regex.Groups[1].Value;
+            this.SmtpSession.MessageEnvelope.SetSenderEmail(sender);
+
+            if (validFormat)
+            {
+                // TODO: Implement sender validation logic here.
+                this.IsValid = true;
+                this.SmtpSession.SessionState = SessionState.DataNeeded;
+                this.SmtpSession.SmtpCommands.Add(this);
+                response = SmtpResponse.RecipientOK;
+            }
+            else
+            {
+                response = SmtpResponse.InvalidSenderName;
+            }
             return response;
         }
     }

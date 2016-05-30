@@ -1,4 +1,5 @@
-﻿using ExoMail.Smtp.Enums;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Utilities;
 using System;
 using System.Collections.Generic;
@@ -70,16 +71,24 @@ namespace ExoMail.Smtp.Protocol
             var regex = Regex.Match(this.Arguments[0], @"TO:<(.*)>", RegexOptions.IgnoreCase);
             var validFormat = regex.Success;
             var recipient = regex.Groups[1].Value;
-
+            this.SmtpSession.MessageEnvelope.AddRecipient(recipient);
 
             if (validFormat)
             {
-                if (this.SmtpSession.UserStore.IsValidRecipient(recipient))
+                if (UserManager.GetUserManager.IsValidRecipient(recipient))
                 {
-                    this.IsValid = true;
-                    this.SmtpSession.SessionState = SessionState.DataNeeded;
-                    this.SmtpSession.SmtpCommands.Add(this);
-                    response = SmtpResponse.RecipientOK;
+                    response = SetValidRecipient();
+                }
+                else if (this.SmtpSession.ServerConfig.IsAuthRelayAllowed)
+                {
+                    if (this.SmtpSession.IsAuthenticated)
+                    {
+                        response = SetValidRecipient();
+                    }
+                    else
+                    {
+                        response = SmtpResponse.UnableToRelay;
+                    }
                 }
                 else
                 {
@@ -88,11 +97,20 @@ namespace ExoMail.Smtp.Protocol
             }
             else
             {
-                response = SmtpResponse.InvalidSenderName;
+                response = SmtpResponse.InvalidRecipient;
             }
             return response;
         }
 
+        private string SetValidRecipient()
+        {
+            string response;
+            this.IsValid = true;
+            this.SmtpSession.SessionState = SessionState.DataNeeded;
+            this.SmtpSession.SmtpCommands.Add(this);
+            response = SmtpResponse.RecipientOK;
+            return response;
+        }
     }
 
 

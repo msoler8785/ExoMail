@@ -17,6 +17,6 @@ namespace ExoMail.Smtp.Interfaces
         //string MessageId { get; set; }
         //IMessageStore Save(Stream stream);
         //IMessageStore WithFolderPath(string directory);
-        Task Save(MemoryStream memoryStream, SmtpReceivedHeader receivedHeader);
+        Task Save(MemoryStream memoryStream, SmtpReceivedHeader receivedHeader, IMessageEnvelope messageEnvelope);
     }
 }

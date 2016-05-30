@@ -152,7 +152,7 @@ namespace ExoMail.Smtp.Protocol
 
                 SmtpReceivedHeader receivedHeader = new SmtpReceivedHeader(this.SmtpSession);
 
-                await this.SmtpSession.MessageStore.Save(memoryStream, receivedHeader);
+                await this.SmtpSession.MessageStore.Save(memoryStream, receivedHeader, this.SmtpSession.MessageEnvelope);
             }
             ResetTransactionBuffer();
             return SmtpResponse.Queued;

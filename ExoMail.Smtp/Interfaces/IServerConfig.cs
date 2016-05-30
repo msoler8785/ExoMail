@@ -11,6 +11,7 @@ namespace ExoMail.Smtp.Interfaces
         bool IsAuthRequired { get; }
         bool IsEncryptionRequired { get; }
         bool IsStartTlsSupported { get; }
+        bool IsAuthRelayAllowed { get; }
         bool IsTls { get; }
         int MaxMessageSize { get; }
         int Port { get; }

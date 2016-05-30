@@ -11,6 +11,7 @@ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace ExoMail.Smtp.Protocol
 {
@@ -64,8 +65,10 @@ namespace ExoMail.Smtp.Protocol
         public CancellationTokenSource TokenSource { get; private set; }
         public CancellationToken Token { get; private set; }
         public IMessageStore MessageStore { get; set; }
-        public IUserStore UserStore { get; set; }
+        //public IUserStore UserStore { get; set; }
         public bool IsAuthenticated { get; internal set; }
+
+        public IMessageEnvelope MessageEnvelope { get; set; }
 
         public SmtpSession()
         {
@@ -74,6 +77,7 @@ namespace ExoMail.Smtp.Protocol
             this.SmtpCommands = new List<SmtpCommandBase>();
             this.SessionState = SessionState.EhloNeeded;
             this.SaslMechanisms = new List<ISaslMechanism>();
+            this.MessageEnvelope = new MessageEnvelope();
         }
 
         /// <summary>
@@ -104,6 +108,10 @@ namespace ExoMail.Smtp.Protocol
         public async Task BeginSession(TcpClient tcpClient)
         {
             await InitializeStreams(tcpClient);
+            this.Timer = new System.Timers.Timer((double)this.ServerConfig.SessionTimeout);
+            this.Timer.Elapsed += IdleTimeout;
+            this.Timer.AutoReset = false;
+            this.Timer.Enabled = true;
 
             try
             {
@@ -115,6 +123,11 @@ namespace ExoMail.Smtp.Protocol
                 {
                     this.Token.ThrowIfCancellationRequested();
                     var request = await ListenRequestAsync();
+
+                    // Reset the idle timer. 
+                    this.Timer.Stop();
+                    this.Timer.Start();
+
                     var smtpCommand = commandFactory.Parse(request);
                     var response = await smtpCommand.GetResponseAsync();
 
@@ -124,7 +137,7 @@ namespace ExoMail.Smtp.Protocol
             }
             catch (OperationCanceledException)
             {
-                await SendResponseAsync(SmtpResponse.Closing);
+                await SendResponseAsync(String.Format(SmtpResponse.Closing, this.ServerConfig.HostName));
             }
             catch (Exception)
             {
@@ -136,6 +149,11 @@ namespace ExoMail.Smtp.Protocol
                 this.Writer.Dispose();
                 this.SessionNetwork.TcpClient.Close();
             }
+        }
+
+        private void IdleTimeout(object sender, ElapsedEventArgs e)
+        {
+            this.TokenSource.Cancel();
         }
 
         /// <summary>
