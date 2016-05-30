@@ -65,7 +65,7 @@ namespace ExoMail.Smtp.Protocol
         public CancellationTokenSource TokenSource { get; private set; }
         public CancellationToken Token { get; private set; }
         public IMessageStore MessageStore { get; set; }
-        public IUserStore UserStore { get; set; }
+        //public IUserStore UserStore { get; set; }
         public bool IsAuthenticated { get; internal set; }
 
         public IMessageEnvelope MessageEnvelope { get; set; }
