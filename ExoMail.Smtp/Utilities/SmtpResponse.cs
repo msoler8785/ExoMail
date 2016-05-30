@@ -56,5 +56,6 @@ namespace ExoMail.Smtp.Utilities
         public static string AuthNotSupported { get { return "504 5.5.4 Authentication mechanism not supported"; } }
         public static string AuthRequired { get { return "530 5.7.0  Authentication required"; } }
         public static string AuthEncryptRequired { get { return "538 5.7.11  Encryption required for requested authentication mechanism"; } }
+        public static string UnableToRelay {  get { return "550 5.7.1 Unable to relay"; } }
     }
 }
