@@ -1,4 +1,5 @@
-﻿using ExoMail.Smtp.Enums;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Utilities;
 using System;
 using System.Collections.Generic;
@@ -74,12 +75,20 @@ namespace ExoMail.Smtp.Protocol
 
             if (validFormat)
             {
-                if (this.SmtpSession.UserStore.IsValidRecipient(recipient))
+                if (UserManager.GetUserManager.IsValidRecipient(recipient))
                 {
-                    this.IsValid = true;
-                    this.SmtpSession.SessionState = SessionState.DataNeeded;
-                    this.SmtpSession.SmtpCommands.Add(this);
-                    response = SmtpResponse.RecipientOK;
+                    response = SetValidRecipient();
+                }
+                else if (this.SmtpSession.ServerConfig.IsAuthRelayAllowed)
+                {
+                    if (this.SmtpSession.IsAuthenticated)
+                    {
+                        response = SetValidRecipient();
+                    }
+                    else
+                    {
+                        response = SmtpResponse.UnableToRelay;
+                    }
                 }
                 else
                 {
@@ -93,6 +102,15 @@ namespace ExoMail.Smtp.Protocol
             return response;
         }
 
+        private string SetValidRecipient()
+        {
+            string response;
+            this.IsValid = true;
+            this.SmtpSession.SessionState = SessionState.DataNeeded;
+            this.SmtpSession.SmtpCommands.Add(this);
+            response = SmtpResponse.RecipientOK;
+            return response;
+        }
     }
 
 
