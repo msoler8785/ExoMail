@@ -1,6 +1,7 @@
 ﻿using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Extensions;
 using ExoMail.Smtp.Interfaces;
+using ExoMail.Smtp.Services;
 using ExoMail.Smtp.Utilities;
 using System;
 using System.Collections.Generic;
@@ -206,16 +207,12 @@ namespace ExoMail.Smtp.Protocol
             };
         }
 
-        private void ReceiveData()
-        {
-        }
-
         public void Reset()
         {
             this.SmtpCommands.Clear();
         }
 
-        private void Quit()
+        public void StopSession()
         {
             this.TokenSource.Cancel();
         }

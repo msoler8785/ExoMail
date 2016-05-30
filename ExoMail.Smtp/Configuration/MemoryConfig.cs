@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
-namespace ExoMail.Example
+namespace ExoMail.Smtp.Configuration
 {
     public class MemoryConfig : IServerConfig
     {
