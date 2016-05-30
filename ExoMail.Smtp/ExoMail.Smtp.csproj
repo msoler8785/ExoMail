@@ -76,6 +76,7 @@
     <Compile Include="Interfaces\ISessionValidator.cs" />
     <Compile Include="Interfaces\IUserIdentity.cs" />
     <Compile Include="Interfaces\IUserStore.cs" />
+    <Compile Include="Network\SmtpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IMessageEnvelope.cs" />
     <Compile Include="Protocol\MessageEnvelope.cs" />
@@ -98,11 +99,11 @@
     <Compile Include="Protocol\SmtpTurnCommand.cs" />
     <Compile Include="Protocol\SmtpUnknownCommand.cs" />
     <Compile Include="Protocol\SmtpVrfyCommand.cs" />
+    <Compile Include="Services\SessionManager.cs" />
     <Compile Include="Utilities\SmtpResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IO\" />
-    <Folder Include="Network\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
