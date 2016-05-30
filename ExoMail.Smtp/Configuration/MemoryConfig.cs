@@ -29,6 +29,8 @@ namespace ExoMail.Example
 
         public X509Certificate2 X509Certificate2 { get; set; }
 
+        public bool IsAuthRelayAllowed { get; set; }
+
         public MemoryConfig()
         {
             HostName = Environment.MachineName;
@@ -41,6 +43,7 @@ namespace ExoMail.Example
             ServerId = Guid.NewGuid().ToString();
             ServerIpBinding = IPAddress.Any;
             SessionTimeout = int.MaxValue;
+            IsAuthRelayAllowed = false;
         }
 
         public static MemoryConfig Create()
@@ -57,6 +60,12 @@ namespace ExoMail.Example
         public MemoryConfig WithAuthenticationRequired()
         {
             this.IsAuthRequired = true;
+            return this;
+        }
+
+        public MemoryConfig WithAuthRelayAllowed()
+        {
+            this.IsAuthRelayAllowed = true;
             return this;
         }
 
