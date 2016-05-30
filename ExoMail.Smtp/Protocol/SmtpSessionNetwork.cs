@@ -46,7 +46,10 @@ namespace ExoMail.Smtp.Protocol
         /// </summary>
         public IPEndPoint LocalEndPoint
         {
-            get { return (IPEndPoint)this.TcpClient.Client.LocalEndPoint; }
+            get
+            {
+                return (IPEndPoint)this.TcpClient.Client.LocalEndPoint ?? new IPEndPoint(IPAddress.Loopback, 0);
+            }
         }
 
         /// <summary>
@@ -54,7 +57,10 @@ namespace ExoMail.Smtp.Protocol
         /// </summary>
         public IPEndPoint RemoteEndPoint
         {
-            get { return (IPEndPoint)this.TcpClient.Client.RemoteEndPoint; }
+            get
+            {
+                return (IPEndPoint)this.TcpClient.Client.RemoteEndPoint ?? new IPEndPoint(IPAddress.Loopback, 0);
+            }
         }
 
         private async Task<string> GetPtrRecordAsync()
