@@ -1,10 +1,13 @@
 ﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Configuration;
 using ExoMail.Smtp.Interfaces;
+using ExoMail.Smtp.Network;
 using ExoMail.Smtp.Protocol;
 using ExoMail.Smtp.Server.Authentication;
 using System;
 using System.IO;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ExoMail.Example
@@ -13,24 +16,38 @@ namespace ExoMail.Example
     {
         private static void Main(string[] args)
         {
-            var appStart = new AppStart();
+            var tokenSource = new CancellationTokenSource();
+            var appStart = new AppStart(tokenSource.Token);
+
             appStart.Start();
 
-            Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Press \"Q\" to quit server.");
+            }
+            while (Console.ReadKey(true).Key != ConsoleKey.Q);
+
+            tokenSource.Cancel();
         }
     }
 
     public class AppStart
     {
-        public TcpListener TcpListener { get; set; }
+        private CancellationToken _token { get; set; }
+
+        public AppStart(CancellationToken token)
+        {
+            this._token = token;
+        }
 
         public void Start()
         {
-            Task.Run(() => StartListeningAsync()).Wait();
+            Task.Run(() => StartListeningAsync());
         }
 
         public async Task StartListeningAsync()
         {
+            // Build the config.
             var config = MemoryConfig.Create()
                             .WithHostname("exomail01.example.com")
                             .WithPort(2525)
@@ -41,34 +58,19 @@ namespace ExoMail.Example
                             .WithStartTlsSupported()
                             .WithAuthRelayAllowed();
 
+            // Create the MessageStore
             var messageStore = new FileMessageStore();
+
+            // Create the UserStore
             var userStore = new TestUserStore();
 
+            // Add UserStore to the UserManager
             UserManager.GetUserManager.AddUserStore(userStore);
 
-            this.TcpListener = new TcpListener(config.ServerIpBinding, config.Port);
-            this.TcpListener.Start();
-            TcpClient tcpClient;
+            // Create the server
+            SmtpServer server = new SmtpServer(config, messageStore);
 
-            while (true)
-            {
-                tcpClient = await this.TcpListener.AcceptTcpClientAsync();
-                CreateSession(tcpClient, config, messageStore);
-            }
-        }
-
-        public void CreateSession(TcpClient tcpClient, IServerConfig config, IMessageStore messageStore)
-        {
-            Task.Run(async () =>
-            {
-                var session = new SmtpSession()
-                {
-                    ServerConfig = config,
-                    MessageStore = messageStore,
-                };
-                session.SaslMechanisms.Add(new LoginSaslMechanism());
-                await session.BeginSession(tcpClient);
-            });
+            await server.StartAsync(this._token);
         }
     }
 }
