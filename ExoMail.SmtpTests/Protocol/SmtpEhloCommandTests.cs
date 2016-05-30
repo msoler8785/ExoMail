@@ -12,14 +12,14 @@ using ExoMail.Smtp.Configuration;
 namespace ExoMail.Smtp.Protocol.Tests
 {
     [TestClass()]
-    public class SmtpHeloCommandTests
+    public class SmtpEhloCommandTests
     {
-        private string _validCommand = "HELO host.example.com";
-        private string _invalidCommand = "HELO host .example.com";
+        private string _validCommand = "EHLO host.example.com";
+        private string _invalidCommand = "EHLO host .example.com";
 
         private SmtpSession _session { get; set; }
         private SmtpCommandFactory _commandFactory { get; set; }
-        public SmtpHeloCommandTests()
+        public SmtpEhloCommandTests()
         {
             _session = new SmtpSession();
             _session.ServerConfig = MemoryConfig.Create();
@@ -29,7 +29,7 @@ namespace ExoMail.Smtp.Protocol.Tests
         }
 
         [TestMethod()]
-        public void ValidSmtpHeloCommandTest()
+        public void ValidSmtpEhloCommandTest()
         {
             var command = _commandFactory.Parse(_validCommand);
             var response = command.GetResponseAsync().Result;
@@ -38,12 +38,12 @@ namespace ExoMail.Smtp.Protocol.Tests
             Assert.IsTrue(command.IsValid);
             Assert.IsTrue(command.ArgumentsValid);
             Assert.IsTrue(command.Arguments.Count() == 1);
-            Assert.IsTrue(command.CommandType == SmtpCommandType.HELO);
-            Assert.IsInstanceOfType(command, typeof(SmtpHeloCommand));
+            Assert.IsTrue(command.CommandType == SmtpCommandType.EHLO);
+            Assert.IsInstanceOfType(command, typeof(SmtpEhloCommand));
         }
 
         [TestMethod()]
-        public void InvalidSmtpHeloCommandTest()
+        public void InvalidSmtpEhloCommandTest()
         {
             var command = _commandFactory.Parse(_invalidCommand);
             var response = command.GetResponseAsync().Result;
@@ -52,8 +52,8 @@ namespace ExoMail.Smtp.Protocol.Tests
             Assert.IsFalse(command.IsValid);
             Assert.IsFalse(command.ArgumentsValid);
             Assert.IsFalse(command.Arguments.Count() == 1);
-            Assert.IsTrue(command.CommandType == SmtpCommandType.HELO);
-            Assert.IsInstanceOfType(command, typeof(SmtpHeloCommand));
+            Assert.IsTrue(command.CommandType == SmtpCommandType.EHLO);
+            Assert.IsInstanceOfType(command, typeof(SmtpEhloCommand));
         }
     }
 }
