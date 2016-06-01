@@ -1,5 +1,4 @@
-﻿using ExoMail.Smtp.Authentication;
-using ExoMail.Smtp.Exceptions;
+﻿using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Utilities;
 using System;
@@ -7,22 +6,18 @@ using System.Text;
 
 namespace ExoMail.Smtp.Authentication
 {
+    /// <summary>
+    /// The LOGIN SASL Mechanism.
+    /// <see cref="https://tools.ietf.org/html/draft-murchison-sasl-login-00"/>
+    /// </summary>
     public class LoginSaslMechanism : SaslMechanismBase, ISaslMechanism
     {
-        public bool IsAuthenticated
-        {
-            get
-            {
-                return UserManager.GetUserManager.IsUserAuthenticated(this.UserName, this.Password);
-            }
-        }
-
         public LoginSaslMechanism()
             : base()
         {
             base.SaslMechanism = "LOGIN";
             base.Step = 0;
-            SetInitiator(true);
+            SetCanInitiateChallenge(false);
         }
 
         public static ISaslMechanism Create()

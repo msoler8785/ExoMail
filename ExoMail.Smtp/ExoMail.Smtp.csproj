@@ -59,6 +59,7 @@
     <Compile Include="Authentication\LoginSaslMechanism.cs" />
     <Compile Include="Authentication\PlainSaslMechanism.cs" />
     <Compile Include="Authentication\SaslMechanismBase.cs" />
+    <Compile Include="Authentication\SaslMechanismFactory.cs" />
     <Compile Include="Authentication\UserManager.cs" />
     <Compile Include="Configuration\MemoryConfig.cs" />
     <Compile Include="Enums\SessionState.cs" />

@@ -1,6 +1,4 @@
-﻿using ExoMail.Smtp.Enums;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
 namespace ExoMail.Smtp.Interfaces
@@ -16,7 +14,7 @@ namespace ExoMail.Smtp.Interfaces
         int MaxMessageSize { get; }
         int Port { get; }
         string ServerId { get; }
-        IPAddress ServerIpBinding { get;  }
+        IPAddress ServerIpBinding { get; }
         int SessionTimeout { get; }
         X509Certificate2 X509Certificate2 { get; }
     }
