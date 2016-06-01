@@ -5,7 +5,7 @@ using ExoMail.Smtp.Utilities;
 using System;
 using System.Text;
 
-namespace ExoMail.Smtp.Server.Authentication
+namespace ExoMail.Smtp.Authentication
 {
     public class LoginSaslMechanism : SaslMechanismBase, ISaslMechanism
     {
