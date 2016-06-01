@@ -15,20 +15,12 @@ namespace ExoMail.Smtp.Authentication
     /// </summary>
     public class PlainSaslMechanism : SaslMechanismBase, ISaslMechanism
     {
-        public bool IsAuthenticated
-        {
-            get
-            {
-                return UserManager.GetUserManager.IsUserAuthenticated(this.UserName, this.Password);
-            }
-        }
-
         public PlainSaslMechanism()
             : base()
         {
             base.SaslMechanism = "PLAIN";
             base.Step = 0;
-            SetInitiator(true);
+            SetCanInitiateChallenge(true);
         }
 
         public string GetChallenge()

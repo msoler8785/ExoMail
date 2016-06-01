@@ -1,4 +1,5 @@
-﻿using ExoMail.Smtp.Enums;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Utilities;
 using System;
@@ -66,9 +67,7 @@ namespace ExoMail.Smtp.Protocol
 
         private async Task<string> GetAuthResponse()
         {
-            var saslMechanism = this.SmtpSession
-                .SaslMechanisms
-                .FirstOrDefault(x => x.SaslMechanism.ToUpper() == this.Arguments[0].ToUpper());
+            var saslMechanism = SaslFactory.GetSaslMechanism(this.Arguments[0]);
 
             if (saslMechanism == null)
             {
@@ -76,20 +75,12 @@ namespace ExoMail.Smtp.Protocol
             }
             try
             {
-                if (saslMechanism.IsInitiator && this.Arguments.Count == 1)
-                {
-                    // Begin the Sasl challenge-response.
-                    while (!saslMechanism.IsCompleted)
-                    {
-                        await this.SmtpSession.SendResponseAsync(saslMechanism.GetChallenge());
-                        saslMechanism.ParseResponse(await this.SmtpSession.ListenRequestAsync());
-                    }
-                }
-                else if (this.Arguments.Count == 2)
+
+                if (saslMechanism.CanInitiateChallenge && this.Arguments.Count == 2)
                 {
                     while (!saslMechanism.IsCompleted)
                     {
-                        saslMechanism.ParseResponse(await this.SmtpSession.ListenRequestAsync());
+                        saslMechanism.ParseResponse(this.Arguments[1]);
 
                         if (saslMechanism.IsCompleted)
                         {
@@ -99,10 +90,20 @@ namespace ExoMail.Smtp.Protocol
                         await this.SmtpSession.SendResponseAsync(saslMechanism.GetChallenge());
                     }
                 }
+                else if (this.Arguments.Count == 1)
+                {
+                    // Begin the Sasl challenge-response.
+                    while (!saslMechanism.IsCompleted)
+                    {
+                        await this.SmtpSession.SendResponseAsync(saslMechanism.GetChallenge());
+                        saslMechanism.ParseResponse(await this.SmtpSession.ListenRequestAsync());
+                    }
+                }
                 else
                 {
                     return SmtpResponse.ArgumentUnrecognized;
                 }
+
                 this.SmtpSession.IsAuthenticated = saslMechanism.IsAuthenticated;
 
                 if (saslMechanism.IsAuthenticated)
