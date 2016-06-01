@@ -41,6 +41,7 @@ namespace ExoMail.Smtp.Utilities
         public static string TransactionFailed { get { return "554 Transaction failed - "; } }
         public static string StartTls { get { return "220 OK STARTTLS Go ahead"; } }
         public static string AuthOk { get { return "235 2.7.0  Authentication Succeeded"; } }
+        public static string AuthStart { get { return "334 Start Authentication"; } }
         public static string AuthLoginUserName { get { return "334 VXNlcm5hbWU6"; } }
         public static string AuthLoginPassword { get { return "334 UGFzc3dvcmQ6"; } }
         public static string MailboxFull { get { return "452 4.2.2 The recipients mailbox is full"; } }

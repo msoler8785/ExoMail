@@ -3,7 +3,6 @@ using ExoMail.Smtp.Configuration;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Network;
 using ExoMail.Smtp.Protocol;
-using ExoMail.Smtp.Server.Authentication;
 using System;
 using System.IO;
 using System.Net.Sockets;
@@ -54,7 +53,7 @@ namespace ExoMail.Example
                             .WithServerId("FC30BD4D-1C93-4FBF-BF8F-9788059AF0DC")
                             .WithSessionTimeout(5 * 60 * 1000) // 5 minutes
                             .WithX509Certificate(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "localhost.pfx"), null)
-                            .WithEncryptionRequired()
+                            //.WithEncryptionRequired()
                             .WithStartTlsSupported()
                             .WithAuthRelayAllowed();
 
