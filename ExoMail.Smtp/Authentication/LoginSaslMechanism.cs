@@ -1,5 +1,4 @@
-﻿using ExoMail.Smtp.Authentication;
-using ExoMail.Smtp.Exceptions;
+﻿using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Utilities;
 using System;

@@ -1,9 +1,4 @@
 ﻿using ExoMail.Smtp.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Authentication
 {
@@ -13,12 +8,14 @@ namespace ExoMail.Smtp.Authentication
         {
             mechanism = mechanism.ToUpper();
 
-            switch(mechanism)
+            switch (mechanism)
             {
                 case "PLAIN":
                     return new PlainSaslMechanism();
+
                 case "LOGIN":
                     return new LoginSaslMechanism();
+
                 default:
                     return null;
             }

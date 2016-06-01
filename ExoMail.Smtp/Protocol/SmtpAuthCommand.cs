@@ -2,9 +2,7 @@
 using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
@@ -75,7 +73,6 @@ namespace ExoMail.Smtp.Protocol
             }
             try
             {
-
                 if (saslMechanism.CanInitiateChallenge && this.Arguments.Count == 2)
                 {
                     while (!saslMechanism.IsCompleted)
@@ -117,7 +114,6 @@ namespace ExoMail.Smtp.Protocol
                 {
                     return SmtpResponse.AuthCredInvalid;
                 }
-
             }
             catch (SaslException)
             {

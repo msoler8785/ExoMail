@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExoMail.Smtp.Authentication
+﻿namespace ExoMail.Smtp.Authentication
 {
     /// <summary>
     /// Simple Authentication and Security Layer (SASL)
@@ -17,7 +11,7 @@ namespace ExoMail.Smtp.Authentication
 
         // The Password of the UserIdentity to authenticate
         public string Password { get; set; }
-        
+
         // The name of the SASL Mechanism
         public string SaslMechanism { get; set; }
 

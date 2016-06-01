@@ -2,10 +2,7 @@
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Authentication
 {
@@ -55,6 +52,7 @@ namespace ExoMail.Smtp.Authentication
                         }
                     }
                     break;
+
                 default:
                     throw new SaslException();
             }
