@@ -32,7 +32,7 @@ namespace ExoMail.Smtp.Protocol
                     case SessionState.EhloNeeded:
                         response = SmtpResponse.SendHelloFirst;
                         break;
-
+                    case SessionState.MailNeeded:
                     case SessionState.StartTlsNeeded:
                         this.IsValid = true;
                         response = SmtpResponse.StartTls;
