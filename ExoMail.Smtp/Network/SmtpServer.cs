@@ -1,7 +1,7 @@
-﻿using ExoMail.Smtp.Extensions;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Extensions;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Protocol;
-using ExoMail.Smtp.Server.Authentication;
 using ExoMail.Smtp.Services;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +32,7 @@ namespace ExoMail.Smtp.Network
             this._tcpListener = new TcpListener(this._serverConfig.ServerIpBinding, this._serverConfig.Port);
             this._tcpListener.Start();
             this._saslMechanisms.Add(new LoginSaslMechanism());
+            this._saslMechanisms.Add(new PlainSaslMechanism());
             TcpClient tcpClient;
 
             while (!this._token.IsCancellationRequested)
