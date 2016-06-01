@@ -116,8 +116,8 @@ public class TestUserStore : IUserStore
 
 ## TODO
 
-Build a more complete example
-Add more unit tests
+Build a more complete example  
+Add more unit tests  
 More Documentation  
 Network Validation Interfaces  
 Sender Validation Interfaces  
