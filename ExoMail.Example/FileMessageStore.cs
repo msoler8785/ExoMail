@@ -18,7 +18,7 @@ namespace ExoMail.Example
             )
         {
             var directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Queue");
-            var path = Path.Combine(directory, Guid.NewGuid().ToString() + ".eml");
+            var path = Path.Combine(directory, messageEnvelope.MessageId + ".eml");
 
             if (!Directory.Exists(directory))
             {
