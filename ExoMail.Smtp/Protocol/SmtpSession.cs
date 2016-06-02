@@ -1,7 +1,6 @@
 ﻿using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Extensions;
 using ExoMail.Smtp.Interfaces;
-using ExoMail.Smtp.Services;
 using ExoMail.Smtp.Utilities;
 using System;
 using System.Collections.Generic;
@@ -38,7 +37,6 @@ namespace ExoMail.Smtp.Protocol
         public SmtpSessionNetwork SessionNetwork { get; set; }
         public List<SmtpCommandBase> SmtpCommands { get; set; }
         public IServerConfig ServerConfig { get; set; }
-        public List<ISaslMechanism> SaslMechanisms { get; set; }
 
         public bool IsEncrypted
         {
@@ -66,7 +64,6 @@ namespace ExoMail.Smtp.Protocol
         public CancellationTokenSource TokenSource { get; private set; }
         public CancellationToken Token { get; private set; }
         public IMessageStore MessageStore { get; set; }
-        //public IUserStore UserStore { get; set; }
         public bool IsAuthenticated { get; internal set; }
 
         public IMessageEnvelope MessageEnvelope { get; set; }
@@ -77,7 +74,6 @@ namespace ExoMail.Smtp.Protocol
             this.Token = this.TokenSource.Token;
             this.SmtpCommands = new List<SmtpCommandBase>();
             this.SessionState = SessionState.EhloNeeded;
-            this.SaslMechanisms = new List<ISaslMechanism>();
             this.MessageEnvelope = new MessageEnvelope();
         }
 
@@ -125,7 +121,7 @@ namespace ExoMail.Smtp.Protocol
                     this.Token.ThrowIfCancellationRequested();
                     var request = await ListenRequestAsync();
 
-                    // Reset the idle timer. 
+                    // Reset the idle timer.
                     this.Timer.Stop();
                     this.Timer.Start();
 
@@ -154,7 +150,7 @@ namespace ExoMail.Smtp.Protocol
 
         private void IdleTimeout(object sender, ElapsedEventArgs e)
         {
-            this.TokenSource.Cancel();
+            StopSession();
         }
 
         /// <summary>

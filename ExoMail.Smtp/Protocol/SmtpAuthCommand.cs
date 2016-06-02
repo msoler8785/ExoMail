@@ -73,7 +73,7 @@ namespace ExoMail.Smtp.Protocol
             }
             try
             {
-                if (saslMechanism.CanInitiateChallenge && this.Arguments.Count == 2)
+                if (saslMechanism.CanSendInitialResponse && this.Arguments.Count == 2)
                 {
                     while (!saslMechanism.IsCompleted)
                     {
