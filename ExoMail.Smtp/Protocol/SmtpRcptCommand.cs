@@ -1,9 +1,8 @@
 ﻿using ExoMail.Smtp.Authentication;
 using ExoMail.Smtp.Enums;
+using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -11,6 +10,40 @@ namespace ExoMail.Smtp.Protocol
 {
     public class SmtpRcptCommand : SmtpCommandBase
     {
+        private IUserIdentity _user
+        {
+            get
+            {
+                return UserManager.GetUserManager.FindByEmailAddress(this._recipient);
+            }
+        }
+
+        private bool _isMessageSizeOk
+        {
+            get
+            {
+                if (this._user == null)
+                {
+                    return this._messageSize <= this.SmtpSession.ServerConfig.MaxMessageSize;
+                }
+                else
+                {
+                    return this._messageSize <= this.SmtpSession.ServerConfig.MaxMessageSize &&
+                        this._messageSize <= this._user.MaxMessageSize;
+                }
+            }
+        }
+
+        private int _messageSize { get; set; }
+        private string _recipient { get; set; }
+
+        private bool _isValidRecipient
+        {
+            get
+            {
+                return UserManager.GetUserManager.IsValidRecipient(_recipient);
+            }
+        }
 
         public SmtpRcptCommand(string command, List<string> arguments)
         {
@@ -22,7 +55,7 @@ namespace ExoMail.Smtp.Protocol
         {
             get
             {
-                return this.Arguments.Count == 1;
+                return this.Arguments.Count >= 1 && this.Arguments.Count <= 2;
             }
         }
 
@@ -42,21 +75,24 @@ namespace ExoMail.Smtp.Protocol
                     case SessionState.EhloNeeded:
                         response = SmtpResponse.SendHelloFirst;
                         break;
+
                     case SessionState.StartTlsNeeded:
                         response = SmtpResponse.StartTlsFirst;
                         break;
+
                     case SessionState.MailNeeded:
                         response = SmtpResponse.SenderFirst;
                         break;
+
                     case SessionState.RcptNeeded:
                     case SessionState.DataNeeded:
                         response = GetRcptResponse();
                         break;
+
                     default:
                         response = SmtpResponse.BadCommand;
                         break;
                 }
-
             }
             else
             {
@@ -65,41 +101,62 @@ namespace ExoMail.Smtp.Protocol
 
             return response;
         }
+
         private string GetRcptResponse()
         {
-            string response;
-            var regex = Regex.Match(this.Arguments[0], @"TO:<(.*)>", RegexOptions.IgnoreCase);
-            var validFormat = regex.Success;
-            var recipient = regex.Groups[1].Value;
-            this.SmtpSession.MessageEnvelope.AddRecipient(recipient);
+            // Regex to capture the recipient Argument
+            var emailRegex = Regex.Match(this.Arguments[0], @"TO:<(.*)>", RegexOptions.IgnoreCase);
+            var validRecipientFormat = emailRegex.Success;
+            int messageSize = 0;
 
-            if (validFormat)
+            if (validRecipientFormat)
             {
-                if (UserManager.GetUserManager.IsValidRecipient(recipient))
+                this._recipient = emailRegex.Groups[1].Value;
+
+                if (this.Arguments.Count == 2)
                 {
-                    response = SetValidRecipient();
-                }
-                else if (this.SmtpSession.ServerConfig.IsAuthRelayAllowed)
-                {
-                    if (this.SmtpSession.IsAuthenticated)
+                    if (TryParseMessageSize(out messageSize))
                     {
-                        response = SetValidRecipient();
+                        this._messageSize = messageSize;
                     }
                     else
                     {
-                        response = SmtpResponse.UnableToRelay;
+                        return SmtpResponse.ArgumentUnrecognized;
                     }
+                }
+
+                if (this._isValidRecipient)
+                {
+                    if (this._isMessageSizeOk)
+                    {
+                        return SetValidRecipient();
+                    }
+                    else
+                    {
+                        return SmtpResponse.MessageSizeExceeded;
+                    }
+                }
+                else if (this.SmtpSession.ServerConfig.IsAuthRelayAllowed)
+                {
+                    return this.SmtpSession.IsAuthenticated ?
+                         SetValidRecipient() : SmtpResponse.UnableToRelay;
                 }
                 else
                 {
-                    response = SmtpResponse.MailboxUnavailable;
+                    return SmtpResponse.MailboxUnavailable;
                 }
             }
             else
             {
-                response = SmtpResponse.InvalidRecipient;
+                return SmtpResponse.InvalidRecipient;
             }
-            return response;
+        }
+
+        private bool TryParseMessageSize(out int messageSize)
+        {
+            var sizeRegex = Regex.Match(this.Arguments[1], @"(SIZE)=(\d+)", RegexOptions.IgnoreCase);
+            var isValidSizeArg = sizeRegex.Success;
+            return int.TryParse(sizeRegex.Groups[2].Value, out messageSize) && isValidSizeArg;
         }
 
         private string SetValidRecipient()
@@ -108,10 +165,9 @@ namespace ExoMail.Smtp.Protocol
             this.IsValid = true;
             this.SmtpSession.SessionState = SessionState.DataNeeded;
             this.SmtpSession.SmtpCommands.Add(this);
+            this.SmtpSession.MessageEnvelope.AddRecipient(this._recipient);
             response = SmtpResponse.RecipientOK;
             return response;
         }
     }
-
-
 }
