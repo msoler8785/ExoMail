@@ -166,6 +166,7 @@ namespace ExoMail.Smtp.Protocol
                 x.CommandType == SmtpCommandType.HELO).ToList();
 
             this.SmtpSession.SessionState = SessionState.MailNeeded;
+            this.SmtpSession.MessageEnvelope.Reset();
         }
     }
 }

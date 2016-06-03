@@ -1,4 +1,5 @@
-﻿using ExoMail.Smtp.Interfaces;
+﻿using ExoMail.Smtp.Authentication;
+using ExoMail.Smtp.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,13 @@ namespace ExoMail.Example
 {
     public class TestUserStore : IUserStore
     {
+        private List<IUserIdentity> _users { get; set; }
+
+        public TestUserStore()
+        {
+            this._users = new List<IUserIdentity>();
+        }
+
         public string Domain
         {
             get
@@ -19,22 +27,28 @@ namespace ExoMail.Example
 
         public void AddUser(IUserIdentity userIdentity)
         {
-            throw new NotImplementedException();
+            this._users.Add(userIdentity);
         }
 
         public List<IUserIdentity> GetIdentities()
         {
-            throw new NotImplementedException();
+            return this._users;
         }
 
         public bool IsUserAuthenticated(string userName, string password)
         {
-            return userName.ToUpper() == "TUSER" && password == "Str0ngP@$$!!";
+            userName = userName.ToUpper();
+            var user = this._users.FirstOrDefault(u => u.UserName.ToUpper() == userName);
+
+            // In a real world implementation this would compare a hashed version of the password.
+            return user.Password == password;
         }
 
         public bool IsValidRecipient(string emailAddress)
         {
-            return emailAddress.Contains(this.Domain);
+            emailAddress = emailAddress.ToUpper();
+
+            return _users.Any(u => u.EmailAddress.ToUpper() == emailAddress);
         }
     }
 }

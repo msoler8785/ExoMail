@@ -24,18 +24,17 @@ namespace ExoMail.Smtp.Protocol
 
             string ptrRecord = await _smtpSession.SessionNetwork.PtrRecordAsync;
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLineFormat("Received: from {0} ({1} [{2}]) by {3} ({4}) with {5}; {6}", 
-                _smtpSession.SessionNetwork.RemoteDomainName.ToString().TrimEnd('.'), 
-                ptrRecord, 
-                _smtpSession.SessionNetwork.RemoteEndPoint.Address.ToString(),
-                _smtpSession.ServerConfig.HostName, 
-                _smtpSession.SessionNetwork.ServerIpAdderss.ToString(), 
-                security,
-                DateTime.Now.ToString(DATETIME_FORMAT)     
-                );
+            var receievedHeader = String.Format("Received: from {0} ({1} [{2}]) by {3} ({4}) with {5}; {6}",
+                  _smtpSession.SessionNetwork.RemoteDomainName.ToString().TrimEnd('.'),
+                  ptrRecord,
+                  _smtpSession.SessionNetwork.RemoteEndPoint.Address.ToString(),
+                  _smtpSession.ServerConfig.HostName,
+                  _smtpSession.SessionNetwork.ServerIpAdderss.ToString(),
+                  security,
+                  DateTime.Now.ToString(DATETIME_FORMAT)
+                  );
 
-            return sb.ToString().WordWrap(78, "\t").ToStream();
+            return receievedHeader.WordWrap(78, "\t").ToStream();
         }
     }
 }

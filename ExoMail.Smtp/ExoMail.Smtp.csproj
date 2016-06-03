@@ -102,6 +102,7 @@
     <Compile Include="Protocol\SmtpUnknownCommand.cs" />
     <Compile Include="Protocol\SmtpVrfyCommand.cs" />
     <Compile Include="Services\SessionManager.cs" />
+    <Compile Include="Utilities\ByteSizeHelper.cs" />
     <Compile Include="Utilities\SmtpResponse.cs" />
   </ItemGroup>
   <ItemGroup>

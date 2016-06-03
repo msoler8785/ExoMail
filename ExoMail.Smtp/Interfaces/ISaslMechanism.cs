@@ -5,7 +5,8 @@
         string UserName { get; set; }
         string Password { get; set; }
         bool IsCompleted { get; }
-        bool CanInitiateChallenge { get; }
+        bool CanSendInitialResponse { get; }
+        bool IsInitiator { get; }
         bool IsAuthenticated { get; }
         string SaslMechanism { get; set; }
         int Step { get; set; }

@@ -11,14 +11,15 @@ namespace ExoMail.Smtp.Protocol
 {
     public class MessageEnvelope : IMessageEnvelope
     {
+        public string MessageId { get; set; }
         public string SenderDomain { get; set; }
         public string SenderEmail { get; set; }
         public List<string> Recipients { get; set; }
         public string MessagePath { get; set; }
-
         public MessageEnvelope()
         {
             this.Recipients = new List<string>();
+            this.MessageId = Guid.NewGuid().ToString();
         }
 
         public void SetSenderEmail(string senderEmail)
@@ -50,6 +51,7 @@ namespace ExoMail.Smtp.Protocol
             this.Recipients.Clear();
             this.SenderEmail = null;
             this.MessagePath = null;
+            this.MessageId = Guid.NewGuid().ToString();
         }
     }
 }

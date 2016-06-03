@@ -19,7 +19,10 @@
         public bool IsCompleted { get; private set; }
 
         // True if the mechanism can send an initial response
-        public bool CanInitiateChallenge { get; private set; }
+        public bool CanSendInitialResponse { get; private set; }
+
+        // True if client can initiate challenge
+        public bool IsInitiator { get; private set; }
 
         // The current step in the challenge response process
         public int Step { get; set; }
@@ -35,6 +38,8 @@
         public SaslMechanismBase()
         {
             this.IsCompleted = false;
+            this.CanSendInitialResponse = false;
+            this.IsInitiator = false;
         }
 
         protected void SetCompleted(bool isCompleted)
@@ -44,7 +49,7 @@
 
         protected void SetCanInitiateChallenge(bool isInitiator)
         {
-            this.CanInitiateChallenge = isInitiator;
+            this.CanSendInitialResponse = isInitiator;
         }
     }
 }

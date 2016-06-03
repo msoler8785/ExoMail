@@ -78,9 +78,9 @@ namespace ExoMail.Smtp.Protocol
             sb.AppendLineFormat("250-{0} Hello [{1}]", this.SmtpSession.ServerConfig.HostName, ptrRecord);
             sb.AppendLineFormat("250-SIZE {0}", this.SmtpSession.ServerConfig.MaxMessageSize);
 
-            if (!this.SmtpSession.IsAuthenticated && this.SmtpSession.SaslMechanisms != null)
+            if (!this.SmtpSession.IsAuthenticated)
             {
-                sb.AppendLineFormat("250-AUTH {0}", string.Join(" ", this.SmtpSession.SaslMechanisms.Select(x => x.SaslMechanism)));
+                sb.AppendLineFormat("250-AUTH LOGIN PLAIN");
             }
 
             if (!this.SmtpSession.IsEncrypted && this.SmtpSession.ServerConfig.X509Certificate2 != null)
