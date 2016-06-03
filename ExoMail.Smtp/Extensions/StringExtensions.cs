@@ -25,20 +25,28 @@ namespace ExoMail.Smtp.Extensions
             var sb = new StringBuilder();
             int colIndex = 0;
             string space = string.Empty;
+            string newLine = "\r\n";
 
             for (int i = 0; i < words.Count(); i++)
             {
-                space = i == words.Count() ? string.Empty : " ";
-                colIndex += words[i].Length + space.Length;
+                space = i == (words.Count() - 1) ? newLine : " ";
+                colIndex += words[i].Length + space.Length + newLine.Length;
 
                 if (colIndex <= cols)
                 {
-                    sb.Append(string.Format("{0}{1}", words[i], space));
+                    sb.AppendFormat("{0}{1}", words[i], space);
                 }
                 else
                 {
                     colIndex = 0;
-                    sb.Append(string.Format("\r\n{0}{1}{2}", indent, words[i], space));
+                    sb.AppendFormat("\r\n{0}{1}{2}", indent, words[i], space);
+                }
+
+                if (words[i].Contains(';'))
+                {
+                    colIndex = 0;
+                    sb.Append(newLine);
+                    sb.Append(indent);
                 }
             }
             return sb.ToString();
