@@ -23,7 +23,7 @@ UserManagement
 
 ## Implemented Commands
 
-HELO, EHLO, MAIL, RCPT, DATA, HELP, STARTTLS, AUTH, NOOP, QUIT, RSET
+HELO, EHLO, MAIL, RCPT, SIZE, DATA, HELP, STARTTLS, AUTH, NOOP, QUIT, RSET
 
 ## Example
 
