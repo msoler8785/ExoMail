@@ -63,6 +63,11 @@ namespace ExoMail.Example
             // Create the UserStore
             var userStore = new TestUserStore();
 
+            for (int i = 0; i < 5; i++)
+            {
+                userStore.AddUser(EmailUser.CreateMailbox("Test", "User0" + i.ToString(), "tuser0" + i.ToString() + "@example.net"));
+            }
+
             // Add UserStore to the UserManager
             UserManager.GetUserManager.AddUserStore(userStore);
 
