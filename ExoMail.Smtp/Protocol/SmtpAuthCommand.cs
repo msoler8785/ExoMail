@@ -75,16 +75,11 @@ namespace ExoMail.Smtp.Protocol
             {
                 if (saslMechanism.CanSendInitialResponse && this.Arguments.Count == 2)
                 {
+                    saslMechanism.ParseResponse(this.Arguments[1]);
                     while (!saslMechanism.IsCompleted)
                     {
-                        saslMechanism.ParseResponse(this.Arguments[1]);
-
-                        if (saslMechanism.IsCompleted)
-                        {
-                            break;
-                        }
-
                         await this.SmtpSession.SendResponseAsync(saslMechanism.GetChallenge());
+                        saslMechanism.ParseResponse(await this.SmtpSession.ListenRequestAsync());
                     }
                 }
                 else if (this.Arguments.Count == 1)
