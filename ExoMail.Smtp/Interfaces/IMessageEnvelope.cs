@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExoMail.Smtp.Models;
+using System.Collections.Generic;
 
 namespace ExoMail.Smtp.Interfaces
 {
@@ -6,14 +7,14 @@ namespace ExoMail.Smtp.Interfaces
     {
         string MessageId { get; }
         string MessagePath { get; }
-        List<string> Recipients { get; }
+        List<Recipient> Recipients { get; }
+        List<string> RecipientDomains { get; }
         string SenderDomain { get; }
-        string SenderEmail { get; }
-
-        void AddRecipient(string recipient);
+        string SenderAddress { get; }
+        void AddRecipient(string recipientAddress, string recipientDomain);
         void Reset();
         void SaveEnvelope(string path);
         void SetSenderDomain(string domain);
-        void SetSenderEmail(string senderEmail);
+        void SetSenderAddress(string senderAddress);
     }
 }
