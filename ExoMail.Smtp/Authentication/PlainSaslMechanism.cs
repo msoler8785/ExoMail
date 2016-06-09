@@ -17,7 +17,7 @@ namespace ExoMail.Smtp.Authentication
         {
             base.SaslMechanism = "PLAIN";
             base.Step = 0;
-            SetCanInitiateChallenge(true);
+            SetCanSendInitialResponse(true);
         }
 
         public string GetChallenge()

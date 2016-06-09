@@ -47,7 +47,7 @@
             this.IsCompleted = isCompleted;
         }
 
-        protected void SetCanInitiateChallenge(bool isInitiator)
+        protected void SetCanSendInitialResponse(bool isInitiator)
         {
             this.CanSendInitialResponse = isInitiator;
         }
