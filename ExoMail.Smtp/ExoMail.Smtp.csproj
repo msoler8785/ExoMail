@@ -78,6 +78,7 @@
     <Compile Include="Interfaces\ISessionValidator.cs" />
     <Compile Include="Interfaces\IUserIdentity.cs" />
     <Compile Include="Interfaces\IUserStore.cs" />
+    <Compile Include="Models\Recipient.cs" />
     <Compile Include="Network\SmtpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IMessageEnvelope.cs" />
