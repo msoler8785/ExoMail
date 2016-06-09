@@ -71,7 +71,7 @@ namespace ExoMail.Smtp.Protocol
             var regex = Regex.Match(this.Arguments[0], @"FROM:<(.*)>", RegexOptions.IgnoreCase);
             var validFormat = regex.Success;
             var sender = regex.Groups[1].Value;
-            this.SmtpSession.MessageEnvelope.SetSenderEmail(sender);
+            this.SmtpSession.MessageEnvelope.SetSenderAddress(sender);
 
             if (validFormat)
             {

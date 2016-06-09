@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Example", "ExoMail.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.SmtpTests", "ExoMail.SmtpTests\ExoMail.SmtpTests.csproj", "{FC16EF9F-FF47-4B21-A277-469AE49BA72A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.QueueProcessor", "ExoMail.QueueProcessor\ExoMail.QueueProcessor.csproj", "{CF2BEEC3-7C3A-4641-B430-39F2D96ABF1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF2BEEC3-7C3A-4641-B430-39F2D96ABF1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF2BEEC3-7C3A-4641-B430-39F2D96ABF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF2BEEC3-7C3A-4641-B430-39F2D96ABF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF2BEEC3-7C3A-4641-B430-39F2D96ABF1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

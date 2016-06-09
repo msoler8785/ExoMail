@@ -14,7 +14,7 @@ namespace ExoMail.Smtp.Protocol
         {
             get
             {
-                return UserManager.GetUserManager.FindByEmailAddress(this._recipient);
+                return UserManager.GetUserManager.FindByEmailAddress(this._recipientAddress);
             }
         }
 
@@ -35,13 +35,13 @@ namespace ExoMail.Smtp.Protocol
         }
 
         private int _messageSize { get; set; }
-        private string _recipient { get; set; }
-
+        private string _recipientAddress { get; set; }
+        private string _recipientDomain { get; set; }
         private bool _isValidRecipient
         {
             get
             {
-                return UserManager.GetUserManager.IsValidRecipient(_recipient);
+                return UserManager.GetUserManager.IsValidRecipient(_recipientAddress);
             }
         }
 
@@ -105,13 +105,14 @@ namespace ExoMail.Smtp.Protocol
         private string GetRcptResponse()
         {
             // Regex to capture the recipient Argument
-            var emailRegex = Regex.Match(this.Arguments[0], @"TO:<(.*)>", RegexOptions.IgnoreCase);
+            var emailRegex = Regex.Match(this.Arguments[0], @"TO:<(.*@(.*\..*))>", RegexOptions.IgnoreCase);
             var validRecipientFormat = emailRegex.Success;
             int messageSize = 0;
 
             if (validRecipientFormat)
             {
-                this._recipient = emailRegex.Groups[1].Value;
+                this._recipientAddress = emailRegex.Groups[1].Value;
+                this._recipientDomain = emailRegex.Groups[2].Value;
 
                 if (this.Arguments.Count == 2)
                 {
@@ -161,13 +162,11 @@ namespace ExoMail.Smtp.Protocol
 
         private string SetValidRecipient()
         {
-            string response;
             this.IsValid = true;
             this.SmtpSession.SessionState = SessionState.DataNeeded;
             this.SmtpSession.SmtpCommands.Add(this);
-            this.SmtpSession.MessageEnvelope.AddRecipient(this._recipient);
-            response = SmtpResponse.RecipientOK;
-            return response;
+            this.SmtpSession.MessageEnvelope.AddRecipient(this._recipientAddress, this._recipientDomain);
+            return SmtpResponse.RecipientOK;
         }
     }
 }

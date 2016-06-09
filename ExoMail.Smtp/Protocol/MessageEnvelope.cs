@@ -1,30 +1,43 @@
 ﻿using ExoMail.Smtp.Interfaces;
+using ExoMail.Smtp.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
+    [Serializable]
     public class MessageEnvelope : IMessageEnvelope
     {
         public string MessageId { get; set; }
         public string SenderDomain { get; set; }
-        public string SenderEmail { get; set; }
-        public List<string> Recipients { get; set; }
+        public string SenderAddress { get; set; }
+        public List<Recipient> Recipients { get; set; }
+
+        public List<string> RecipientDomains
+        {
+            get
+            {
+                return this.Recipients
+                    .Select(r => r.RecipientDomain)
+                    .Distinct()
+                    .ToList();
+            }
+        }
+
         public string MessagePath { get; set; }
+
         public MessageEnvelope()
         {
-            this.Recipients = new List<string>();
+            this.Recipients = new List<Recipient>();
             this.MessageId = Guid.NewGuid().ToString();
         }
 
-        public void SetSenderEmail(string senderEmail)
+        public void SetSenderAddress(string senderAddress)
         {
-            this.SenderEmail = senderEmail;
+            this.SenderAddress = senderAddress;
         }
 
         public void SetSenderDomain(string domain)
@@ -32,14 +45,18 @@ namespace ExoMail.Smtp.Protocol
             this.SenderDomain = domain;
         }
 
-        public void AddRecipient(string recipient)
+        public void AddRecipient(string recipientAddress, string recipientDomain)
         {
-            this.Recipients.Add(recipient);
+            this.Recipients.Add(new Recipient()
+            {
+                RecipientAddress = recipientAddress,
+                RecipientDomain = recipientDomain
+            });
         }
 
         public void SaveEnvelope(string path)
         {
-            this.MessagePath = path  ;
+            this.MessagePath = path;
             var json = JsonConvert.SerializeObject(this, Formatting.Indented);
 
             File.WriteAllText(path + ".env", json);
@@ -49,9 +66,18 @@ namespace ExoMail.Smtp.Protocol
         public void Reset()
         {
             this.Recipients.Clear();
-            this.SenderEmail = null;
+            this.SenderAddress = null;
             this.MessagePath = null;
             this.MessageId = Guid.NewGuid().ToString();
+        }
+
+        public static IMessageEnvelope Load(string fullPath)
+        {
+            var json = File.ReadAllText(fullPath);
+
+            MessageEnvelope envelope = JsonConvert.DeserializeObject<MessageEnvelope>(json);
+
+            return envelope;
         }
     }
 }

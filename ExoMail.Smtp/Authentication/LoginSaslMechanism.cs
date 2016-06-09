@@ -17,7 +17,8 @@ namespace ExoMail.Smtp.Authentication
         {
             base.SaslMechanism = "LOGIN";
             base.Step = 0;
-            SetCanInitiateChallenge(false);
+            SetCanSendInitialResponse(true);
+            
         }
 
         public static ISaslMechanism Create()
