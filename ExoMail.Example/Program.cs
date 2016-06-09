@@ -1,11 +1,9 @@
-﻿using ExoMail.Smtp.Authentication;
+﻿using ExoMail.QueueProcessor.Services;
+using ExoMail.Smtp.Authentication;
 using ExoMail.Smtp.Configuration;
-using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Network;
-using ExoMail.Smtp.Protocol;
 using System;
 using System.IO;
-using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,6 +40,11 @@ namespace ExoMail.Example
         public void Start()
         {
             Task.Run(() => StartListeningAsync());
+            var inboundQueue = new InboundQueueProcessor();
+            inboundQueue.Start();
+
+            var outboundQueue = new OutboundQueueProcessor();
+            outboundQueue.Start();
         }
 
         public async Task StartListeningAsync()

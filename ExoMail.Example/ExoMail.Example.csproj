@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExoMail.QueueProcessor\ExoMail.QueueProcessor.csproj">
+      <Project>{CF2BEEC3-7C3A-4641-B430-39F2D96ABF1F}</Project>
+      <Name>ExoMail.QueueProcessor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExoMail.Smtp\ExoMail.Smtp.csproj">
       <Project>{57003B4D-643E-4260-A66F-90593C81C074}</Project>
       <Name>ExoMail.Smtp</Name>

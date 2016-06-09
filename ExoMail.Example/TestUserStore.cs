@@ -39,6 +39,8 @@ namespace ExoMail.Example
         {
             userName = userName.ToUpper();
             var user = this._users.FirstOrDefault(u => u.UserName.ToUpper() == userName);
+            if (user == null)
+                return false;
 
             // In a real world implementation this would compare a hashed version of the password.
             return user.Password == password;
