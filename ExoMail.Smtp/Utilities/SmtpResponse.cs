@@ -16,6 +16,7 @@ namespace ExoMail.Smtp.Utilities
         public static string OK { get { return "250 2.0.0 OK"; } }
         public static string SenderOK { get { return "250 2.1.0 Sender OK"; } }
         public static string RecipientOK { get { return "250 2.1.5 Recipient OK"; } }
+        public static string RecipientAnd8BitOK { get { return "250 2.1.5 Recipient OK and 8BITMIME OK"; } }
         public static string Resetting { get { return "250 2.0.0 Resetting"; } }
         public static string Hello { get { return "250 {0} Hello! {1}"; } }
         public static string CannotVrfy { get { return "252 2.1.5 Cannot VRFY user"; } }

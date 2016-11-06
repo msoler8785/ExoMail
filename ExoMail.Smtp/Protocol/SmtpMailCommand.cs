@@ -10,17 +10,22 @@ namespace ExoMail.Smtp.Protocol
 {
     public class SmtpMailCommand : SmtpCommandBase
     {
+        public string MailFrom { get; set; }
+
+        public bool EightBit { get; set; }
+
         public SmtpMailCommand(string command, List<string> arguments)
         {
             Command = command;
             Arguments = arguments;
+            EightBit = false;
         }
 
         public override bool ArgumentsValid
         {
             get
             {
-                return this.Arguments.Count == 1;
+                return this.Arguments.Count > 0 && this.Arguments.Count <= 2;
             }
         }
 
@@ -68,18 +73,27 @@ namespace ExoMail.Smtp.Protocol
         private string GetMailResponse()
         {
             string response;
-            var regex = Regex.Match(this.Arguments[0], @"FROM:<(.*)>", RegexOptions.IgnoreCase);
-            var validFormat = regex.Success;
-            var sender = regex.Groups[1].Value;
-            this.SmtpSession.MessageEnvelope.SetSenderAddress(sender);
+            bool bodyValid = true;
 
-            if (validFormat)
+            var from = Regex.Match(this.Arguments[0], @"FROM:<(.*)>$", RegexOptions.IgnoreCase);
+
+            if (this.Arguments.Count == 2)
             {
+                var body = Regex.Match(this.Arguments[1], @"(BODY)=(7BIT|8BITMIME)$", RegexOptions.IgnoreCase);
+                this.EightBit = body.Groups[2].Value.ToUpper() == "8BITMIME";
+                bodyValid = body.Success;
+            }
+
+            if (from.Success && bodyValid)
+            {
+                this.MailFrom = from.Groups[1].Value;
+                this.SmtpSession.MessageEnvelope.SetSenderAddress(this.MailFrom);
+
                 // TODO: Implement sender validation logic here.
                 this.IsValid = true;
                 this.SmtpSession.SessionState = SessionState.DataNeeded;
                 this.SmtpSession.SmtpCommands.Add(this);
-                response = SmtpResponse.RecipientOK;
+                response = this.EightBit ? SmtpResponse.RecipientAnd8BitOK : SmtpResponse.RecipientOK;
             }
             else
             {

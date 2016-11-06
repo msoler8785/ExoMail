@@ -89,6 +89,7 @@ namespace ExoMail.Smtp.Protocol
             }
 
             sb.AppendLine("250-ENHANCEDSTATUSCODES");
+            sb.AppendLine("250-8BITMIME");
             sb.Append("250 HELP");
 
             return sb.ToString();
