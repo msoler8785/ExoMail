@@ -7,7 +7,7 @@
     {
         public const int KILOBYTE = 1024;
         public const int MEGABYTE = KILOBYTE * 1024;
-        public const int GIGABYTE = KILOBYTE * 1024;
+        public const int GIGABYTE = MEGABYTE * 1024;
 
         /// <summary>
         /// Get the number of bytes in the specified prefix.
