@@ -93,7 +93,7 @@ namespace ExoMail.Smtp.Protocol
                 this.IsValid = true;
                 this.SmtpSession.SessionState = SessionState.DataNeeded;
                 this.SmtpSession.SmtpCommands.Add(this);
-                response = this.EightBit ? SmtpResponse.RecipientAnd8BitOK : SmtpResponse.RecipientOK;
+                response = this.EightBit ? SmtpResponse.SenderAnd8BitOK : SmtpResponse.SenderOK;
             }
             else
             {
