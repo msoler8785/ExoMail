@@ -16,7 +16,7 @@ namespace ExoMail.Smtp.Utilities
         public static string OK { get { return "250 2.0.0 OK"; } }
         public static string SenderOK { get { return "250 2.1.0 Sender OK"; } }
         public static string RecipientOK { get { return "250 2.1.5 Recipient OK"; } }
-        public static string RecipientAnd8BitOK { get { return "250 2.1.5 Recipient OK and 8BITMIME OK"; } }
+        public static string SenderAnd8BitOK { get { return "250 2.1.0 Recipient OK and 8BITMIME OK"; } }
         public static string Resetting { get { return "250 2.0.0 Resetting"; } }
         public static string Hello { get { return "250 {0} Hello! {1}"; } }
         public static string CannotVrfy { get { return "252 2.1.5 Cannot VRFY user"; } }
@@ -41,23 +41,23 @@ namespace ExoMail.Smtp.Utilities
         public static string NameNotAllowed { get { return "553 Requested action not taken: mailbox name not allowed"; } }
         public static string TransactionFailed { get { return "554 Transaction failed - "; } }
         public static string StartTls { get { return "220 OK STARTTLS Go ahead"; } }
-        public static string AuthOk { get { return "235 2.7.0  Authentication Succeeded"; } }
+        public static string AuthOk { get { return "235 2.7.0 Authentication Succeeded"; } }
         public static string AuthStart { get { return "334 Start Authentication"; } }
         public static string AuthLoginUserName { get { return "334 VXNlcm5hbWU6"; } }
         public static string AuthLoginPassword { get { return "334 UGFzc3dvcmQ6"; } }
         public static string MailboxFull { get { return "452 4.2.2 The recipients mailbox is full"; } }
-        public static string AuthPasswordTransition { get { return "432 4.7.12  A password transition is needed"; } }
-        public static string AuthTempFailure { get { return "454 4.7.0  Temporary authentication failure"; } }
-        public static string AuthWeak { get { return "534 5.7.9  Authentication mechanism is too weak"; } }
-        public static string AuthCredInvalid { get { return "535 5.7.8  Authentication credentials invalid"; } }
-        public static string AuthExchTooLong { get { return "500 5.5.6  Authentication Exchange line is too long"; } }
-        public static string AuthAborted { get { return "501 5.0.0  Authentication Aborted"; } }
+        public static string AuthPasswordTransition { get { return "432 4.7.12 A password transition is needed"; } }
+        public static string AuthTempFailure { get { return "454 4.7.0 Temporary authentication failure"; } }
+        public static string AuthWeak { get { return "534 5.7.9 Authentication mechanism is too weak"; } }
+        public static string AuthCredInvalid { get { return "535 5.7.8 Authentication credentials invalid"; } }
+        public static string AuthExchTooLong { get { return "500 5.5.6 Authentication Exchange line is too long"; } }
+        public static string AuthAborted { get { return "501 5.0.0 Authentication Aborted"; } }
         public static string SendHelloFirst { get { return "503 5.5.2 Send hello first"; } }
         public static string SenderAlreadySpecified { get { return "503 5.5.2 Sender already specified"; } }
         public static string AlreadyAuthenticated { get { return "503 5.5.2 Already authenticated"; } }
         public static string AuthNotSupported { get { return "504 5.5.4 Authentication mechanism not supported"; } }
-        public static string AuthRequired { get { return "530 5.7.0  Authentication required"; } }
-        public static string AuthEncryptRequired { get { return "538 5.7.11  Encryption required for requested authentication mechanism"; } }
-        public static string UnableToRelay {  get { return "550 5.7.1 Unable to relay"; } }
+        public static string AuthRequired { get { return "530 5.7.0 Authentication required"; } }
+        public static string AuthEncryptRequired { get { return "538 5.7.11 Encryption required for requested authentication mechanism"; } }
+        public static string UnableToRelay { get { return "550 5.7.1 Unable to relay"; } }
     }
 }
