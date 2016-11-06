@@ -12,48 +12,31 @@ using ExoMail.Smtp.Configuration;
 namespace ExoMail.Smtp.Protocol.Tests
 {
     [TestClass()]
-    public class SmtpEhloCommandTests
+    public class SmtpEhloCommandTests : CommandTestBase<SmtpEhloCommand>
     {
-        private string _validCommand = "EHLO host.example.com";
-        private string _invalidCommand = "EHLO host .example.com";
+        public override SessionState TestSessionState => SessionState.EhloNeeded;
 
-        private SmtpSession _session { get; set; }
-        private SmtpCommandFactory _commandFactory { get; set; }
-        public SmtpEhloCommandTests()
+        public SmtpEhloCommandTests() 
+            : base()
         {
-            _session = new SmtpSession();
-            _session.ServerConfig = MemoryConfig.Create();
-            _session.SessionNetwork = new SmtpSessionNetwork(new TcpClient());
-
-            _commandFactory = new SmtpCommandFactory(_session);
         }
 
-        [TestMethod()]
-        public void ValidSmtpEhloCommandTest()
+        [TestMethod]
+        public void Ehlo_Commands_Valid()
         {
-            var command = _commandFactory.Parse(_validCommand);
-            var response = command.GetResponseAsync().Result;
+            this.ValidCommands.Add("EHLO host.example.com");
+            this.ValidCommands.Add("EHLO host");
 
-            Assert.IsFalse(String.IsNullOrWhiteSpace(response));
-            Assert.IsTrue(command.IsValid);
-            Assert.IsTrue(command.ArgumentsValid);
-            Assert.IsTrue(command.Arguments.Count() == 1);
-            Assert.IsTrue(command.CommandType == SmtpCommandType.EHLO);
-            Assert.IsInstanceOfType(command, typeof(SmtpEhloCommand));
+            base.TestValidCommands();
         }
 
-        [TestMethod()]
-        public void InvalidSmtpEhloCommandTest()
+        [TestMethod]
+        public void Ehlo_Commands_Invalid()
         {
-            var command = _commandFactory.Parse(_invalidCommand);
-            var response = command.GetResponseAsync().Result;
+            this.InvalidCommands.Add("EHLO host .example.com");
+            this.InvalidCommands.Add("EHLO");
 
-            Assert.IsFalse(String.IsNullOrWhiteSpace(response));
-            Assert.IsFalse(command.IsValid);
-            Assert.IsFalse(command.ArgumentsValid);
-            Assert.IsFalse(command.Arguments.Count() == 1);
-            Assert.IsTrue(command.CommandType == SmtpCommandType.EHLO);
-            Assert.IsInstanceOfType(command, typeof(SmtpEhloCommand));
+            base.TestInvalidCommands();
         }
     }
 }

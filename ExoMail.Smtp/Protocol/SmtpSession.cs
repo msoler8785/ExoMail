@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
@@ -92,13 +93,13 @@ namespace ExoMail.Smtp.Protocol
             }
             else
             {
-                this.Writer = new StreamWriter(this.SessionNetwork.NetworkStream)
+                this.Writer = new StreamWriter(this.SessionNetwork.NetworkStream, Encoding.UTF8)
                 {
                     AutoFlush = true,
                     NewLine = NEWLINE
                 };
 
-                this.Reader = new StreamReader(this.SessionNetwork.NetworkStream);
+                this.Reader = new StreamReader(this.SessionNetwork.NetworkStream, Encoding.UTF8);
             }
         }
 
@@ -195,8 +196,8 @@ namespace ExoMail.Smtp.Protocol
             //this.Reader.Close();
             //this.Writer.Close();
 
-            this.Reader = new StreamReader(this.SessionNetwork.SslStream);
-            this.Writer = new StreamWriter(this.SessionNetwork.SslStream)
+            this.Reader = new StreamReader(this.SessionNetwork.SslStream, Encoding.UTF8);
+            this.Writer = new StreamWriter(this.SessionNetwork.SslStream, Encoding.UTF8)
             {
                 AutoFlush = true,
                 NewLine = "\r\n"
