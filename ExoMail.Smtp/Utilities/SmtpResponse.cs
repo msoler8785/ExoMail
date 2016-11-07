@@ -15,31 +15,32 @@ namespace ExoMail.Smtp.Utilities
         public static string Queued { get { return "250 Queued for delivery"; } }
         public static string OK { get { return "250 2.0.0 OK"; } }
         public static string SenderOK { get { return "250 2.1.0 Sender OK"; } }
-        public static string RecipientOK { get { return "250 2.1.5 Recipient OK"; } }
+        public static string RecipientOK { get { return "250 2.1.5 Recipient <{0}> OK"; } }
         public static string SenderAnd8BitOK { get { return "250 2.1.0 Sender OK and 8BITMIME OK"; } }
         public static string Resetting { get { return "250 2.0.0 Resetting"; } }
         public static string Hello { get { return "250 {0} Hello! {1}"; } }
         public static string CannotVrfy { get { return "252 2.1.5 Cannot VRFY user"; } }
         public static string StartInput { get { return "354 Start mail input; end with <CRLF>.<CRLF>"; } }
-        public static string ServiceNotAvailable { get { return "421 {0} Service not available, closing transmission channel"; } }
-        public static string LocalError { get { return "451 Requested action aborted: local error in processing"; } }
-        public static string InsufficientStorage { get { return "452 Requested action not taken: insufficient system storage"; } }
-        public static string CommandUnrecognized { get { return "500 Syntax error, command unrecognized"; } }
-        public static string ArgumentUnrecognized { get { return "501 Syntax error in parameters or arguments"; } }
-        public static string InvalidDomainName { get { return "501 Invalid Domain Name"; } }
-        public static string CommandNotImplemented { get { return "502 Command not implemented"; } }
-        public static string BadCommand { get { return "503 Bad sequence of commands"; } }
-        public static string SenderFirst { get { return "503 Must specify sender first"; } }
-        public static string SenderAndRecipientFirst { get { return "503 Must specify recipient and sender first"; } }
-        public static string ParameterNotImplemented { get { return "504 Command parameter not implemented"; } }
-        public static string StartTlsFirst { get { return "530 Must issue a STARTTLS command first"; } }
-        public static string MailboxUnavailable { get { return "550 Requested action not taken: mailbox unavailable"; } }
-        public static string InvalidSenderName { get { return "550 Invalid syntax. Syntax should be MAIL FROM:<userdomain>"; } }
-        public static string InvalidRecipient { get { return "550 Invalid syntax. Syntax should be RCPT TO:<userdomain>"; } }
-        public static string ExceededStorage { get { return "552 Requested mail action aborted: exceeded storage allocation"; } }
-        public static string MessageSizeExceeded { get { return "552 Message exceeds maximum message size of {0}MB"; } }
+        public static string ServiceNotAvailable { get { return "421 4.3.0 {0} Service not available, closing transmission channel"; } }
+        public static string LocalError { get { return "451 4.3.0 Requested action aborted: local error in processing"; } }
+        public static string InsufficientStorage { get { return "452 4.3.1 Requested action not taken: insufficient system storage"; } }
+        public static string CommandUnrecognized { get { return "500 5.5.1 Syntax error, command unrecognized"; } }
+        public static string ArgumentUnrecognized { get { return "501 5.5.4 Syntax error in parameters or arguments"; } }
+        public static string InvalidDomainName { get { return "501 5.1.8 Invalid Domain Name"; } }
+        public static string CommandNotImplemented { get { return "502 5.5.1 Command not implemented"; } }
+        public static string BadCommand { get { return "503 5.5.1 Bad sequence of commands"; } }
+        public static string SenderFirst { get { return "503 5.5.1 Must specify sender first"; } }
+        public static string SenderAndRecipientFirst { get { return "503 5.5.1 Must specify recipient and sender first"; } }
+        public static string ParameterNotImplemented { get { return "504 5.5.4 Command parameter not implemented"; } }
+        public static string StartTlsFirst { get { return "530 5.7.0 Must issue a STARTTLS command first"; } }
+        public static string MailboxUnavailable { get { return "550 5.1.1 Requested action not taken: mailbox unavailable"; } }
+        public static string InvalidSenderName { get { return "550 5.5.2 Invalid syntax. Syntax should be MAIL FROM:<userdomain>"; } }
+        public static string InvalidRecipient { get { return "550 5.5.2 Invalid syntax. Syntax should be RCPT TO:<userdomain>"; } }
+        public static string ExceededStorage { get { return "552 5.2.2 Requested mail action aborted: exceeded storage allocation"; } }
+        public static string RecipientSizeExceeded { get { return "552 5.2.3 Message exceeds maximum message size of {0}MB for recipient {1}"; } }
+        public static string SystemSizeExceeded { get { return "552 5.3.4 Message exceeds maximum message size of {0}MB for System"; } }
         public static string NameNotAllowed { get { return "553 Requested action not taken: mailbox name not allowed"; } }
-        public static string TransactionFailed { get { return "554 Transaction failed - "; } }
+        public static string TransactionFailed { get { return "554 5.3.0 Transaction failed"; } }
         public static string StartTls { get { return "220 OK STARTTLS Go ahead"; } }
         public static string AuthOk { get { return "235 2.7.0 Authentication Succeeded"; } }
         public static string AuthStart { get { return "334 Start Authentication"; } }
