@@ -140,7 +140,7 @@ namespace ExoMail.Smtp.Protocol
                         this.SmtpSession.ServerConfig.MaxMessageSize,
                         memoryStream.Length - this.SmtpSession.ServerConfig.MaxMessageSize);
 
-                    return String.Format(SmtpResponse.MessageSizeExceeded, maxMessageSize.ToString());
+                    return String.Format(SmtpResponse.SystemSizeExceeded, maxMessageSize.ToString());
                 }
 
                 memoryStream.Position = 0;

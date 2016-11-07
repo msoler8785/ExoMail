@@ -2,6 +2,7 @@
 using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Interfaces;
 using ExoMail.Smtp.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -134,7 +135,7 @@ namespace ExoMail.Smtp.Protocol
                     }
                     else
                     {
-                        return SmtpResponse.MessageSizeExceeded;
+                        return SmtpResponse.RecipientSizeExceeded;
                     }
                 }
                 else if (this.SmtpSession.ServerConfig.IsAuthRelayAllowed)
@@ -166,7 +167,7 @@ namespace ExoMail.Smtp.Protocol
             this.SmtpSession.SessionState = SessionState.DataNeeded;
             this.SmtpSession.SmtpCommands.Add(this);
             this.SmtpSession.MessageEnvelope.AddRecipient(this._recipientAddress, this._recipientDomain);
-            return SmtpResponse.RecipientOK;
+            return String.Format(SmtpResponse.RecipientOK, this._recipientAddress);
         }
     }
 }
