@@ -21,12 +21,14 @@ namespace ExoMail.Smtp.Protocol
             EightBit = false;
         }
 
-        public override bool ArgumentsValid
+        public override bool ValidateArgs(out string argumentsResponse)
         {
-            get
-            {
-                return this.Arguments.Count > 0 && this.Arguments.Count <= 2;
-            }
+            argumentsResponse = String.Empty;
+            bool result = this.Arguments.Count > 0 && this.Arguments.Count <= 2;
+
+            if (!result)
+                argumentsResponse = SmtpResponse.ArgumentUnrecognized;
+            return result;
         }
 
         public override async Task<string> GetResponseAsync()
@@ -38,7 +40,7 @@ namespace ExoMail.Smtp.Protocol
         {
             string response;
 
-            if (this.ArgumentsValid)
+            if (ValidateArgs(out response))
             {
                 switch (this.SmtpSession.SessionState)
                 {
@@ -61,10 +63,6 @@ namespace ExoMail.Smtp.Protocol
                         response = SmtpResponse.BadCommand;
                         break;
                 }
-            }
-            else
-            {
-                response = SmtpResponse.ArgumentUnrecognized;
             }
 
             return response;

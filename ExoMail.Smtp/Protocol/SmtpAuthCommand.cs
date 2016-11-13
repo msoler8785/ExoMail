@@ -4,6 +4,7 @@ using ExoMail.Smtp.Exceptions;
 using ExoMail.Smtp.Utilities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace ExoMail.Smtp.Protocol
 {
@@ -15,19 +16,22 @@ namespace ExoMail.Smtp.Protocol
             Arguments = arguments;
         }
 
-        public override bool ArgumentsValid
+        public override bool ValidateArgs(out string argumentsResponse)
         {
-            get
-            {
-                return this.Arguments.Count > 0;
-            }
+            argumentsResponse = String.Empty;
+            bool result = this.Arguments.Count > 0;
+
+            if (!result)
+                argumentsResponse = SmtpResponse.ArgumentUnrecognized;
+
+            return result;
         }
 
         public override async Task<string> GetResponseAsync()
         {
             string response;
 
-            if (this.ArgumentsValid)
+            if (ValidateArgs(out response))
             {
                 if (this.SmtpSession.IsAuthenticated)
                 {
@@ -55,11 +59,7 @@ namespace ExoMail.Smtp.Protocol
                             break;
                     }
                 }
-            }
-            else
-            {
-                response = SmtpResponse.ArgumentUnrecognized;
-            }
+            }    
             return response;
         }
 
@@ -111,6 +111,10 @@ namespace ExoMail.Smtp.Protocol
                 }
             }
             catch (SaslException)
+            {
+                return SmtpResponse.AuthCredInvalid;
+            }
+            catch (Exception)
             {
                 return SmtpResponse.AuthCredInvalid;
             }

@@ -6,65 +6,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpEhloCommand : SmtpCommandBase
+    public class SmtpEhloCommand : SmtpHeloCommand
     {
         public SmtpEhloCommand(string command, List<string> arguments)
+            : base(command, arguments)
         {
-            Command = command;
-            Arguments = arguments;
-        }
-
-        public override bool ArgumentsValid
-        {
-            get
-            {
-                return this.Arguments.Count == 1;
-            }
         }
 
         public override async Task<string> GetResponseAsync()
         {
             string response;
 
-            if (this.ArgumentsValid)
+            if (ValidateArgs(out response))
             {
-                DomainName domainName;
-                var isValidDomain = DomainName.TryParse(this.Arguments[0], out domainName);
 
-                if (isValidDomain)
+                this.SmtpSession.Reset();
+                this.IsValid = true;
+                this.SmtpSession.SessionNetwork.RemoteDomainName = this.SendingHost;
+                this.SmtpSession.MessageEnvelope
+                       .SetSenderDomain(this.SendingHost.ToString().TrimEnd('.'));
+
+                if (this.SmtpSession.ServerConfig.IsEncryptionRequired && !this.SmtpSession.IsEncrypted)
                 {
-                    this.SmtpSession.Reset();
-                    this.IsValid = true;
-                    this.SmtpSession.SessionNetwork.RemoteDomainName = domainName;
-                    this.SmtpSession.MessageEnvelope
-                           .SetSenderDomain(domainName.ToString().TrimEnd('.'));
-
-                    if (this.SmtpSession.ServerConfig.IsEncryptionRequired && !this.SmtpSession.IsEncrypted)
-                    {
-                        this.SmtpSession.SessionState = SessionState.StartTlsNeeded;
-                    }
-                    else if (this.SmtpSession.ServerConfig.IsAuthRequired)
-                    {
-                        this.SmtpSession.SessionState = SessionState.AuthNeeded;
-                    }
-                    else
-                    {
-                        this.SmtpSession.SessionState = SessionState.MailNeeded;
-                    }
-
-                    response = await GetEhloResponseMessage();
+                    this.SmtpSession.SessionState = SessionState.StartTlsNeeded;
+                }
+                else if (this.SmtpSession.ServerConfig.IsAuthRequired)
+                {
+                    this.SmtpSession.SessionState = SessionState.AuthNeeded;
                 }
                 else
                 {
-                    response = SmtpResponse.InvalidDomainName;
+                    this.SmtpSession.SessionState = SessionState.MailNeeded;
                 }
-            }
-            else
-            {
-                response = SmtpResponse.ArgumentUnrecognized;
+
+                response = await GetEhloResponseMessage();
             }
 
             return response;
@@ -89,6 +68,7 @@ namespace ExoMail.Smtp.Protocol
             }
 
             sb.AppendLine("250-ENHANCEDSTATUSCODES");
+            sb.AppendLine("250-PIPELINING");
             sb.AppendLine("250-8BITMIME");
             sb.Append("250 HELP");
 

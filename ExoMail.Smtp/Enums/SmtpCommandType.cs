@@ -12,6 +12,7 @@ namespace ExoMail.Smtp.Enums
         HELO,
         MAIL,
         RCPT,
+        BDAT,
         DATA,
         RSET,
         QUIT,

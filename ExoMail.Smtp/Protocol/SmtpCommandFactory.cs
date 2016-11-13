@@ -63,6 +63,10 @@ namespace ExoMail.Smtp.Protocol
                     smtpCommand = new SmtpDataCommand(command, arguments);
                     break;
 
+                case "BDAT":
+                    smtpCommand = new SmtpBdatCommand(command, arguments);
+                    break;
+
                 case "RSET":
                     smtpCommand = new SmtpRsetCommand(command, arguments);
                     break;
