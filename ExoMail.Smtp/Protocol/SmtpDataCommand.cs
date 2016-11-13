@@ -19,18 +19,21 @@ namespace ExoMail.Smtp.Protocol
             Arguments = arguments;
         }
 
-        public override bool ArgumentsValid
+        public override bool ValidateArgs(out string argumentsResponse)
         {
-            get
-            {
-                return this.Arguments.Count == 0;
-            }
+            argumentsResponse = String.Empty;
+            bool result = this.Arguments.Count == 0;
+
+            if (!result)
+                argumentsResponse = SmtpResponse.ArgumentUnrecognized;
+
+            return result;
         }
 
         private string GetResponse()
         {
             string response;
-            if (this.ArgumentsValid)
+            if (ValidateArgs(out response))
             {
                 switch (this.SmtpSession.SessionState)
                 {
@@ -63,10 +66,7 @@ namespace ExoMail.Smtp.Protocol
                         break;
                 }
             }
-            else
-            {
-                response = SmtpResponse.ArgumentUnrecognized;
-            }
+          
             return response;
         }
 
@@ -105,7 +105,7 @@ namespace ExoMail.Smtp.Protocol
         private async Task<string> ReceiveDataAsync(Stream stream)
         {
             using (var memoryStream = new RecyclableMemoryStreamManager().GetStream())
-            using (var reader = new StreamReader(memoryStream, Encoding.ASCII))
+            using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
             {
                 // 8KB buffer for NetworkStream.
                 byte[] buffer = new byte[8 * 1024];

@@ -1,4 +1,5 @@
 ﻿using ExoMail.Smtp.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,12 +13,15 @@ namespace ExoMail.Smtp.Protocol
             Arguments = arguments;
         }
 
-        public override bool ArgumentsValid
+        public override bool ValidateArgs(out string argumentsResponse)
         {
-            get
-            {
-                return this.Arguments.Count <= 1;
-            }
+            argumentsResponse = String.Empty;
+            bool result = this.Arguments.Count <= 1;
+
+            if (!result)
+                argumentsResponse = SmtpResponse.ArgumentUnrecognized;
+
+            return result;
         }
 
         public override async Task<string> GetResponseAsync()
@@ -27,14 +31,12 @@ namespace ExoMail.Smtp.Protocol
 
         private string GetResponse()
         {
-            if (this.ArgumentsValid)
+            string response;
+            if (ValidateArgs(out response))
             {
-                return SmtpResponse.OK;
+                response = SmtpResponse.OK;
             }
-            else
-            {
-                return SmtpResponse.ArgumentUnrecognized;
-            }
+            return response;
         }
     }
 }

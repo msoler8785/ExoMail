@@ -13,12 +13,11 @@ namespace ExoMail.Smtp.Protocol
             Arguments = arguments;
         }
 
-        public override bool ArgumentsValid
+        public override bool ValidateArgs(out string argumentsResponse)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            argumentsResponse = String.Empty;
+
+            return true;
         }
 
         public override async Task<string> GetResponseAsync()

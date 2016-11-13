@@ -16,8 +16,8 @@ namespace ExoMail.Smtp.Protocol
             set { _argument = value; }
         }
 
-        public abstract bool ArgumentsValid { get; }
-
+        //public bool ArgumentsValid { get; set; }
+        //public string ArgumentsResponse { get; set; }
         public string Command
         {
             get { return _command.ToUpper(); }
@@ -34,12 +34,17 @@ namespace ExoMail.Smtp.Protocol
 
         public SmtpCommandBase()
         {
+            //string argumentsResponse;
             this.Command = String.Empty;
             this.Arguments = new List<string>();
             this.IsValid = false;
+            //this.ArgumentsValid = ValidateArgs(out argumentsResponse);
+            //this.ArgumentsResponse = argumentsResponse;
         }
 
         public abstract Task<string> GetResponseAsync();
+
+        public abstract bool ValidateArgs(out string argumentsResponse);
 
         public virtual async Task ProcessCommandAction()
         {

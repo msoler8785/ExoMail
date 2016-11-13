@@ -1,5 +1,6 @@
 ﻿using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,19 +14,23 @@ namespace ExoMail.Smtp.Protocol
             Arguments = arguments;
         }
 
-        public override bool ArgumentsValid
+
+        public override bool ValidateArgs(out string argumentsResponse)
         {
-            get
-            {
-                return this.Arguments.Count == 0;
-            }
+            argumentsResponse = String.Empty;
+            bool result = this.Arguments.Count == 0;
+
+            if (!result)
+                argumentsResponse = SmtpResponse.ArgumentUnrecognized;
+
+            return result;
         }
 
         private string GetResponse()
         {
             string response;
 
-            if (this.ArgumentsValid)
+            if (ValidateArgs(out response))
             {
                 switch (this.SmtpSession.SessionState)
                 {
@@ -44,10 +49,7 @@ namespace ExoMail.Smtp.Protocol
                         break;
                 }
             }
-            else
-            {
-                response = SmtpResponse.ArgumentUnrecognized;
-            }
+           
             return response;
         }
 
