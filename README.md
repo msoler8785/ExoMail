@@ -11,13 +11,13 @@ As a systems administrator I wanted to learn more about how SMTP works I also wa
 
 ## Current Features
 
-Async methods 
-Authentication support 
-Extensible UserStore 
-Extensible ServerConfig 
-Extensible SaslMechanism 
-Extensible MessagStore 
-UserManagement 
+Async methods  
+Authentication support  
+Extensible UserStore  
+Extensible ServerConfig  
+Extensible SaslMechanism  
+Extensible MessagStore  
+UserManagement  
 
 ## Implemented Commands
 
@@ -55,7 +55,12 @@ public async Task StartListeningAsync()
 	// Create a test userstore repository.
 	for (int i = 0; i < 5; i++)
 	{
-		userStore.AddUser(EmailUser.CreateMailbox("Test", "User0" + i.ToString(), "user0" + i.ToString() + "@example.net"));
+		userStore.AddUser(
+			EmailUser.CreateMailbox(
+				"Test", 
+				"User0" + i.ToString(), 
+				"user0" + i.ToString() + "@example.net")
+				);
 	}
 
 	// Add UserStore to the UserManager
