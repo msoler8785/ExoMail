@@ -8,7 +8,7 @@ using System;
 
 namespace ExoMail.Smtp.Protocol
 {
-    internal class SmtpAuthCommand : SmtpCommandBase
+    public sealed class SmtpAuthCommand : SmtpCommandBase
     {
         public SmtpAuthCommand(string command, List<string> arguments)
         {
@@ -19,7 +19,7 @@ namespace ExoMail.Smtp.Protocol
         public override bool ValidateArgs(out string argumentsResponse)
         {
             argumentsResponse = String.Empty;
-            bool result = this.Arguments.Count > 0;
+            bool result = this.Arguments.Count > 0 && this.Arguments.Count <= 2;
 
             if (!result)
                 argumentsResponse = SmtpResponse.ArgumentUnrecognized;
@@ -59,41 +59,32 @@ namespace ExoMail.Smtp.Protocol
                             break;
                     }
                 }
-            }    
+            }
             return response;
         }
 
         private async Task<string> GetAuthResponse()
         {
+            string response;
             var saslMechanism = SaslFactory.GetSaslMechanism(this.Arguments[0]);
 
             if (saslMechanism == null)
             {
                 return SmtpResponse.AuthNotSupported;
             }
+
             try
             {
                 if (saslMechanism.CanSendInitialResponse && this.Arguments.Count == 2)
                 {
                     saslMechanism.ParseResponse(this.Arguments[1]);
-                    while (!saslMechanism.IsCompleted)
-                    {
-                        await this.SmtpSession.SendResponseAsync(saslMechanism.GetChallenge());
-                        saslMechanism.ParseResponse(await this.SmtpSession.ListenRequestAsync());
-                    }
                 }
-                else if (this.Arguments.Count == 1)
+
+                // Begin the Sasl challenge-response.
+                while (!saslMechanism.IsCompleted)
                 {
-                    // Begin the Sasl challenge-response.
-                    while (!saslMechanism.IsCompleted)
-                    {
-                        await this.SmtpSession.SendResponseAsync(saslMechanism.GetChallenge());
-                        saslMechanism.ParseResponse(await this.SmtpSession.ListenRequestAsync());
-                    }
-                }
-                else
-                {
-                    return SmtpResponse.ArgumentUnrecognized;
+                    await this.SmtpSession.SendResponseAsync(saslMechanism.GetChallenge());
+                    saslMechanism.ParseResponse(await this.SmtpSession.ListenRequestAsync());
                 }
 
                 this.SmtpSession.IsAuthenticated = saslMechanism.IsAuthenticated;
@@ -103,12 +94,14 @@ namespace ExoMail.Smtp.Protocol
                     this.IsValid = true;
                     this.SmtpSession.SmtpCommands.Add(this);
                     this.SmtpSession.SessionState = SessionState.MailNeeded;
-                    return SmtpResponse.AuthOk;
+                    response = SmtpResponse.AuthOk;
                 }
                 else
                 {
-                    return SmtpResponse.AuthCredInvalid;
+                    response = SmtpResponse.AuthCredInvalid;
                 }
+
+                return response;
             }
             catch (SaslException)
             {

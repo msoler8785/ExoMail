@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpReceivedHeader
+    public sealed class SmtpReceivedHeader
     {
         private const string DATETIME_FORMAT = "ddd, dd MMM yyyy HH:mm:ss zz00";
         private SmtpSession _smtpSession { get; set; }

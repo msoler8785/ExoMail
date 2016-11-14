@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpStartTlsCommand : SmtpCommandBase
+    public sealed class SmtpStartTlsCommand : SmtpCommandBase
     {
         public SmtpStartTlsCommand(string command, List<string> arguments)
         {

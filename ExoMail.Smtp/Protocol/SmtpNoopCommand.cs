@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpNoopCommand : SmtpCommandBase
+    public sealed class SmtpNoopCommand : SmtpCommandBase
     {
         public SmtpNoopCommand(string command, List<string> arguments)
         {
