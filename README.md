@@ -1,9 +1,9 @@
 # ExoMail
-An SMTP server library written in C#
+An SMTP server component written in C#
 
 ## Synopsis
 
-This is my first project involving some serious network code and trying to implement RFC guidelines. The ultimate goal is to create an extensible SMTP library that is RFC compliant and can be utilized in other projects.  
+This is my first project involving some serious network code and trying to implement RFC guidelines. The ultimate goal is to create an extensible SMTP server component that is RFC compliant and can be utilized in other projects. Functionality is implemented through different public interfaces. 
 
 ## Motivation
 
@@ -11,19 +11,21 @@ As a systems administrator I wanted to learn more about how SMTP works I also wa
 
 ## Current Features
 
-TLS/SSL Support
-STARTTLS Support
-Async methods
-Authentication support
-Extensible UserStore
-Extensible ServerConfig
-Extensible SaslMechanism
-Extensible MessagStore
-UserManagement
+Async methods 
+Authentication support 
+Extensible UserStore 
+Extensible ServerConfig 
+Extensible SaslMechanism 
+Extensible MessagStore 
+UserManagement 
 
 ## Implemented Commands
 
-HELO, EHLO, MAIL, RCPT, SIZE, DATA, HELP, STARTTLS, AUTH, NOOP, QUIT, RSET
+HELO, EHLO, MAIL, RCPT, SIZE, DATA, HELP, AUTH, NOOP, QUIT, RSET
+
+## Implemented Extensions
+
+STARTTLS, 8BITMIME, PIPELINING
 
 ## Example
 
@@ -31,27 +33,38 @@ An example project is included to get you started.
 Here are some snippets on how to do a minimal implementation:  
 
 ```csharp
-public class AppStart 
+public async Task StartListeningAsync()
 {
-	public async Task StartListeningAsync(CancellationToken token)
+	// Build the config.
+	var config = MemoryConfig.Create()
+					.WithHostname("exomail01.example.com")
+					.WithPort(2525)
+					.WithServerId("FC30BD4D-1C93-4FBF-BF8F-9788059AF0DC")
+					.WithSessionTimeout(5 * 60 * 1000) // 5 minutes
+					.WithX509Certificate(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "localhost.pfx"), null)
+					//.WithEncryptionRequired()
+					.WithStartTlsSupported()
+					.WithAuthRelayAllowed();
+
+	// Create the MessageStore
+	var messageStore = new FileMessageStore();
+
+	// Create the UserStore
+	var userStore = new TestUserStore();
+
+	// Create a test userstore repository.
+	for (int i = 0; i < 5; i++)
 	{
-		// Build the config.
-		var config = MemoryConfig.Create();
-
-		// Create the MessageStore
-		var messageStore = new FileMessageStore();
-
-		// Create the UserStore
-		var userStore = new TestUserStore();
-
-		// Add UserStore to the UserManager
-		UserManager.GetUserManager.AddUserStore(userStore);
-
-		// Create the server
-		SmtpServer server = new SmtpServer(config, messageStore);
-
-		await server.StartAsync(this.token);
+		userStore.AddUser(EmailUser.CreateMailbox("Test", "User0" + i.ToString(), "user0" + i.ToString() + "@example.net"));
 	}
+
+	// Add UserStore to the UserManager
+	UserManager.GetUserManager.AddUserStore(userStore);
+
+	// Create the server
+	SmtpServer server = new SmtpServer(config, messageStore);
+
+	await server.StartAsync(this._token);
 }
 
 public class FileMessageStore : IMessageStore
@@ -84,6 +97,13 @@ public class FileMessageStore : IMessageStore
 
 public class TestUserStore : IUserStore
 {
+	private List<IUserIdentity> _users { get; set; }
+
+	public TestUserStore()
+	{
+		this._users = new List<IUserIdentity>();
+	}
+
 	public string Domain
 	{
 		get
@@ -94,22 +114,30 @@ public class TestUserStore : IUserStore
 
 	public void AddUser(IUserIdentity userIdentity)
 	{
-		throw new NotImplementedException();
+		this._users.Add(userIdentity);
 	}
 
 	public List<IUserIdentity> GetIdentities()
 	{
-		throw new NotImplementedException();
+		return this._users;
 	}
 
 	public bool IsUserAuthenticated(string userName, string password)
 	{
-		return userName.ToUpper() == "TUSER" && password == "Str0ngP@$$!!";
+		userName = userName.ToUpper();
+		var user = this._users.FirstOrDefault(u => u.UserName.ToUpper() == userName);
+		if (user == null)
+			return false;
+
+		// In a real world implementation this would compare a hashed version of the password.
+		return user.Password == password;
 	}
 
 	public bool IsValidRecipient(string emailAddress)
 	{
-		return emailAddress.Contains(this.Domain);
+		emailAddress = emailAddress.ToUpper();
+
+		return _users.Any(u => u.EmailAddress.ToUpper() == emailAddress);
 	}
 }
 ```
