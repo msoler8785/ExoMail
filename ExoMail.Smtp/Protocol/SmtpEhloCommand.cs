@@ -10,7 +10,7 @@ using System;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpEhloCommand : SmtpHeloCommand
+    public sealed class SmtpEhloCommand : SmtpHeloCommand
     {
         public SmtpEhloCommand(string command, List<string> arguments)
             : base(command, arguments)

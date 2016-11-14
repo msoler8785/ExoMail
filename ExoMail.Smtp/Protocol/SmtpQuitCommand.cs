@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpQuitCommand : SmtpCommandBase
+    public sealed class SmtpQuitCommand : SmtpCommandBase
     {
         public SmtpQuitCommand(string command, List<string> arguments)
         {

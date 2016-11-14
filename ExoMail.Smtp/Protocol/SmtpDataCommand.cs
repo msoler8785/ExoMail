@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpDataCommand : SmtpCommandBase
+    public sealed class SmtpDataCommand : SmtpCommandBase
     {
         public SmtpDataCommand(string command, List<string> arguments)
         {

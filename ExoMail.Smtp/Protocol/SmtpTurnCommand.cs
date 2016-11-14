@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpTurnCommand : SmtpCommandBase
+    public sealed class SmtpTurnCommand : SmtpCommandBase
     {
         public SmtpTurnCommand(string command, List<string> arguments)
         {

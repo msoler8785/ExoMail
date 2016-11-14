@@ -10,7 +10,7 @@ using System.Text;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpBdatCommand : SmtpCommandBase
+    public sealed class SmtpBdatCommand : SmtpCommandBase
     {
         /// <summary>
         /// The size of this BDAT Chunk in bytes.

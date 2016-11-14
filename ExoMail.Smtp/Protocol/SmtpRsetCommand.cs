@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpRsetCommand : SmtpCommandBase
+    public sealed class SmtpRsetCommand : SmtpCommandBase
     {
         public SmtpRsetCommand(string command, List<string> arguments)
         {

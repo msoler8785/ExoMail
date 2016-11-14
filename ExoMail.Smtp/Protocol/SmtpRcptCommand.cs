@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpRcptCommand : SmtpCommandBase
+    public sealed class SmtpRcptCommand : SmtpCommandBase
     {
         private IUserIdentity _user
         {

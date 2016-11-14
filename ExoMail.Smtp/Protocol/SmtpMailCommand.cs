@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExoMail.Smtp.Protocol
 {
-    public class SmtpMailCommand : SmtpCommandBase
+    public sealed class SmtpMailCommand : SmtpCommandBase
     {
         public string MailFrom { get; set; }
 
