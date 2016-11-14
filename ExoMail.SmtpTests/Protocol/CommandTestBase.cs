@@ -9,11 +9,148 @@ using ExoMail.Smtp.Enums;
 using ExoMail.Smtp.Utilities;
 using System.Net.Sockets;
 using ExoMail.Smtp.Configuration;
+using ExoMail.Smtp.Interfaces;
+
 namespace ExoMail.Smtp.Protocol.Tests
 {
     [TestClass()]
     public abstract class CommandTestBase<T>
     {
+        public class TestUserIdentity : IUserIdentity
+        {
+            public List<string> AliasAddresses { get; set; }
+
+            public string EmailAddress { get; set; }
+
+            public string FirstName
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public List<string> Folders
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public bool IsActive
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public string LastName
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public string MailboxPath
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public long MailboxSize
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public long MaxMailboxSize
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public long MaxMessageSize => ByteSizeHelper.FromMegaBytes(1);
+
+            public long MessageCount
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public string Password { get; set; }
+
+            public string UserId
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public string UserName { get; set; }
+
+            public TestUserIdentity()
+            {
+                AliasAddresses = new List<string>();
+            }
+        }
+        public class TestUserStore : IUserStore
+        {
+            public string Domain => "example.com";
+            private List<IUserIdentity> Identities { get; set; }
+
+            public void AddUser(IUserIdentity userIdentity)
+            {
+                Identities.Add(userIdentity);
+            }
+
+            public List<IUserIdentity> GetIdentities()
+            {
+                return Identities;
+            }
+
+            public bool IsUserAuthenticated(string userName, string password)
+            {
+                return Identities.Any(x => x.UserName == userName && x.Password == password);
+            }
+
+            public bool IsValidRecipient(string emailAddress)
+            {
+                return Identities.Any(x => x.EmailAddress == emailAddress || x.AliasAddresses.Any(a => a == emailAddress));
+            }
+
+            public TestUserStore()
+            {
+                Identities = new List<IUserIdentity>();
+            }
+        }
+
         public List<string> ValidCommands { get; set; }
         public List<string> InvalidCommands { get; set; }
         public abstract SessionState TestSessionState { get; }

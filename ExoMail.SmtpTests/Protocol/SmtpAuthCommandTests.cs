@@ -15,15 +15,17 @@ using ExoMail.Smtp.Interfaces;
 namespace ExoMail.Smtp.Protocol.Tests
 {
     [TestClass()]
-    public class SmtpRcptCommandTests : CommandTestBase<SmtpRcptCommand>
+    public class SmtpAuthCommandTests : CommandTestBase<SmtpAuthCommand>
     {
         public override SessionState TestSessionState => SessionState.RcptNeeded;
 
-        public SmtpRcptCommandTests()
+        public SmtpAuthCommandTests()
             : base()
         {
             var store = new TestUserStore();
             var user = new TestUserIdentity();
+            user.UserName = "testuser";
+            user.Password = "password";
             user.EmailAddress = "user@example.com";
             user.AliasAddresses.Add("alias@example.com");
 
@@ -32,24 +34,17 @@ namespace ExoMail.Smtp.Protocol.Tests
         }
 
         [TestMethod]
-        public void Rcpt_Commands_Valid()
+        public void Auth_Commands_Valid()
         {
-
-            this.ValidCommands.Add("RCPT TO:<user@example.com>");
-            this.ValidCommands.Add("RCPT TO:<alias@example.com>");
-            this.ValidCommands.Add("RCPT TO:<alias@example.com> SIZE=1048576");
-
+            this.ValidCommands.Add("AUTH PLAIN dGVzdHVzZXIAdGVzdHVzZXIAcGFzc3dvcmQ=");
+        
             base.TestValidCommands();
         }
 
         [TestMethod]
-        public void Rcpt_Commands_Invalid()
+        public void Auth_Commands_Invalid()
         {
-            this.InvalidCommands.Add("RCPT");
-            this.InvalidCommands.Add("RCPT TO:");
-            this.InvalidCommands.Add("RCPT TO:<>");
-            this.InvalidCommands.Add("RCPT TO:<nonexistent@example.com>");
-            this.InvalidCommands.Add("RCPT TO:<alias@example.com> SIZE=2048576");
+            this.InvalidCommands.Add("AUTH");
 
             base.TestInvalidCommands();
         }
