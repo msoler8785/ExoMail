@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ExoMail.Smtp.Server.Enums
+{
+    public enum SmtpCommandType
+    {
+        EHLO,
+        HELO,
+        MAIL,
+        RCPT,
+        BDAT,
+        DATA,
+        RSET,
+        QUIT,
+        NOOP,
+        STARTTLS,
+        AUTH,
+        HELP,
+        SAML,
+        VRFY,
+        TURN,
+        INVALID
+    }
+}

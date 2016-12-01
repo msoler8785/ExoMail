@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp", "ExoMail.Smtp\ExoMail.Smtp.csproj", "{57003B4D-643E-4260-A66F-90593C81C074}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp.Server", "ExoMail.Smtp.Server\ExoMail.Smtp.Server.csproj", "{57003B4D-643E-4260-A66F-90593C81C074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Example", "ExoMail.Example\ExoMail.Example.csproj", "{4073F27C-CBDE-447A-9A97-DFA5A088F81E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp.Server.Example", "ExoMail.Smtp.Server.Example\ExoMail.Smtp.Server.Example.csproj", "{4073F27C-CBDE-447A-9A97-DFA5A088F81E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.SmtpTests", "ExoMail.SmtpTests\ExoMail.SmtpTests.csproj", "{FC16EF9F-FF47-4B21-A277-469AE49BA72A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExoMail.Smtp.Server.Tests", "ExoMail.Smtp.Server.Tests\ExoMail.Smtp.Server.Tests.csproj", "{FC16EF9F-FF47-4B21-A277-469AE49BA72A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ExoMail.Smtp.Client", "ExoMail.Smtp.Client\ExoMail.Smtp.Client.xproj", "{4C7D3F2A-6B20-426A-A928-B14C49B8703A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC16EF9F-FF47-4B21-A277-469AE49BA72A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C7D3F2A-6B20-426A-A928-B14C49B8703A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C7D3F2A-6B20-426A-A928-B14C49B8703A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C7D3F2A-6B20-426A-A928-B14C49B8703A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C7D3F2A-6B20-426A-A928-B14C49B8703A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
