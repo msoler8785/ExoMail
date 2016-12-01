@@ -57,7 +57,7 @@ namespace ExoMail.Smtp.Protocol
             return false;
         }
 
-        private string GetResponse()
+        public override async Task<string> GetResponseAsync()
         {
             string response;
             if (ValidateArgs(out response))
@@ -65,7 +65,7 @@ namespace ExoMail.Smtp.Protocol
                 switch (this.SmtpSession.SessionState)
                 {
                     case SessionState.DataNeeded:
-                        response = SmtpResponse.StartInput;
+                        response = await StartInputAsync();
                         break;
 
                     case SessionState.EhloNeeded:
@@ -100,19 +100,6 @@ namespace ExoMail.Smtp.Protocol
             return response;
         }
 
-
-        public override Task<string> GetResponseAsync()
-        {
-            return Task.Run(() => SmtpResponse.CommandNotImplemented);
-            throw new NotImplementedException();
-        }
-
-        public override async Task ProcessCommandAction()
-        {
-            string response = await StartInputAsync();
-            await this.SmtpSession.SendResponseAsync(response);
-        }
-
         /// <summary>
         /// Enter into the data phase of the SmtpSession
         /// </summary>
@@ -129,18 +116,12 @@ namespace ExoMail.Smtp.Protocol
             return response;
         }
 
-        private Task<string> ReceiveDataAsync(Stream stream)
+        private async Task<string> ReceiveDataAsync(Stream stream)
         {
-            throw new NotImplementedException();
+            byte[] buffer = new byte[this.ChunkSize];
+            await stream.ReadAsync(buffer, 0, buffer.Length);
 
-            using (var memoryStream = new RecyclableMemoryStreamManager().GetStream())
-            using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
-            {
-
-                reader.Read();
-                
-            }
-
+            return String.Format($"250 Message OK. Received {buffer.Length} bytes.");
         }
     }
 }
