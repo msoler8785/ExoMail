@@ -1,0 +1,50 @@
+[
+  {
+    "$type": "ExoMail.Smtp.Service.Configuration.SmtpServerConfig, ExoMail.Smtp.Service",
+    "ServerId": null,
+    "HostName": "HQ-PR-PC01",
+    "IsAuthRequired": false,
+    "IsEncryptionRequired": false,
+    "IsStartTlsSupported": true,
+    "IsAuthRelayAllowed": true,
+    "IsTls": false,
+    "MaxMessageSize": 52428800,
+    "Port": 25,
+    "ServerIpBindingString": "0.0.0.0",
+    "SessionTimeout": 300000,
+    "CertificatePath": "localhost.pfx",
+    "InboundQueuePath": "Queues\\Inbound"
+  },
+  {
+    "$type": "ExoMail.Smtp.Service.Configuration.SmtpServerConfig, ExoMail.Smtp.Service",
+    "ServerId": null,
+    "HostName": "HQ-PR-PC01",
+    "IsAuthRequired": true,
+    "IsEncryptionRequired": true,
+    "IsStartTlsSupported": true,
+    "IsAuthRelayAllowed": true,
+    "IsTls": false,
+    "MaxMessageSize": 52428800,
+    "Port": 587,
+    "ServerIpBindingString": "0.0.0.0",
+    "SessionTimeout": 300000,
+    "CertificatePath": "localhost.pfx",
+    "InboundQueuePath": "Queues\\Inbound"
+  },
+  {
+    "$type": "ExoMail.Smtp.Service.Configuration.SmtpServerConfig, ExoMail.Smtp.Service",
+    "ServerId": null,
+    "HostName": "HQ-PR-PC01",
+    "IsAuthRequired": true,
+    "IsEncryptionRequired": true,
+    "IsStartTlsSupported": false,
+    "IsAuthRelayAllowed": true,
+    "IsTls": true,
+    "MaxMessageSize": 52428800,
+    "Port": 465,
+    "ServerIpBindingString": "0.0.0.0",
+    "SessionTimeout": 300000,
+    "CertificatePath": "localhost.pfx",
+    "InboundQueuePath": "Queues\\Inbound"
+  }
+]
