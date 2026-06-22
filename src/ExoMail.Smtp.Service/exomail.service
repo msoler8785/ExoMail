@@ -1,0 +1,12 @@
+﻿[Unit]
+Description=ExoMail SMTP Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/dotnet /home/msoler/dotnet/exomail/ExoMail.Smtp.Service.dll
+Restart=always
+WorkingDirectory=/home/msoler/dotnet/exomail/
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

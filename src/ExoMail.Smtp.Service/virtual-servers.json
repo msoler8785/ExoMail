@@ -1,0 +1,200 @@
+[
+  {
+    "$type": "ExoMail.Smtp.Service.VirtualServer, ExoMail.Smtp.Service",
+    "VirtualServerId": "81d1a367-9951-473a-a5fb-105d11da411b",
+    "Active": true,
+    "Description": "The default virtual server.",
+    "DkimPolicies": [
+      {
+        "$type": "ExoMail.Smtp.Service.DkimPolicy, ExoMail.Smtp.Service",
+        "PrivateKey": "-----BEGIN RSA PRIVATE KEY-----\r\nMIIEogIBAAKCAQEAvElcwgRUhOsjvEGUu+cdkipk/72ftAwMbClPSDaXNm+GX3YD\r\n/Et2uTMOwm7Q55UgbGPahTs3QDeOvOqk39ZbDFSMOlm2J7P+44x3L1lMJP0eTTrp\r\nVu0js/Br8Pj1pFbbLHkL+YMOdLISctQuGZczHMjKLMZK6daNG10hLPY60Xwwphv4\r\nbyyYOGNcSuFFUdL+xOF4whhyp7wc9xjwPGtyVokraqNpjaJOlnJT0bWrVETtgwcg\r\nCX9BeG9f4e6M1Mt5p8V2Yd1iWT8XJhZvzAjnGSpyuKW1yKlL7Gn8l7iR0rl4phNJ\r\ngRH2j0Jw3sXmfhomGm62O+ME7w3GwMVAyp3YVQIDAQABAoIBAQCv3SILgfnjsLFP\r\nHD4tB+DB7mEp0dbCV+KegDMyMvMoACEVNujgFShOMVde2hy7wbloJBguCzI/A+WJ\r\npOzcuZ2PNcVIlxShnui7Zy7HhfOuNNHBtv3NmG+ZmT1o9VCS8CGFN4asxfGRo+XB\r\nZVetxWETSKQ2D/xWz3Q7E9Bx64bitC+mDSBWmObV8ZIn/RL3dE2EQifZ1tpgwl8Q\r\nFzqU+jnOoV1MyLCI2fMInMTGJBwp1SYsBZA2wM1wUocnrOXF1YRiBsyh4P4hZWvl\r\nUtD4aav/HAmRu44OgG9JnhS8jij74RSXMU13DDgCbvncskkUiFfAeVBAnzXwO9M0\r\n9G35jBW9AoGBANxOoxN8KB4jrj4fkaJGOvXllsIoxNbfSPguf0C8PUvGjiMQARaT\r\n11HV2gtC6ELNp2+NEDf5NBekyyEyxxQ1nDILTnOxoHKBglK3MxfD3xgh6HDxjsp4\r\nyj41KrPx+fnP/OzSF8khKbEkor0DNwQz6Nqj5u1vcTAQ8AUYdQv2U80bAoGBANrK\r\npySLMgXDqAXxqwD6RkypekwFmDHBYP1nIGFhzm1R/hX7ohSJ5OZzb4O36+P3Kb5Y\r\nAtumWRKCyfDDGkh4U9Fn0MB3R3aWxSFddUxvFSJxHLD1j4pstHfLhlYj9hWFI4zA\r\nTDJlx8Noj+a69Tm54wVkc2oXM8dyA36/qeEv3ndPAoGBAMvrZftFMwUi1cffBLiF\r\n9VFioDc78WdK6on+z/8lvj8DnNFLoRY65lVzcw51cfNT1KXmlpqY6uTvvq4OCEPm\r\nk5um54kjY3ZZ9j2GIZ7fyQLXcAYLMbasM9d88vf5BP98y4qRtT6QmbzEQnZeIXCc\r\nc+7dQ4WHX+ez5ddxmfXmng79An8WOH7BN2HdNAHcmK7FaqW5I31IO0k5xGoVUmP3\r\nf/d3ItyrXuMXMuoMfazVs9hBTtjufAHOTRa+yom36hjBQ3c/zUtmQLcBVE6xFMzU\r\n9nMvDE3dqxLo/CFYCVObbAuSI/N4WA9lDvE652O2C0bclgR4h7sxCyo3F11DgjO+\r\nqx3tAoGARMiiFISHNvgffE9qSArR0xLHpr/26AFtmC4qQNWNs5lAzCCRcvedBESq\r\nUHlfDeRrOdyuBtssUNX2XO1qVqezA8+3mvXOupObYsrQEu56iWCscJiHEmT1NSrk\r\nY/fqoteU/YMWSdBX20MKBF1IWVndrXHu0NYfhuzJD8AZgg0x3IY=\r\n-----END RSA PRIVATE KEY-----",
+        "UseDkim": true,
+        "Domain": "hq-pr-pc01",
+        "Selector": "key01",
+        "Headers": [
+          "from",
+          "to",
+          "message-id",
+          "mime-version",
+          "subject"
+        ]
+      }
+    ],
+    "Name": "Default Virtual Server",
+    "Users": [
+      {
+        "$type": "ExoMail.Smtp.Service.EmailUser, ExoMail.Smtp.Service",
+        "Password": "0SWtNLrcfunmUfL6dhTxQTl/uDwiltUa89r2Y2QF4vk=",
+        "EmailAddresses": [
+          "user00@hq-pr-pc01"
+        ],
+        "FirstName": "Test",
+        "IsActive": true,
+        "LastName": "User",
+        "MailboxPath": "Users\\user00@hq-pr-pc01",
+        "MailboxSize": 0,
+        "MaxMailboxSize": 0,
+        "MaxMessageSize": 0,
+        "UserId": "2dabba34-3a1e-4b84-a6cf-c51902f34b22",
+        "UserName": "user00@hq-pr-pc01",
+        "VirtualServerId": "81d1a367-9951-473a-a5fb-105d11da411b"
+      },
+      {
+        "$type": "ExoMail.Smtp.Service.EmailUser, ExoMail.Smtp.Service",
+        "Password": "7B8hA+jCZqHyXtGTej5ND1lkFZgejqEXrHDqi1q1+2o=",
+        "EmailAddresses": [
+          "user01@hq-pr-pc01"
+        ],
+        "FirstName": "Test",
+        "IsActive": true,
+        "LastName": "User",
+        "MailboxPath": "Users\\user01@hq-pr-pc01",
+        "MailboxSize": 0,
+        "MaxMailboxSize": 0,
+        "MaxMessageSize": 0,
+        "UserId": "d9e6dd4d-846a-4a3c-9027-724cebb8c10e",
+        "UserName": "user01@hq-pr-pc01",
+        "VirtualServerId": "81d1a367-9951-473a-a5fb-105d11da411b"
+      }
+    ],
+    "Routes": [
+      {
+        "$type": "ExoMail.Smtp.QueueProcessor.MessageRoute, ExoMail.Smtp.QueueProcessor",
+        "Destination": "*",
+        "Metric": 10,
+        "VirtualServerId": "81d1a367-9951-473a-a5fb-105d11da411b",
+        "MessageRouteId": "2477dc35-61f8-462b-a018-e1b2cfa92fb9",
+        "MessageGateway": {
+          "$type": "ExoMail.Smtp.QueueProcessor.MxMessageGateway, ExoMail.Smtp.QueueProcessor",
+          "GatewayOptions": {
+            "$type": "ExoMail.Smtp.Service.Configuration.MxGatewayOptions, ExoMail.Smtp.Service",
+            "MaxClientsPerDomain": 20,
+            "MaxMessagesPerSession": 100,
+            "MessageDeferralTime": 300,
+            "MaxMessageRetries": 20
+          }
+        }
+      }
+    ],
+    "Options": {
+      "TrackingDomain": "tracking.example.com"
+    }
+  },
+  {
+    "$type": "ExoMail.Smtp.Service.VirtualServer, ExoMail.Smtp.Service",
+    "VirtualServerId": "759d23e9-dcfb-45fb-9ea5-3e17e7102e57",
+    "Active": true,
+    "Description": "The default virtual server.",
+    "DkimPolicies": [
+      {
+        "$type": "ExoMail.Smtp.Service.DkimPolicy, ExoMail.Smtp.Service",
+        "PrivateKey": "-----BEGIN RSA PRIVATE KEY-----\r\nMIIEogIBAAKCAQEAvElcwgRUhOsjvEGUu+cdkipk/72ftAwMbClPSDaXNm+GX3YD\r\n/Et2uTMOwm7Q55UgbGPahTs3QDeOvOqk39ZbDFSMOlm2J7P+44x3L1lMJP0eTTrp\r\nVu0js/Br8Pj1pFbbLHkL+YMOdLISctQuGZczHMjKLMZK6daNG10hLPY60Xwwphv4\r\nbyyYOGNcSuFFUdL+xOF4whhyp7wc9xjwPGtyVokraqNpjaJOlnJT0bWrVETtgwcg\r\nCX9BeG9f4e6M1Mt5p8V2Yd1iWT8XJhZvzAjnGSpyuKW1yKlL7Gn8l7iR0rl4phNJ\r\ngRH2j0Jw3sXmfhomGm62O+ME7w3GwMVAyp3YVQIDAQABAoIBAQCv3SILgfnjsLFP\r\nHD4tB+DB7mEp0dbCV+KegDMyMvMoACEVNujgFShOMVde2hy7wbloJBguCzI/A+WJ\r\npOzcuZ2PNcVIlxShnui7Zy7HhfOuNNHBtv3NmG+ZmT1o9VCS8CGFN4asxfGRo+XB\r\nZVetxWETSKQ2D/xWz3Q7E9Bx64bitC+mDSBWmObV8ZIn/RL3dE2EQifZ1tpgwl8Q\r\nFzqU+jnOoV1MyLCI2fMInMTGJBwp1SYsBZA2wM1wUocnrOXF1YRiBsyh4P4hZWvl\r\nUtD4aav/HAmRu44OgG9JnhS8jij74RSXMU13DDgCbvncskkUiFfAeVBAnzXwO9M0\r\n9G35jBW9AoGBANxOoxN8KB4jrj4fkaJGOvXllsIoxNbfSPguf0C8PUvGjiMQARaT\r\n11HV2gtC6ELNp2+NEDf5NBekyyEyxxQ1nDILTnOxoHKBglK3MxfD3xgh6HDxjsp4\r\nyj41KrPx+fnP/OzSF8khKbEkor0DNwQz6Nqj5u1vcTAQ8AUYdQv2U80bAoGBANrK\r\npySLMgXDqAXxqwD6RkypekwFmDHBYP1nIGFhzm1R/hX7ohSJ5OZzb4O36+P3Kb5Y\r\nAtumWRKCyfDDGkh4U9Fn0MB3R3aWxSFddUxvFSJxHLD1j4pstHfLhlYj9hWFI4zA\r\nTDJlx8Noj+a69Tm54wVkc2oXM8dyA36/qeEv3ndPAoGBAMvrZftFMwUi1cffBLiF\r\n9VFioDc78WdK6on+z/8lvj8DnNFLoRY65lVzcw51cfNT1KXmlpqY6uTvvq4OCEPm\r\nk5um54kjY3ZZ9j2GIZ7fyQLXcAYLMbasM9d88vf5BP98y4qRtT6QmbzEQnZeIXCc\r\nc+7dQ4WHX+ez5ddxmfXmng79An8WOH7BN2HdNAHcmK7FaqW5I31IO0k5xGoVUmP3\r\nf/d3ItyrXuMXMuoMfazVs9hBTtjufAHOTRa+yom36hjBQ3c/zUtmQLcBVE6xFMzU\r\n9nMvDE3dqxLo/CFYCVObbAuSI/N4WA9lDvE652O2C0bclgR4h7sxCyo3F11DgjO+\r\nqx3tAoGARMiiFISHNvgffE9qSArR0xLHpr/26AFtmC4qQNWNs5lAzCCRcvedBESq\r\nUHlfDeRrOdyuBtssUNX2XO1qVqezA8+3mvXOupObYsrQEu56iWCscJiHEmT1NSrk\r\nY/fqoteU/YMWSdBX20MKBF1IWVndrXHu0NYfhuzJD8AZgg0x3IY=\r\n-----END RSA PRIVATE KEY-----",
+        "UseDkim": true,
+        "Domain": "hq-pr-pc02",
+        "Selector": "key01",
+        "Headers": [
+          "from",
+          "to",
+          "message-id",
+          "mime-version",
+          "subject"
+        ]
+      }
+    ],
+    "Name": "Default Virtual Server",
+    "Users": [
+      {
+        "$type": "ExoMail.Smtp.Service.EmailUser, ExoMail.Smtp.Service",
+        "Password": "Axs9JXT1BFwtcXyf4Eokjb5lpHN2wGXM4qQn20cdlNQ=",
+        "EmailAddresses": [
+          "user00@hq-pr-pc02"
+        ],
+        "FirstName": "Test",
+        "IsActive": true,
+        "LastName": "User",
+        "MailboxPath": "Users\\user00@hq-pr-pc02",
+        "MailboxSize": 0,
+        "MaxMailboxSize": 0,
+        "MaxMessageSize": 0,
+        "UserId": "14d19ae3-1993-42c1-bdab-a951ffb1197f",
+        "UserName": "user00@hq-pr-pc02",
+        "VirtualServerId": "759d23e9-dcfb-45fb-9ea5-3e17e7102e57"
+      },
+      {
+        "$type": "ExoMail.Smtp.Service.EmailUser, ExoMail.Smtp.Service",
+        "Password": "86sb+5dp4T3HLvg3tRPH/1Zx+EUGIhMYXgWnuUkRY8A=",
+        "EmailAddresses": [
+          "user01@hq-pr-pc02"
+        ],
+        "FirstName": "Test",
+        "IsActive": true,
+        "LastName": "User",
+        "MailboxPath": "Users\\user01@hq-pr-pc02",
+        "MailboxSize": 0,
+        "MaxMailboxSize": 0,
+        "MaxMessageSize": 0,
+        "UserId": "fa57921c-e186-4e44-9d58-313722a7321d",
+        "UserName": "user01@hq-pr-pc02",
+        "VirtualServerId": "759d23e9-dcfb-45fb-9ea5-3e17e7102e57"
+      }
+    ],
+    "Routes": [
+      {
+        "$type": "ExoMail.Smtp.QueueProcessor.MessageRoute, ExoMail.Smtp.QueueProcessor",
+        "Destination": "*",
+        "Metric": 10,
+        "VirtualServerId": "759d23e9-dcfb-45fb-9ea5-3e17e7102e57",
+        "MessageRouteId": "2248af1b-90f8-4851-8329-3ac502d723ae",
+        "MessageGateway": {
+          "$type": "ExoMail.Smtp.QueueProcessor.MxMessageGateway, ExoMail.Smtp.QueueProcessor",
+          "GatewayOptions": {
+            "$type": "ExoMail.Smtp.Service.Configuration.MxGatewayOptions, ExoMail.Smtp.Service",
+            "MaxClientsPerDomain": 20,
+            "MaxMessagesPerSession": 100,
+            "MessageDeferralTime": 300,
+            "MaxMessageRetries": 20
+          }
+        }
+      }
+    ],
+    "Options": {
+      "TrackingDomain": "tracking.example.com"
+    }
+  },
+  {
+    "$type": "ExoMail.Smtp.Common.Utilities.SystemVirtualServer, ExoMail.Smtp.Common",
+    "VirtualServerId": "00000000-0000-0000-0000-000000000000",
+    "Name": "System Server",
+    "Description": "The default system server.",
+    "Active": true,
+    "DkimPolicies": [],
+    "Users": [
+      {
+        "$type": "ExoMail.Smtp.Common.Utilities.SystemIdentity, ExoMail.Smtp.Common",
+        "UserId": "00000000-0000-0000-0000-000000000000",
+        "UserName": "SYSTEM",
+        "EmailAddresses": [
+          "postmaster"
+        ],
+        "FirstName": "System",
+        "LastName": "User",
+        "MailboxPath": "System\\Inbox",
+        "MaxMessageSize": 102400,
+        "MaxMailboxSize": 0,
+        "MailboxSize": 0,
+        "MessageCount": 0,
+        "IsActive": true,
+        "VirtualServerId": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "Routes": [
+      {
+        "$type": "ExoMail.Smtp.Common.Utilities.SystemRoute, ExoMail.Smtp.Common",
+        "MessageRouteId": "00000000-0000-0000-0000-000000000000",
+        "Metric": 1000,
+        "VirtualServerId": "00000000-0000-0000-0000-000000000000"
+      }
+    ],
+    "Options": {}
+  }
+]

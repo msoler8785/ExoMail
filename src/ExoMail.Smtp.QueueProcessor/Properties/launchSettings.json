@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "ExoMail.Smtp.QueueProcessor": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "ExoMail.Smtp.Service": {
+      "commandName": "Project",
+      "workingDirectory": "bin\\Debug\\netcoreapp2.0\\win10-x64"
+    },
+    "CreateUsers": {
+      "commandName": "Project",
+      "commandLineArgs": "example.com",
+      "workingDirectory": "bin\\Debug\\net50"
+    }
+  }
+}

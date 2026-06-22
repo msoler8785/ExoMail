@@ -1,0 +1,1151 @@
+Delivered-To: msoler8785@gmail.com
+Received: by 10.37.212.137 with SMTP id m131csp316365ybf;
+        Fri, 20 Jan 2017 19:23:05 -0800 (PST)
+X-Received: by 10.99.105.66 with SMTP id e63mr7039762pgc.104.1484968985676;
+        Fri, 20 Jan 2017 19:23:05 -0800 (PST)
+Return-Path: <ecrm-bounces@verizon.com>
+Received: from dcfdpe20.verizon.com (dcfdpe20.verizon.com. [140.108.22.32])
+        by mx.google.com with ESMTPS id 31si8626272plz.117.2017.01.20.19.23.04
+        for <msoler8785@gmail.com>
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Fri, 20 Jan 2017 19:23:05 -0800 (PST)
+Received-SPF: pass (google.com: domain of ecrm-bounces@verizon.com designates 140.108.22.32 as permitted sender) client-ip=140.108.22.32;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@verizon.com;
+       spf=pass (google.com: domain of ecrm-bounces@verizon.com designates 140.108.22.32 as permitted sender) smtp.mailfrom=ecrm-bounces@verizon.com;
+       dmarc=pass (p=QUARANTINE sp=NONE dis=NONE) header.from=verizon.com
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=verizon.com; i=@verizon.com; q=dns/txt; s=corp;
+  t=1484968985; x=1516504985;
+  h=from:to:message-id:subject:mime-version:
+   content-transfer-encoding:date;
+  bh=TwpVKn3jXOlOEjrrUTZd2e4b9ZHPn25h1dTjjSeDdkk=;
+  b=B0+GSjd0LOZb+DBKuh5HnwFyDgRmSkGGNjfrndjPQRrMnA6Od9JLQz6b
+   lCJDfPR4ib3t/L+mvJ/xhKOSsRrq0hf4s1pPN8p8nUzLtX+zUjBSnnhAX
+   RCNgSait/wEqceGI2QuAuSLzVIaJ1aEa+GMkUFOIaemNHMsUecxR95XDh
+   M=;
+Received: from unknown (HELO ecqfdcvmpa12.verizon.com) ([172.16.0.12])
+  by dcfdpe20.verizon.com with ESMTP; 20 Jan 2017 22:22:57 -0500
+Date: 20 Jan 2017 22:22:57 -0500
+From: Verizon Services <verizon-services@verizon.com>
+To: msoler8785@gmail.com
+Message-ID: <1555738040.985824.1484968977437.JavaMail.weblogic@dcfdpi02.verizon.com>
+Subject: The updated My Fios app is here
+MIME-Version: 1.0
+Content-Type: text/html;charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+EcrmHeader: <EcrmHeader><TxId>B20170120_4329999964</TxId><TransDate>1/20/17 10:22 PM</TransDate><ToEmailAddress>msoler8785@gmail.com</ToEmailAddress></EcrmHeader>
+X-RPTags: re13698_002_01z_c_zzzzzzb_ecrm.shp
+
+<!DOCTYPE HTML PUBLIC "-//W3C//Dtd HTML 4.01 Transitional//EN" "http://www.=
+w3c.org/tr/1999/REC-html401-19991224/loose.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml">
+   =20
+    <head>
+=09=09<title>The updated My Fios app is here</title>
+        <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Du=
+tf-8" />
+        <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge" />=20
+        <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-sc=
+ale=3D1.0" />
+       =20
+        <style type=3D"text/css">
+            body {
+                margin-left: 0px;
+                margin-top: 0px;
+                margin-right: 0px;
+                margin-bottom: 0px;
+                background-color: #ffffff;
+                -webkit-text-size-adjust: none;
+            }
+           =20
+=09=09=09/* outlook fixes begin */
+            table {
+                border-collapse: collapse;
+            }
+           =20
+            .ExternalClass * {
+                line-height: 100%;
+            }
+           =20
+            .ReadMsgBody {
+                width: 100%;
+            }
+           =20
+            .ExternalClass {
+=09=09=09=09width: 100%;
+            }
+           =20
+            td {
+                mso-line-height-rule: exactly;
+                -mso-line-height-rule: exactly;
+            }
+=09=09=09
+=09=09=09span.MsoHyperlink {
+=09=09=09=09mso-style-priority: 99;
+=09=09=09=09color: inherit;
+=09=09=09}
+=09=09=09
+=09=09=09span.MsoHyperlinkFollowed {
+=09=09=09=09mso-style-priority: 99;
+=09=09=09=09color: inherit !important;
+=09=09=09}
+=09=09=09/* outlook fixes end */
+           =20
+=09=09=09/* IOS fixes begin */=20
+=09=09=09/* IOS fixes end */
+
+=09=09=09/* gmail fixes begin */
+=09=09=09.gmailfix {
+=09=09=09=09display: none;
+=09=09=09=09display: none !important;
+=09=09=09}
+=09=09=09
+=09=09=09.ii a[href] {
+=09=09=09=09text-decoration: none !important;
+=09=09=09}
+=09=09=09/* gmail fixes end */
+           =20
+            .dont-break-out {
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                -ms-word-break: break-all;
+                word-break: break-all;
+                word-break: break-word;
+                -ms-hyphens: auto;
+                -moz-hyphens: auto;
+                -webkit-hyphens: auto;
+                hyphens: auto;
+            }
+=09=09=09
+=09=09=09*[class=3Dmobile] {
+=09=09=09=09display: none;
+=09=09=09}
+=09=09=09
+=09=09=09*[class=3Dmobile-padding] {
+=09=09=09=09display: none;
+=09=09=09}
+           =20
+            @media screen and (max-width: 480px) and (-webkit-max-device-pi=
+xel-ratio: 2), screen and (max-device-width: 480px) {
+=09=09=09=09/* basics begin */
+                *[class=3D"hide"], .hide {
+=09=09=09=09=09font-size: 0px !important;=20
+                    display: none !important;
+=09=09=09=09=09line-height: 0px !important;
+=09=09=09=09=09max-height: 0px !important;
+=09=09=09=09=09mso-hide: all !important;
+=09=09=09=09=09overflow: hidden !important;
+                    visibility: hidden !important;
+                }
+               =20
+                *[class=3D"full-width"], .full-width {
+                    border: none !important;
+                    width: 100% !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"no-width"], .no-width {
+                    border: none !important;
+                    width: 0px !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"no-min-width"], .no-min-width {
+                =09min-width: 0px !important;
+=09=09=09=09=09padding-top: 0px !important;
+=09=09=09=09=09padding-bottom: 0px !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"no-padding"], .no-padding {
+                    padding: 0px 0px 0px 0px !important;
+                }
+=09=09=09=09*[class=3D"padding10"], .padding10 {
+                    padding: 10px !important;
+                }
+=09=09=09=09*[class=3D"padding10-top20"], .padding10-top20 {
+                    padding: 20px 10px 10px 10px !important;
+                }
+=09=09=09=09*[class=3D"padding10-bottom20"], .padding10-bottom20 {
+                    padding: 10px 10px 20px 10px !important;
+                }
+=09=09=09=09*[class=3D"padding"], .padding {
+                    padding: 20px 20px 20px 20px !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"padding-top"], .padding-top {
+                    padding-top: 20px !important;
+=09=09=09=09=09padding-bottom: 0px !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"padding-bottom"], .padding-bottom {
+                    padding-top: 0px !important;
+=09=09=09=09=09padding-bottom: 20px !important;
+                }
+               =20
+                *[class=3D"padding-top-bottom"], .padding-top-bottom {
+                    padding-top: 20px !important;
+                    padding-bottom: 20px !important;
+                }
+               =20
+                *[class=3D"padding-left-right"], .padding-left-right {
+                    padding-left: 10px !important;
+                    padding-right: 10px !important;
+                }=09=09=09=09
+=09=09=09=09
+=09=09=09=09*[class=3D"padding-left-right-strict"], .padding-left-right-str=
+ict {
+=09=09=09=09=09padding: 0px 20px 0px 20px !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"image-to-responsive"], .image-to-responsive {
+                    height: auto !important;
+                    max-width: 100% !important;
+                    padding: 0 0 0 0 !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"image-to-responsive-2"], .image-to-responsive-2 {
+=09=09=09=09=09height: auto !important;
+=09=09=09=09=09width: 100% !important;
+                    padding: 0px 0 0 0 !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"fios"], .fios {
+                    padding: 0 0 0 10px !important;
+                }
+               =20
+                *[class=3D"view-online"], .view-online {
+                    padding: 6px 20px 0 0 !important;
+                }
+=09=09=09=09/* basics end */
+=09=09=09=09
+=09=09=09=09*[class=3Dmobile], .mobile {
+=09=09=09=09=09display: block !important;
+=09=09=09=09=09width: auto !important;
+=09=09=09=09=09max-height: inherit !important;
+=09=09=09=09=09overflow: visible !important;
+=09=09=09=09=09float: none !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3Dmobile-padding], .mobile-padding {
+=09=09=09=09=09display: block !important;
+=09=09=09=09=09width: auto !important;
+=09=09=09=09=09max-height: inherit !important;
+=09=09=09=09=09overflow: visible !important;
+=09=09=09=09=09float: none !important;
+=09=09=09=09=09padding: 20px 20px 20px 20px !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3D"marquee"], .marquee {
+=09=09=09=09=09height: auto !important;
+=09=09=09=09=09background-image: none !important;
+=09=09=09=09=09background-color: #ffffff !important;
+=09=09=09=09=09padding: 20px 10px 20px 10px !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3D"headline"], .headline {
+=09=09=09=09=09padding: 0px 0 0px 0px !important;
+=09=09=09=09=09color: #768188 !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3D"sub-headline"], .sub-headline {
+=09=09=09=09=09padding: 15px 0 10px 0px !important;
+=09=09=09=09=09color: #768188 !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3D"offer-ends"], .offer-ends {
+=09=09=09=09=09font-size: 14px !important;
+=09=09=09=09=09line-height: 18px !important;
+=09=09=09=09=09color: #636363 !important;
+=09=09=09=09=09padding: 0px 0 0px 0px !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3D"cta-button"], .cta-button {
+=09=09=09=09=09padding: 20px 0 0 0px !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3D"cta-phone-number"], .cta-phone-number {
+=09=09=09=09=09font-size: 12px !important;
+=09=09=09=09=09line-height: 16px !important;
+=09=09=09=09=09color: #636363 !important;
+=09=09=09=09}
+=09=09=09=09*[class=3D"ftp-pricing"], .ftp-pricing {
+=09=09=09=09=09font-size: 60px !important;
+=09=09=09=09=09line-height: 64px !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3D"ftp-pricing-sup"], .ftp-pricing-sup {
+=09=09=09=09=09vertical-align: 10px !important;
+=09=09=09=09}
+=09=09=09=09
+=09=09=09=09*[class=3D"cta-padding"], .cta-padding {
+                    padding: 0px 0px 20px 10px !important;
+                }
+=09=09=09=09
+=09=09=09=09*[class=3D"phone-number-padding"], .phone-number-padding {
+                    padding: 0px 0px 0px 20px !important;
+=09=09=09=09=09font-size: 12px !important;
+=09=09=09=09=09line-height: 16px !important;
+                }
+=09=09=09=09*[class=3D"marquee01-responsive"], .marquee01-responsive {
+=09=09=09=09=09background-image: url(http://images-promo.verizon.com/ECRM/1=
+-18-17-fios-app/images/Background_Mobile.jpg);
+=09=09=09=09=09background-position: center center;
+=09=09=09=09=09background-repeat: no-repeat;
+=09=09=09=09=09background-size: cover;
+=09=09=09=09=09height: 468px;
+=09=09=09=09=09width: 100%;
+=09=09=09=09=09max-width: 100%;
+=09=09=09=09=09display: inline-block;
+=09=09=09=09=09vertical-align: top;
+=09=09=09=09}
+            }
+        </style>
+    </head>
+       =20
+    <body bgcolor=3D"#ffffff" style=3D"margin: 0px;" >
+       =20
+        <table width=3D"100%" border=3D"0" cellpadding=3D"0" cellspacing=3D=
+"0" bgcolor=3D"#ffffff" style=3D"border-collapse: collapse; border-spacing:=
+ 0; mso-table-lspace: 0px; mso-table-rspace: 0px;" >
+            <tr>
+                <td align=3D"center" valign=3D"top" >
+                   =20
+                    <table width=3D"636" align=3D"center" valign=3D"top" bo=
+rder=3D"0" bgcolor=3D"#ffffff" cellspacing=3D"0" cellpadding=3D"0" style=3D=
+"border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0px; mso-t=
+able-rspace: 0px;" class=3D"full-width" >
+                       =20
+                        <!-- title begins -->
+                        <tr>
+                            <td align=3D"center" valign=3D"top" bgcolor=3D"=
+#f6f6f6" style=3D"padding: 10px 0px 10px 0px;" class=3D"padding-top-bottom"=
+ >
+                               =20
+                                <table width=3D"586" align=3D"center" valig=
+n=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-=
+collapse: collapse; border-spacing: 0; mso-table-lspace: 0px; mso-table-rsp=
+ace: 0px;" class=3D"full-width" >
+                                    <tr>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-he=
+ight: 17px; color: #595a5d !important; padding: 0px 0px 0px 0px;" class=3D"=
+padding-left-right" ><font color=3D"#595a5d" >The My Fios app is better tha=
+n ever.</font></td>
+                                    </tr>
+                                </table>
+                               =20
+                            </td>
+                        </tr>
+                        <!-- title ends -->
+                       =20
+                         <!-- navigation begins -->
+                        <tr>
+                            <td align=3D"center" valign=3D"top" bgcolor=3D"=
+#ffffff" style=3D"padding: 48px 0px 35px 0px;" class=3D"padding-top-bottom"=
+ >
+                               =20
+                                <table width=3D"586" align=3D"center" valig=
+n=3D"top" border=3D"0" bgcolor=3D"#ffffff" cellspacing=3D"0" cellpadding=3D=
+"0" style=3D"border-collapse: collapse; border-spacing: 0; mso-table-lspace=
+: 0px; mso-table-rspace: 0px;" class=3D"full-width" >
+                                    <tr>
+                                        <td width=3D"128" align=3D"left" va=
+lign=3D"top" style=3D"vertical-align: top;" class=3D"fios" >
+                                            <a href=3D"https://econtact.ver=
+izon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DPROD&destinati=
+on=3Dhttp%3A%2F%2Fwww.verizon.com%2Fhome%2Fverizonglobalhome%2Fghp_landing.=
+aspx%3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_43299=
+99964&lid=3D6568745&tid=3D73251&vno=3D4&ltid=3D9986473" target=3D"_blank" s=
+tyle=3D"text-decoration: none; outline: 0px;" ><img src=3D"http://images-pr=
+omo.verizon.com/OVL/logos/fioslogo.png" width=3D"68" height=3D"43" border=
+=3D"0" alt=3D"fios&#x2713; by verizon" style=3D"display: block;" /></a>
+                                        </td>
+                                        <td width=3D"126" align=3D"left" va=
+lign=3D"middle" style=3D"vertical-align: middle; font-family: Arial, Helvet=
+ica, sans-serif; font-size: 17px; line-height: 21px; color: #333333;" class=
+=3D"hide" ><a href=3D"https://econtact.verizon.com/ecrm/includes/html/vzfwd=
+New.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttps%3A%2F%2Fwww.verizon.co=
+m%2Fforyourhome%2FMyAccount%2Fngen%2Fupr%2Fnlogin.aspx%3FLOBCode%3DC%26Prom=
+oTCode%3DMZV07%26PromoSrcCode%3DV%26POEId%3DVU1SP%26CMP%3DEMC-CON_2017-Q1_R=
+X-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&lid=3D6568746&tid=3D7325=
+1&vno=3D4&ltid=3D9986474" target=3D"_blank" style=3D"color: #333333; outlin=
+e: 0; text-decoration: none;"><span style=3D"color: #333333; text-decoratio=
+n: none;"><strong style=3D"font-weight: normal; color: #333333 !important;"=
+>My Verizon</strong></span></a>
+                                        </td>
+                                        <td width=3D"104" align=3D"left" va=
+lign=3D"middle" style=3D"vertical-align: middle; font-family: Arial, Helvet=
+ica, sans-serif; font-size: 17px; line-height: 21px; color: #333333;" class=
+=3D"hide" ><a href=3D"https://econtact.verizon.com/ecrm/includes/html/vzfwd=
+New.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttp%3A%2F%2Fwww.verizon.com=
+%2Fsupport%2Fresidential%2Findex.htm%3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryM=
+FA1a_0585&txid=3DB20170120_4329999964&lid=3D6568747&tid=3D73251&vno=3D4&lti=
+d=3D9986475" target=3D"_blank" style=3D"color: #333333; outline: 0; text-de=
+coration: none;"><span style=3D"color: #333333; text-decoration: none;"><st=
+rong style=3D"font-weight: normal; color: #333333 !important;">Support</str=
+ong></span></a>
+                                        </td>
+                                        <td width=3D"134" align=3D"left" va=
+lign=3D"middle" style=3D"vertical-align: middle; font-family: Arial, Helvet=
+ica, sans-serif; font-size: 17px; line-height: 21px; color: #333333;" class=
+=3D"hide" ><a href=3D"https://econtact.verizon.com/ecrm/includes/html/vzfwd=
+New.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttp%3A%2F%2Fwww.verizon.com=
+%2Fhome%2FMLP%2Fmyrewards.html%3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0=
+585&txid=3DB20170120_4329999964&lid=3D6568748&tid=3D73251&vno=3D4&ltid=3D99=
+86476" target=3D"_blank" style=3D"color: #333333; outline: 0; text-decorati=
+on: none;"><span style=3D"color: #333333; text-decoration: none;"><strong s=
+tyle=3D"font-weight: normal; color: #333333 !important;">My Rewards+</stron=
+g></span></a>
+                                        </td>
+                                        <td width=3D"94" align=3D"right" va=
+lign=3D"middle" style=3D"vertical-align: middle; font-family: Arial, Helvet=
+ica, sans-serif; font-size: 12px; line-height: 16px; color: #0066BB; paddin=
+g: 6px 0 0 0;" class=3D"view-online" ><a href=3D"https://econtact.verizon.c=
+om/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DPROD&destination=3Dh=
+ttp%3A%2F%2Fimages-promo.verizon.com%2FECRM%2F1-18-17-fios-app%2FMyFiosApp_=
+1_18_MFA1.html%3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB2017=
+0120_4329999964&lid=3D6568749&tid=3D73251&vno=3D4&ltid=3D9986477" target=3D=
+"_blank" style=3D"color: #0066BB; outline: 0; text-decoration: none;"><span=
+ style=3D"color: #0066BB; text-decoration: none;"><strong style=3D"font-wei=
+ght: normal; color: #0066BB !important;">View Online</strong></span></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                               =20
+                            </td>
+                        </tr>
+                        <!-- navigation ends -->
+                       =20
+                        <!-- marquee begins -->
+                        <tr>
+                            <td width=3D"636" align=3D"left" valign=3D"top"=
+ bgcolor=3D"" style=3D"padding: 0px 0px 0px 0px; min-width: 636px;" class=
+=3D"no-min-width" >
+                           =20
+                                <table width=3D"636" align=3D"left" valign=
+=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-c=
+ollapse: collapse; border-spacing: 0; mso-table-lspace: 0px; mso-table-rspa=
+ce: 0px;" class=3D"full-width" >
+                                    <tr>
+                                        <td background=3D"http://images-pro=
+mo.verizon.com/ECRM/1-18-17-fios-app/images/Background.jpg" bgcolor=3D"" wi=
+dth=3D"636" height=3D"468" valign=3D"top" class=3D"marquee" >
+                                            <!--[if gte mso 9]>
+                                            <v:rect xmlns:v=3D"urn:schemas-=
+microsoft-com:vml" fill=3D"true" stroke=3D"false" style=3D"width:636px;heig=
+ht:468px;">
+                                                <v:fill type=3D"tile" src=
+=3D"http://images-promo.verizon.com/ECRM/1-18-17-fios-app/images/Background=
+.jpg" color=3D"" />
+                                                <v:textbox inset=3D"0,0,0,0=
+">
+                                            <![endif]-->
+  =09=09=09=09=09=09=09=09=09=09=09
+                                            <table width=3D"636" align=3D"r=
+ight" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=
+=3D"border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0px; ms=
+o-table-rspace: 0px;" class=3D"full-width" >
+                                                <tr>
+                                                    <td align=3D"right" val=
+ign=3D"top" style=3D"vertical-align: top;" >
+                                                   =20
+                                                        <!-- copy begins --=
+>
+                                                        <table width=3D"636=
+" align=3D"right" valign=3D"top" bgcolor=3D"" border=3D"0" cellspacing=3D"0=
+" cellpadding=3D"0" style=3D"border-collapse: collapse; border-spacing: 0; =
+mso-table-lspace: 0px; mso-table-rspace: 0px;" class=3D"full-width" >
+                                                        =09<tr>
+                                                            =09<td width=3D=
+"25" align=3D"left" valign=3D"top" style=3D"vertical-align: top;" class=3D"=
+hide"></td>
+                                                            =09<td align=3D=
+"left" valign=3D"top" style=3D"vertical-align: top;" >
+                                                                =09<table w=
+idth=3D"300" align=3D"left" valign=3D"top" border=3D"0" bgcolor=3D"" cellsp=
+acing=3D"0" cellpadding=3D"0" style=3D"border-collapse: collapse; border-sp=
+acing: 0; mso-table-lspace: 0px; mso-table-rspace: 0px;" class=3D"full-widt=
+h" >
+                                                                        <tr=
+>
+                                                                           =
+ <td align=3D"left" valign=3D"top" style=3D"vertical-align: top;" >
+                                                                           =
+    =20
+                                                                           =
+     <table width=3D"300" align=3D"left" valign=3D"top" border=3D"0" bgcolo=
+r=3D"" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-collapse: collap=
+se; border-spacing: 0; mso-table-lspace: 0px; mso-table-rspace: 0px;" class=
+=3D"full-width" >
+                                                                           =
+         <tr>
+                                                                           =
+             <td align=3D"left" valign=3D"top" style=3D"vertical-align: top=
+; font-family: Arial, Helvetica, sans-serif; font-size: 46px; line-height: =
+50px; color: #ffffff; padding: 27px 0 0px 0px;" class=3D"headline" >
+                                                                           =
+                 <strong style=3D"font-weight: bold;" >New look. <br />New =
+features.</strong>
+                                                                           =
+             </td>
+                                                                           =
+         </tr>
+                                                                           =
+     </table>
+                                                                           =
+    =20
+                                                                           =
+ </td>
+                                                                        </t=
+r>
+                                                                        <tr=
+>
+                                                                           =
+ <td align=3D"left" valign=3D"top" style=3D"vertical-align: top;" >
+                                                                           =
+    =20
+                                                                           =
+     <table width=3D"288" align=3D"left" valign=3D"top" border=3D"0" bgcolo=
+r=3D"" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-collapse: collap=
+se; border-spacing: 0; mso-table-lspace: 0px; mso-table-rspace: 0px;" class=
+=3D"full-width" >
+                                                                           =
+         <tr>
+                                                                           =
+             <td align=3D"left" valign=3D"top" style=3D"vertical-align: top=
+; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: =
+20px; color: #ffffff; padding: 13px 0 10px 0px;" class=3D"sub-headline" ><s=
+trong style=3D"font-weight: bold;" >Check out the updated <br class=3D"hide=
+" />My Fios app and get <br class=3D"hide" />the most out of your <br class=
+=3D"hide" />Fios service.</strong>
+                                                                           =
+             </td>
+                                                                           =
+         </tr>
+                                                                           =
+     </table>
+                                                                           =
+    =20
+                                                                           =
+ </td>
+                                                                        </t=
+r>
+                                                                        <tr=
+>
+                                                                           =
+ <td align=3D"left" valign=3D"top" style=3D"vertical-align: top; padding: 1=
+0px 0 0 0px;" class=3D"cta-button" >
+                                                                           =
+=20
+                                                                           =
+     <!--[if gte mso 9]>
+                                                                           =
+     <table width=3D"288" align=3D"left" valign=3D"top" border=3D"0" bgcolo=
+r=3D"" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-collapse: collap=
+se; border-spacing: 0; mso-table-lspace: 0px; mso-table-rspace: 0px;" >
+                                                                           =
+         <tr>
+                                                                           =
+             <td width=3D"120" align=3D"left" valign=3D"top" style=3D"verti=
+cal-align: top;" >
+                                                                           =
+     <![endif]-->
+                                    =09=09=09=09=09=09=09=09=09=09=09=09=09=
+=09<table height=3D"40" align=3D"left" valign=3D"top" border=3D"0" bgcolor=
+=3D"#cd040b" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-collapse: =
+collapse; border-spacing: 0; mso-table-lspace: 0px; mso-table-rspace: 0px;"=
+ >
+                                                                           =
+                 =09<tr>
+                                                                           =
+                     =09<td>
+                                                                           =
+                     <table height=3D"40" align=3D"left" valign=3D"top" bor=
+der=3D"0" bgcolor=3D"#cd040b" cellspacing=3D"0" cellpadding=3D"0" style=3D"=
+border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0px; mso-ta=
+ble-rspace: 0px;" >
+                                                                           =
+                         <tr>
+                                                                           =
+                             <td width=3D"98" height=3D"40" align=3D"right"=
+ valign=3D"middle" style=3D"vertical-align: middle; font-family: Arial, Hel=
+vetica, sans-serif; font-size: 13px; line-height: 17px; color: #ffffff;" ><=
+a href=3D"https://econtact.verizon.com/ecrm/includes/html/vzfwdNew.html?app=
+_nm=3DPNP&env=3DPROD&destination=3Dhttps%3A%2F%2Fm.verizon.com%2Fmyverizonm=
+obile%2Frouter.aspx%3Ftoken%3Dappstore%26CMP%3DEMC-CON_2017-Q1_RX-NA-Januar=
+yMFA1a_0585&txid=3DB20170120_4329999964&lid=3D6568750&tid=3D73251&vno=3D4&l=
+tid=3D9986478" target=3D"_blank" style=3D"text-decoration: none; color: #ff=
+ffff; outline: 0px;" ><strong style=3D"font-weight: bold;" >Download</stron=
+g></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                           =
+                             </td>
+                                                                           =
+                             <td width=3D"23" height=3D"40" align=3D"right"=
+ valign=3D"middle" style=3D"vertical-align: middle; font-family: Arial, Hel=
+vetica, sans-serif; font-size: 13px; line-height: 17px;" ><a href=3D"https:=
+//econtact.verizon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3D=
+PROD&destination=3Dhttps%3A%2F%2Fm.verizon.com%2Fmyverizonmobile%2Frouter.a=
+spx%3Ftoken%3Dappstore%26CMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=
+=3DB20170120_4329999964&lid=3D6568750&tid=3D73251&vno=3D4&ltid=3D9986479" t=
+arget=3D"_blank" style=3D"text-decoration: none; outline: 0px;" ><img src=
+=3D"http://images-promo.verizon.com/ECRM/12-31-16-last-chance-holiday/image=
+s/arrow.jpg" width=3D"23" height=3D"11" border=3D"0" style=3D"display: bloc=
+k;" alt=3D">" /></a>
+                                                                           =
+                             </td>
+                                                                           =
+                         </tr>
+                                                                           =
+                     </table>
+                                                                           =
+                 =09</tr>
+                                                                           =
+                 </table>
+                                                                           =
+                =20
+                                                                           =
+     <!--[if gte mso 9]>
+                                                                           =
+             </td>
+                                                                           =
+     <![endif]-->
+                                                                           =
+    =20
+                                                                           =
+     <!--[if gte mso 9]>
+                                                                           =
+         </tr>
+                                                                           =
+     </table>
+                                                                           =
+     <![endif]-->
+                                   =20
+                                                                           =
+ </td>
+                                                                        </t=
+r>
+                                                                    </table=
+>
+                                                                </td>
+                                                                <td width=
+=3D"133" align=3D"left" valign=3D"top" style=3D"vertical-align: top; paddin=
+g: 0px 0 0px 0;" class=3D"hide" >
+                                                                   <table w=
+idth=3D"288" align=3D"left" valign=3D"top" border=3D"0" bgcolor=3D"" cellsp=
+acing=3D"0" cellpadding=3D"0" style=3D"border-collapse: collapse; border-sp=
+acing: 0; mso-table-lspace: 0px; mso-table-rspace: 0px;" class=3D"full-widt=
+h" >
+                                                                   =09=09<t=
+r>
+                                                                        =09=
+<td width=3D"23" height=3D"40" align=3D"left" valign=3D"top" style=3D"verti=
+cal-align: top; font-family: Arial, Helvetica, sans-serif; padding: 170px 0=
+ 0px 50px;" ><a href=3D"https://econtact.verizon.com/ecrm/includes/html/vzf=
+wdNew.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttp%3A%2F%2Fwww.verizon.c=
+om%2Fhome%2Ffiosmobileapps%3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585%=
+23demo&txid=3DB20170120_4329999964&lid=3D6588745&tid=3D73251&vno=3D4&ltid=
+=3D9986480" target=3D"_blank" style=3D"text-decoration: none; outline: 0px;=
+" ><img src=3D"http://images-promo.verizon.com/ECRM/1-18-17-fios-app/images=
+/Play.png" width=3D"64" height=3D"51" border=3D"0" style=3D"display: block;=
+" alt=3D"Watch Demo" /></a>
+                                                                          <=
+/td>
+                                                                        </t=
+r>
+                                                                        <tr=
+>
+                                                                           =
+ <td align=3D"left" valign=3D"top" style=3D"vertical-align: top; font-famil=
+y: Arial, Helvetica, sans-serif; font-size: 10px; line-height: 14px; color:=
+ #ffffff; padding: 0px 0 10px 54px;" class=3D"sub-headline" ><a href=3D"htt=
+ps://econtact.verizon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=
+=3DPROD&destination=3Dhttp%3A%2F%2Fwww.verizon.com%2Fhome%2Ffiosmobileapps%=
+3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585%23demo&txid=3DB20170120_432=
+9999964&lid=3D6588745&tid=3D73251&vno=3D4&ltid=3D9986481" target=3D"_blank"=
+ style=3D"text-decoration: none; color: #ffffff; outline: 0px;" ><strong st=
+yle=3D"font-weight: bold;" >Watch demo</strong></a>
+                                                                           =
+ </td>
+                                                                        </t=
+r>
+                                                                  </table>
+                                                                </td>
+                                                               =20
+                                                            </tr>   =20
+                                                        </table>
+                                                        <!-- copy ends -->
+                                                       =20
+                                                    </td>
+                                                </tr>
+                                               =20
+                                            </table>=09
+                                           =20
+                                            <!--[if gte mso 9]>
+                                                </v:textbox>
+                                            </v:rect>
+                                            <![endif]-->
+                                           =20
+                                        </td>
+                                    </tr>
+                                </table>
+                               =20
+                              <!--[if !mso]><!-->
+                                <table align=3D"center" valign=3D"top" bord=
+er=3D"0" bgcolor=3D"" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-c=
+ollapse: collapse; border-spacing: 0; mso-table-lspace: 0px; mso-table-rspa=
+ce: 0px;" class=3D"full-width" >
+                                    <tr>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"vertical-align: top; padding: 0px 0 0px 0; width:0; max-height:0; o=
+verflow: hidden; display: none;" class=3D"mobile" >=09=09=09=09=09
+                                       =09  <img src=3D"http://images-promo=
+.verizon.com/ECRM/1-18-17-fios-app/images/Mobile_Bck_Top.jpg" width=3D"411"=
+ height=3D"155" border=3D"0" style=3D"display: block;" alt=3D"Watch Demo" c=
+lass=3D"image-to-responsive-2" />=20
+                                        </td>
+                                    </tr>
+                                   =20
+                                    <tr>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"vertical-align: top; padding: 0px 0 0px 0; width:0; max-height:0; o=
+verflow: hidden; display: none;" class=3D"mobile" >=09=09=09=09=09
+                                       =09 <a href=3D"https://econtact.veri=
+zon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DPROD&destinatio=
+n=3Dhttp%3A%2F%2Fwww.verizon.com%2Fhome%2Ffiosmobileapps%3FCMP%3DEMC-CON_20=
+17-Q1_RX-NA-JanuaryMFA1a_0585%23demo&txid=3DB20170120_4329999964&lid=3D6588=
+745&tid=3D73251&vno=3D4&ltid=3D9986482" target=3D"_blank" style=3D"text-dec=
+oration: none; outline: 0px;" ><img src=3D"http://images-promo.verizon.com/=
+ECRM/1-18-17-fios-app/images/Mobile_Bck_Middle.jpg" width=3D"411" height=3D=
+"104" border=3D"0" style=3D"display: block;" alt=3D"Watch Demo" class=3D"im=
+age-to-responsive-2" /></a>=20
+                                        </td>
+                                    </tr>
+                                   =20
+                                    <tr>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"vertical-align: top; padding: 0px 0 0px 0; width:0; max-height:0; o=
+verflow: hidden; display: none;" class=3D"mobile" >=09=09=09=09=09
+                                       =09  <img src=3D"http://images-promo=
+.verizon.com/ECRM/1-18-17-fios-app/images/Mobile_Bck_Bottom.jpg" width=3D"4=
+11" height=3D"209" border=3D"0" style=3D"display: block;" alt=3D"Watch Demo=
+" class=3D"image-to-responsive-2" />=20
+                                        </td>
+                                    </tr>
+                                   =20
+                                </table>
+                                <!--<![endif]-->
+                               =20
+                            </td>
+                        </tr>
+                        <!-- marquee ends -->
+                      <!-- bullets begin -->
+                        <tr>
+                            <td width=3D"636" align=3D"left" valign=3D"top"=
+ style=3D"padding: 25px 0px 30px 25px;" class=3D"padding10" >
+                           =20
+                            =09<table width=3D"590" align=3D"left" valign=
+=3D"top" border=3D"0" bgcolor=3D"" cellspacing=3D"0" cellpadding=3D"0" styl=
+e=3D"border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0px; m=
+so-table-rspace: 0px;" class=3D"full-width" >
+                                    <tr>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"padding: 0px 0px 0px 0px;" class=3D"" >
+                                                       =20
+                                            <table align=3D"left" valign=3D=
+"top" border=3D"0" bgcolor=3D"" cellspacing=3D"0" cellpadding=3D"0" style=
+=3D"border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0px; ms=
+o-table-rspace: 0px;" class=3D"full-width" >
+                                                <tr>
+                                                    <td colspan=3D"2" align=
+=3D"left" valign=3D"top" style=3D"vertical-align: top; font-family: Arial, =
+Helvetica, sans-serif; font-size: 14px; line-height: 18px; color: #768188; =
+padding: 0px 0 15px 0px;" class=3D"no-padding" >We want to make it easier t=
+han ever for Fios<span style=3D"font-size: 65%; line-height: 0px; vertical-=
+align: 3px;">&#174;</span> customers to manage their services, their way. <=
+br class=3D"hide" />With the My Fios app, you can manage your account on th=
+e go, check Wi-Fi settings, get <br class=3D"hide" />help and more.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan=3D"2" align=
+=3D"left" valign=3D"top" style=3D"vertical-align: top; font-family: Arial, =
+Helvetica, sans-serif; font-size: 14px; line-height: 18px; color: #768188; =
+padding: 0px 0 5px 0px;" class=3D"padding-top-bottom" ><strong style=3D"fon=
+t-weight: bold;" >Plus, with the updated My Fios app, you&#8217;ll get:</st=
+rong>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width=3D"12" align=
+=3D"left" valign=3D"top" style=3D"vertical-align: top; font-family: Arial, =
+Helvetica, sans-serif; font-size: 15px; line-height: 18px; color: #768188; =
+padding: 0px 0 0px 0px;" class=3D"">&#8226;
+                                                    </td>
+                                                    <td align=3D"left" vali=
+gn=3D"top" style=3D"vertical-align: top; font-family: Arial, Helvetica, san=
+s-serif; font-size: 14px; line-height: 18px; color: #768188; padding: 0px 0=
+ 3px 0;" >Simplified dashboard and navigation
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width=3D"12" align=
+=3D"left" valign=3D"top" style=3D"vertical-align: top; font-family: Arial, =
+Helvetica, sans-serif; font-size: 15px; line-height: 18px; color: #768188; =
+padding: 0px 0 0px 0px;" >&#8226;
+                                                    </td>
+                                                    <td align=3D"left" vali=
+gn=3D"top" style=3D"vertical-align: top; font-family: Arial, Helvetica, san=
+s-serif; font-size: 14px; line-height: 18px; color: #768188; padding: 0px 0=
+ 3px 0;" >Direct access to your entertainment by connecting to the Fios<spa=
+n style=3D"font-size: 65%; line-height: 0px; vertical-align: 4px;">TM</span=
+> Mobile app*
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width=3D"12" align=
+=3D"left" valign=3D"top" style=3D"vertical-align: top; font-family: Arial, =
+Helvetica, sans-serif; font-size: 15px; line-height: 18px; color: #768188; =
+padding: 0px 0 0px 0px;" >&#8226;
+                                                    </td>
+                                                    <td align=3D"left" vali=
+gn=3D"top" style=3D"vertical-align: top; font-family: Arial, Helvetica, san=
+s-serif; font-size: 14px; line-height: 18px; color: #768188; padding: 0px 0=
+ 3px 0;" >Fingerprint login
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width=3D"12" align=
+=3D"left" valign=3D"top" style=3D"vertical-align: top; font-family: Arial, =
+Helvetica, sans-serif; font-size: 15px; line-height: 18px; color: #768188; =
+padding: 0px 0 0px 0px;" >&#8226;
+                                                    </td>
+                                                    <td align=3D"left" vali=
+gn=3D"top" style=3D"vertical-align: top; font-family: Arial, Helvetica, san=
+s-serif; font-size: 14px; line-height: 18px; color: #768188; padding: 0px 0=
+ 3px 0;" >New Wi-Fi analyzer to optimize your internet performance
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan=3D"2" align=
+=3D"left" valign=3D"top" style=3D"vertical-align: top; font-family: Arial, =
+Helvetica, sans-serif; font-size: 14px; line-height: 18px; color: #768188; =
+padding: 15px 0 0px 0px;" class=3D"padding-top-bottom" ><strong style=3D"fo=
+nt-weight:bold;">Download the My Fios app and see all that it can do.</stro=
+ng>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                           =20
+                                        </td>
+                                    </tr>
+                                </table>
+                           =20
+                            </td>
+                        </tr>
+                        <!-- bullets end -->
+                       =20
+                        <!-- cta button begins -->
+                        <tr>
+                            <td width=3D"636" align=3D"center" valign=3D"to=
+p" style=3D"padding: 0px 0px 17px 25px;" class=3D"cta-padding" >
+                           =20
+                            =09<table width=3D"583" align=3D"left" valign=
+=3D"top" bgcolor=3D"" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" styl=
+e=3D"border-collapse: collapse; border-spacing: 0; mso-table-lspace: 0px; m=
+so-table-rspace: 0px;" class=3D"full-width" >
+                                    <tr>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"vertical-align: top; padding: 0px 0 0px 0px;" class=3D"" >
+                            =09=09=09=09
+                                           <table height=3D"40" align=3D"le=
+ft" valign=3D"top" border=3D"0" bgcolor=3D"#cd040b" cellspacing=3D"0" cellp=
+adding=3D"0" style=3D"border-collapse: collapse; border-spacing: 0; mso-tab=
+le-lspace: 0px; mso-table-rspace: 0px;" >
+                                                <tr>
+                                                    <td>
+                                                <table height=3D"40" align=
+=3D"left" valign=3D"top" border=3D"0" bgcolor=3D"#cd040b" cellspacing=3D"0"=
+ cellpadding=3D"0" style=3D"border-collapse: collapse; border-spacing: 0; m=
+so-table-lspace: 0px; mso-table-rspace: 0px;" >
+                                                    <tr>
+                                                        <td width=3D"98" he=
+ight=3D"40" align=3D"right" valign=3D"middle" style=3D"vertical-align: midd=
+le; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height=
+: 17px; color: #ffffff;" ><a href=3D"https://econtact.verizon.com/ecrm/incl=
+udes/html/vzfwdNew.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttps%3A%2F%2=
+Fm.verizon.com%2Fmyverizonmobile%2Frouter.aspx%3Ftoken%3Dappstore%26CMP%3DE=
+MC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&lid=3D65=
+68750&tid=3D73251&vno=3D4&ltid=3D9986483" target=3D"_blank" style=3D"text-d=
+ecoration: none; color: #ffffff; outline: 0px;" ><strong style=3D"font-weig=
+ht: bold;" >Download</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        </td>
+                                                        <td width=3D"23" he=
+ight=3D"40" align=3D"right" valign=3D"middle" style=3D"vertical-align: midd=
+le; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height=
+: 17px;" ><a href=3D"https://econtact.verizon.com/ecrm/includes/html/vzfwdN=
+ew.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttps%3A%2F%2Fm.verizon.com%2=
+Fmyverizonmobile%2Frouter.aspx%3Ftoken%3Dappstore%26CMP%3DEMC-CON_2017-Q1_R=
+X-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&lid=3D6568750&tid=3D7325=
+1&vno=3D4&ltid=3D9986484" target=3D"_blank" style=3D"text-decoration: none;=
+ outline: 0px;" ><img src=3D"http://images-promo.verizon.com/ECRM/12-31-16-=
+last-chance-holiday/images/arrow.jpg" width=3D"23" height=3D"11" border=3D"=
+0" style=3D"display: block;" alt=3D">" /></a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                </tr>
+                                            </table>
+                                           =20
+    =09=09                            </td>
+=09                                </tr>
+                                </table>
+                            =09=20
+                            </td>
+                        </tr>
+                        <!-- cta button begins -->
+                       =20
+                        <!-- social begins -->
+                        <tr>
+                            <td align=3D"center" valign=3D"top" bgcolor=3D"=
+#ffffff" style=3D"padding: 10px 0px 30px 0px;" class=3D"padding-top-bottom"=
+ >
+                           =20
+                                <table width=3D"198" align=3D"center" valig=
+n=3D"top" border=3D"0" bgcolor=3D"#ffffff" cellspacing=3D"0" cellpadding=3D=
+"0" style=3D"border-collapse: collapse; border-spacing: 0; mso-table-lspace=
+: 0px; mso-table-rspace: 0px;" >
+                                    <tr>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"vertical-align: top; padding: 0px 0px 0px 0px;" ><a href=3D"https:/=
+/econtact.verizon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DP=
+ROD&destination=3Dhttp%3A%2F%2Fwww.facebook.com%2FVerizonFiOS%3FCMP%3DEMC-C=
+ON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&lid=3D656875=
+2&tid=3D73251&vno=3D4&ltid=3D9986485" target=3D"_blank" style=3D"outline: 0=
+px;" ><img src=3D"http://images-promo.verizon.com/ECRM/10-29-15-FQA-Speed/i=
+mages/FCE15788_Starz_R_cuts_66.gif" width=3D"49" height=3D"42" alt=3D"Faceb=
+ook" border=3D"0" style=3D"display: block;" /></a>
+                                        </td>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"vertical-align: top; padding: 0px 0px 0px 0px;" ><a href=3D"https:/=
+/econtact.verizon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DP=
+ROD&destination=3Dhttps%3A%2F%2Ftwitter.com%2Fverizonfios%3FCMP%3DEMC-CON_2=
+017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&lid=3D6568753&ti=
+d=3D73251&vno=3D4&ltid=3D9986486" target=3D"_blank" style=3D"outline: 0px;"=
+> <img src=3D"http://images-promo.verizon.com/ECRM/10-29-15-FQA-Speed/image=
+s/FCE15788_Starz_R_cuts_67.gif" width=3D"49" height=3D"42" alt=3D"Twitter" =
+border=3D"0" style=3D"display: block;" /></a>
+                                        </td>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"vertical-align: top; padding: 0px 0px 0px 0px;" ><a href=3D"https:/=
+/econtact.verizon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DP=
+ROD&destination=3Dhttp%3A%2F%2Fwww.youtube.com%2Fuser%2Fverizon%3FCMP%3DEMC=
+-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&lid=3D6568=
+754&tid=3D73251&vno=3D4&ltid=3D9986487" target=3D"_blank" style=3D"outline:=
+ 0px;" ><img src=3D"http://images-promo.verizon.com/ECRM/10-29-15-FQA-Speed=
+/images/FCE15788_Starz_R_cuts_69.gif" width=3D"49" height=3D"42" alt=3D"You=
+Tube" border=3D"0" style=3D"display: block;" /></a>
+                                        </td>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"vertical-align: top; padding: 0px 0px 0px 0px;" ><a href=3D"https:/=
+/econtact.verizon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DP=
+ROD&destination=3Dhttps%3A%2F%2Fplus.google.com%2F%2Bverizonfios%2Fposts%3F=
+CMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&l=
+id=3D6568755&tid=3D73251&vno=3D4&ltid=3D9986488" target=3D"_blank" style=3D=
+"outline: 0px;" ><img src=3D"http://images-promo.verizon.com/ECRM/10-29-15-=
+FQA-Speed/images/FCE15788_Starz_R_cuts_68.gif" width=3D"50" height=3D"42" a=
+lt=3D"Google+" border=3D"0" style=3D"display: block;" /></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                           =20
+                            </td>
+                        </tr>
+                        <!-- social ends -->
+                       =20
+                        <!-- quick links begin -->
+                        <tr>
+                            <td align=3D"center" valign=3D"top" bgcolor=3D"=
+#ffffff" style=3D"padding: 0px 0px 25px 0px;" class=3D"padding-top-bottom" =
+>
+                           =20
+                                <table width=3D"550" align=3D"center" valig=
+n=3D"top" border=3D"0" bgcolor=3D"#ffffff" cellspacing=3D"0" cellpadding=3D=
+"0" style=3D"border-collapse: collapse; border-spacing: 0; mso-table-lspace=
+: 0px; mso-table-rspace: 0px;" class=3D"full-width" >
+                                    <tr>
+                                        <td align=3D"center" valign=3D"top"=
+ style=3D"vertical-align: top;" class=3D"padding-left-right" >
+                                           =20
+                                            <table align=3D"center" valign=
+=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-c=
+ollapse: collapse; border-spacing: 0; mso-table-lspace: 0px; mso-table-rspa=
+ce: 0px;" class=3D"full-width" >
+                                                <tr>
+                                                    <td align=3D"center" va=
+lign=3D"bottom" style=3D"vertical-align: bottom; font-family: Arial, Helvet=
+ica, sans-serif; font-size: 13px; line-height: 17px; color: #0066BB; " >
+                                                        <a href=3D"https://=
+econtact.verizon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DPR=
+OD&destination=3Dhttps%3A%2F%2Fwww.verizon.com%2Fforyourhome%2FMyAccount%2F=
+ngen%2Fupr%2Fnlogin.aspx%3FLOBCode%3DC%26PromoTCode%3DMZV07%26PromoSrcCode%=
+3DV%26POEId%3DVU1SP%26CMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3D=
+B20170120_4329999964&lid=3D6568746&tid=3D73251&vno=3D4&ltid=3D9986489" targ=
+et=3D"_blank" style=3D"color: #0066BB; outline: 0; text-decoration: none; o=
+utline: 0px;"><span style=3D"color: #0066BB; text-decoration: none;"><stron=
+g style=3D"font-weight: normal; color: #0066BB !important;">My Verizon</str=
+ong></span></a>&nbsp;&nbsp;<span style=3D"color: #595a5d;">|</span>&nbsp;&n=
+bsp;<a href=3D"https://econtact.verizon.com/ecrm/includes/html/vzfwdNew.htm=
+l?app_nm=3DPNP&env=3DPROD&destination=3Dhttp%3A%2F%2Fwww.verizon.com%2Fsupp=
+ort%2Fresidential%2Findex.htm%3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_05=
+85&txid=3DB20170120_4329999964&lid=3D6568747&tid=3D73251&vno=3D4&ltid=3D998=
+6490" target=3D"_blank" style=3D"color: #0066BB; outline: 0; text-decoratio=
+n: none; outline: 0px;"><span style=3D"color: #0066BB; text-decoration: non=
+e;"><strong style=3D"font-weight: normal; color: #0066BB !important;">Suppo=
+rt</strong></span></a>&nbsp;&nbsp;<span style=3D"color: #595a5d;">|</span>&=
+nbsp;&nbsp;<a href=3D"https://econtact.verizon.com/ecrm/includes/html/vzfwd=
+New.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttps%3A%2F%2Fwww.verizon.co=
+m%2Fforyourhome%2Fmyaccount%2Fngen%2Fupr%2Fnlogin.aspx%3FCMP%26CMP%3DEMC-CO=
+N_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&lid=3D6568756=
+&tid=3D73251&vno=3D4&ltid=3D9986491" target=3D"_blank" style=3D"color: #006=
+6BB; text-decoration: none; outline: 0px;"><span style=3D"font-size: 13px; =
+line-height: 17px; color: #0066BB; text-decoration: none;"><strong style=3D=
+"font-size: 13px !important; font-weight: normal; color: #0066BB !important=
+;">Update Email</strong></span></a>&nbsp;&nbsp;<span style=3D"color: #595a5=
+d;">|</span>&nbsp;&nbsp;<a href=3D"https://econtact.verizon.com/ecrm/includ=
+es/html/vzfwdNew.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttp%3A%2F%2Fim=
+ages-promo.verizon.com%2FECRM%2F1-18-17-fios-app%2FMyFiosApp_1_18_MFA1.html=
+%3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_432999996=
+4&lid=3D6568749&tid=3D73251&vno=3D4&ltid=3D9986492" target=3D"_blank" style=
+=3D"color: #0066BB; text-decoration: none; outline: 0px;"><span style=3D"fo=
+nt-size: 13px !important; color: #0066BB; text-decoration: none;"><strong s=
+tyle=3D"font-size: 13px !important; font-weight: normal; color: #0066BB !im=
+portant;">View Online</strong></span></a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                           =20
+                                        </td>
+                                    </tr>
+                                </table>
+                           =20
+                            </td>
+                        </tr>
+                        <!-- quick links end -->
+                       =20
+                        <!-- footer begins -->
+                        <tr>
+                            <td align=3D"center" valign=3D"top" bgcolor=3D"=
+#ffffff" class=3D"padding-top-bottom" >
+                               =20
+                                <table width=3D"583" align=3D"center" valig=
+n=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-=
+collapse: collapse; border-spacing: 0;  mso-table-lspace: 0px; mso-table-rs=
+pace: 0px;" class=3D"full-width" >
+                                    <tr>
+                                        <td align=3D"left" valign=3D"top" s=
+tyle=3D"font-family: Arial, Helvetica, sans-serif; font-size: 10px; line-he=
+ight: 14px; color:#959595;" class=3D"padding-left-right" >
+                                       *Verizon Fios TV subscription requir=
+ed and only available on select devices. In-home live TV streaming requires=
+ Internet and TV subscription and use of Fios router. Fios On Demand servic=
+e usage and content availability restrictions apply. Wireless data charges =
+may apply.=20
+                                            <br />
+                                            <br />
+                                            Verizon is dedicated to protect=
+ing your privacy. <a href=3D"https://econtact.verizon.com/ecrm/includes/htm=
+l/vzfwdNew.html?app_nm=3DPNP&env=3DPROD&destination=3Dhttp%3A%2F%2Fwww.veri=
+zon.com%2Fprivacy%2F%3FCMP%3DEMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=
+=3DB20170120_4329999964&lid=3D6568757&tid=3D73251&vno=3D4&ltid=3D9986493" t=
+arget=3D"_blank" style=3D"font-size: 10px !important; color: #0066bb !impor=
+tant; text-decoration: none !important; outline: 0px;"><span style=3D"font-=
+size: 10px !important; color: #0066bb; text-decoration: none;"><strong styl=
+e=3D"font-weight: normal; color: #0066bb !important;">Privacy Policy</stron=
+g></span></a>.
+                                            <br />
+                                            <br />
+                                            Please do not reply to this ema=
+il as this mailbox is not monitored. You may <a href=3D"https://econtact.ve=
+rizon.com/ecrm/includes/html/vzfwdNew.html?app_nm=3DPNP&env=3DPROD&destinat=
+ion=3Dhttps%3A%2F%2Fecontact.verizon.com%2Fecrm%2Funsubscribe.serv%3FCMP%3D=
+EMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585&txid=3DB20170120_4329999964&lid=3D6=
+568758&tid=3D73251&vno=3D4&ltid=3D9986494&email_address=3Dmsoler8785@gmail.=
+com" target=3D"_blank" style=3D"font-size: 10px !important; color: #0066bb =
+!important; text-decoration: none !important; outline: 0px;"><span style=3D=
+"font-size: 10px !important; color: #0066bb; text-decoration: none;"><stron=
+g style=3D"font-weight: normal; color: #0066bb !important;">unsubscribe</st=
+rong></span></a> from Verizon promotional emails at any time. Please allow =
+up to 10 business days for Verizon to process your opt-out request.
+                                            <br />
+                                            <br />
+                                            &#169; 2017 Verizon. All Rights=
+ Reserved.
+                                            <br />
+                                            <br />
+                                            Ve&#8203;ri&#8203;zo&#8203;n S&=
+#8203;er&#8203;vi&#8203;ce&#8203;s C&#8203;or&#8203;p. | O&#8203;ne&#8203; =
+Ve&#8203;ri&#8203;zo&#8203;n W&#8203;ay | &#8203;Ba&#8203;sk&#8203;in&#8203=
+;g R&zwnj;id&zwnj;ge&zwnj;, N&zwnj;J 0&zwnj;7&zwnj;9&zwnj;2&zwnj;0
+                                            <br />
+                                            <br />
+                                            MFA1
+                                            <br />
+                                            <br />
+                                        </td>
+                                    </tr>
+                                </table>
+                               =20
+                            </td>
+                        </tr>
+                        <!-- footer ends -->
+=09=09=09=09=09=09
+=09=09=09=09=09=09<!-- yahoo android mobile app fix begins -->
+=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09<td align=3D"left" valign=3D"top" bgcolor=3D"#ffffff" =
+style=3D"padding: 0px 0px 0px 0px;" >
+                               =20
+=09=09=09=09=09=09=09=09<table width=3D"636" align=3D"left" valign=3D"top" =
+border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"border-collapse: =
+collapse; border-spacing: 0; mso-table-lspace: 0px; mso-table-rspace: 0px;"=
+ class=3D"hide" >
+=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09<td align=3D"left" valign=3D"top" >
+=09=09=09=09=09=09=09=09=09=09=09<img src=3D"http://images-promo.verizon.co=
+m/OVL/rebranding/images/spacer.png" width=3D"636" height=3D"1" border=3D"0"=
+ style=3D"display: block;" alt=3D"" >
+=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09</table>
+
+=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09<!-- yahoo android mobile app fix ends -->
+                       =20
+                    </table>
+                </td>
+            </tr>
+        </table>
+       =20
+        <div class=3D"gmailfix" style=3D"white-space:nowrap; font:15px cour=
+ier; line-height:0;">
+        =09&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp;=20
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp;=20
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp;
+        </div>
+       =20
+        <table width=3D"1" height=3D"1" cellpadding=3D"0" cellspacing=3D"0"=
+ border=3D"0"><tr><td style=3D"font-size:0px; line-height:0px;"><img src=3D=
+"https://fios.sp1.convertro.com/view/vt/v1/fios/1/cvo.gif?cvosrc=3Demail.pr=
+s.EMC-CON_2017-Q1_RX-NA-JanuaryMFA1a_0585"/></td></tr></table>
+        <table width=3D"1" height=3D"1" cellpadding=3D"0" cellspacing=3D"0"=
+ border=3D"0"><tr><td style=3D"font-size:0px; line-height:0px;"><img src=3D=
+"http://mi-promo.verizon.com/p/cp/fe3f3fb52c89fd45/o.gif?mi_u=3DB20170120_4=
+329999964" width=3D"1" height=3D"1" /></td></tr></table>
+    </body>
+   =20
+</html> <img width=3D"0" height=3D"0" src=3D"http://www.verizon.com/econtac=
+t/ecrm/EmailTracking.serv?TXID=3DB20170120_4329999964" />
+.
+THIS SHOULD BE VISIBLE
